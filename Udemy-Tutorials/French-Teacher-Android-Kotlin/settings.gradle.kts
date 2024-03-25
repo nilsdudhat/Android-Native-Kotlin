@@ -13,6 +13,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Android-Kotlin-Planet-ListView"
+rootProject.name = "French-Teacher-Android-Kotlin"
 include(":app")
  
