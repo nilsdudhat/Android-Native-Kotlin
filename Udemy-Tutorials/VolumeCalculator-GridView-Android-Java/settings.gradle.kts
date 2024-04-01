@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Volume-Calculator-Android-Kotlin"
+rootProject.name = "VolumeCalculator-GridView-Android-Kotlin"
 include(":app")
  
