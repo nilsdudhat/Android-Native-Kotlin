@@ -4,20 +4,21 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
-import android.widget.Button
-import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.google.android.material.textfield.TextInputLayout
 import com.udemy.volume.calculator.R
+import com.udemy.volume.calculator.databinding.ActivitySphereBinding
 
 class SphereActivity : AppCompatActivity() {
+    private lateinit var binding: ActivitySphereBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_sphere)
+        binding = ActivitySphereBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -28,12 +29,8 @@ class SphereActivity : AppCompatActivity() {
     }
 
     private fun initViews() {
-        val radiusContainer: TextInputLayout = findViewById(R.id.radius_container)
-        val edtRadius: TextView = findViewById(R.id.edit_radius)
-        val txtResult: TextView = findViewById(R.id.txt_result)
-        val btnCalculate: Button = findViewById(R.id.btn_calculate)
 
-        edtRadius.addTextChangedListener(object : TextWatcher {
+        binding.editRadius.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
             }
@@ -43,24 +40,24 @@ class SphereActivity : AppCompatActivity() {
             }
 
             override fun afterTextChanged(s: Editable?) {
-                radiusContainer.error = "";
+                binding.radiusContainer.error = ""
             }
         })
 
-        btnCalculate.setOnClickListener(View.OnClickListener {
-            if ((edtRadius.text == null) ||
-                edtRadius.text.toString().isEmpty()
+        binding.btnCalculate.setOnClickListener(View.OnClickListener {
+            if ((binding.editRadius.text == null) ||
+                binding.editRadius.text.toString().isEmpty()
             ) {
-                radiusContainer.error = "Enter Radius"
+                binding.radiusContainer.error = "Enter Radius"
 
                 return@OnClickListener
             }
             // V = (4/3) * 3.14159 * r * r * r;
 
-            val radius = edtRadius.text.toString().toDouble()
+            val radius = binding.editRadius.text.toString().toDouble()
             val volume = (4 / 3) * 3.14159 * radius * radius * radius;
 
-            txtResult.text = StringBuilder()
+            binding.txtResult.text = StringBuilder()
                 .append("Result: ")
                 .append(volume)
                 .append(" m^3")

@@ -1,27 +1,26 @@
 package com.udemy.planet.listview
 
 import android.os.Bundle
-import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
+import com.udemy.planet.listview.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var listPlanet: ListView
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
-        listPlanet = findViewById(R.id.listPlanet)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         setupListView()
     }
 
     private fun setupListView() {
-        val list : List<PlanetModel> = ArrayList(getPlanetList())
+        val list: List<PlanetModel> = ArrayList(getPlanetList())
 
         val planetAdapter = PlanetAdapter(context = applicationContext, planetList = list)
-        listPlanet.adapter = planetAdapter
+        binding.listPlanet.adapter = planetAdapter
     }
 
     private fun getPlanetList(): MutableList<PlanetModel> {

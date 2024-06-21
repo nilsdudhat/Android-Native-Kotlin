@@ -5,9 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.ImageView
-import android.widget.TextView
 import com.udemy.volume.calculator.R
+import com.udemy.volume.calculator.databinding.ItemGridBinding
 import com.udemy.volume.calculator.models.Shape
 
 /**
@@ -24,25 +23,14 @@ class ShapeAdapter(context: Context, objects: ArrayList<Shape>) :
         val shape = getItem(position)
 
         if (shape != null) {
-            val view =
-                LayoutInflater.from(context).inflate(R.layout.item_grid, parent, false)
+            val binding = ItemGridBinding.inflate(LayoutInflater.from(context), parent, false)
 
-            val myVieHolder = MyViewHolder()
+            binding.imgShape.setImageResource(shape.imgShape)
+            binding.txtShapeName.text = shape.shapeName
 
-            myVieHolder.imgShape = view.findViewById(R.id.img_shape)
-            myVieHolder.txtShapeName = view.findViewById(R.id.txt_shape_name)
-
-            myVieHolder.imgShape.setImageResource(shape.imgShape)
-            myVieHolder.txtShapeName.text = shape.shapeName
-
-            return view
+            return binding.root
         }
 
         return super.getView(position, convertView, parent)
-    }
-
-    private class MyViewHolder {
-        lateinit var txtShapeName: TextView
-        lateinit var imgShape: ImageView
     }
 }

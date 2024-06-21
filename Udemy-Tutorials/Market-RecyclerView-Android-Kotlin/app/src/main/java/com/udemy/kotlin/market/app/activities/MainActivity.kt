@@ -8,29 +8,28 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.udemy.kotlin.market.app.R
 import com.udemy.kotlin.market.app.adapters.ItemAdapter
+import com.udemy.kotlin.market.app.databinding.ActivityMainBinding
 import com.udemy.kotlin.market.app.interfaces.ItemClickListener
 import com.udemy.kotlin.market.app.models.Item
 
 class MainActivity : AppCompatActivity(), ItemClickListener {
 
-    private lateinit var rvList: RecyclerView
+    private lateinit var binding: ActivityMainBinding
 
     private lateinit var itemList: ArrayList<Item>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
-        rvList = findViewById(R.id.rv_list)
 
         getItemList()
 
@@ -39,10 +38,10 @@ class MainActivity : AppCompatActivity(), ItemClickListener {
 
     private fun setUpRecyclerView() {
         val layoutManager = LinearLayoutManager(this@MainActivity)
-        rvList.layoutManager = layoutManager
+        binding.rvList.layoutManager = layoutManager
 
         val itemAdapter = ItemAdapter(itemList, this@MainActivity)
-        rvList.adapter = itemAdapter
+        binding.rvList.adapter = itemAdapter
     }
 
     private fun getItemList() {

@@ -4,20 +4,22 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
-import android.widget.Button
-import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.google.android.material.textfield.TextInputLayout
 import com.udemy.volume.calculator.R
+import com.udemy.volume.calculator.databinding.ActivityPrismBinding
 
 class PrismActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityPrismBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_prism)
+        binding = ActivityPrismBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -28,14 +30,8 @@ class PrismActivity : AppCompatActivity() {
     }
 
     private fun initViews() {
-        val areaContainer: TextInputLayout = findViewById(R.id.area_container)
-        val edtArea: TextView = findViewById(R.id.edit_area)
-        val heightContainer: TextInputLayout = findViewById(R.id.height_container)
-        val edtHeight: TextView = findViewById(R.id.edit_height)
-        val txtResult: TextView = findViewById(R.id.txt_result)
-        val btnCalculate: Button = findViewById(R.id.btn_calculate)
 
-        edtArea.addTextChangedListener(object : TextWatcher {
+        binding.editArea.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
             }
@@ -45,11 +41,11 @@ class PrismActivity : AppCompatActivity() {
             }
 
             override fun afterTextChanged(s: Editable?) {
-                areaContainer.error = "";
+                binding.areaContainer.error = "";
             }
         })
 
-        edtHeight.addTextChangedListener(object : TextWatcher {
+        binding.editHeight.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
             }
@@ -59,31 +55,31 @@ class PrismActivity : AppCompatActivity() {
             }
 
             override fun afterTextChanged(s: Editable?) {
-                heightContainer.error = "";
+                binding.heightContainer.error = "";
             }
         })
 
-        btnCalculate.setOnClickListener(View.OnClickListener {
-            if (edtArea.getText() == null || edtHeight.getText() == null) {
+        binding.btnCalculate.setOnClickListener(View.OnClickListener {
+            if (binding.editArea.getText() == null || binding.editHeight.getText() == null) {
                 return@OnClickListener
             }
-            if (edtArea.text.toString().isEmpty()) {
-                areaContainer.error = "Enter Radius"
+            if (binding.editArea.text.toString().isEmpty()) {
+                binding.areaContainer.error = "Enter Radius"
 
                 return@OnClickListener
             }
-            if (edtHeight.text.toString().isEmpty()) {
-                heightContainer.error = "Enter Height"
+            if (binding.editHeight.text.toString().isEmpty()) {
+                binding.heightContainer.error = "Enter Height"
 
                 return@OnClickListener
             }
             // V = area * height;
 
-            val area = edtArea.text.toString().toDouble()
-            val height = edtHeight.text.toString().toDouble()
+            val area = binding.editArea.text.toString().toDouble()
+            val height = binding.editHeight.text.toString().toDouble()
             val volume = area * height
 
-            txtResult.text = StringBuilder()
+            binding.txtResult.text = StringBuilder()
                 .append("Result: ")
                 .append(volume)
                 .append(" m^3")

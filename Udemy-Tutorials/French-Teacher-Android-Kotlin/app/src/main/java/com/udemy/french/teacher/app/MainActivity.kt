@@ -3,26 +3,23 @@ package com.udemy.french.teacher.app
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import com.udemy.french.teacher.app.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        val btnBlack: Button = findViewById(R.id.btnBlack)
-        val btnGreen: Button = findViewById(R.id.btnGreen)
-        val btnRed: Button = findViewById(R.id.btnRed)
-        val btnPurple: Button = findViewById(R.id.btnPurple)
-        val btnYellow: Button = findViewById(R.id.btnYellow)
-
-        btnBlack.setOnClickListener(this@MainActivity)
-        btnGreen.setOnClickListener(this@MainActivity)
-        btnRed.setOnClickListener(this@MainActivity)
-        btnPurple.setOnClickListener(this@MainActivity)
-        btnYellow.setOnClickListener(this@MainActivity)
+        binding.btnBlack.setOnClickListener(this@MainActivity)
+        binding.btnGreen.setOnClickListener(this@MainActivity)
+        binding.btnRed.setOnClickListener(this@MainActivity)
+        binding.btnPurple.setOnClickListener(this@MainActivity)
+        binding.btnYellow.setOnClickListener(this@MainActivity)
     }
 
     override fun onClick(v: View?) {

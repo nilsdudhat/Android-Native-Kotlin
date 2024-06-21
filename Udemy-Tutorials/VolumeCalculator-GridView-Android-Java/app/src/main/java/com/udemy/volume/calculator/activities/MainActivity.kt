@@ -2,32 +2,31 @@ package com.udemy.volume.calculator.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.GridView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.udemy.volume.calculator.R
 import com.udemy.volume.calculator.adapters.ShapeAdapter
+import com.udemy.volume.calculator.databinding.ActivityMainBinding
 import com.udemy.volume.calculator.models.Shape
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var gridView: GridView
+    private lateinit var binding: ActivityMainBinding
 
     private lateinit var shapeArrayList: ArrayList<Shape>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
-        gridView = findViewById(R.id.grid_view)
 
         getShapes()
 
@@ -36,9 +35,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun setUpGridView() {
         val shapeAdapter = ShapeAdapter(this@MainActivity, shapeArrayList)
-        gridView.adapter = shapeAdapter
+        binding.gridView.adapter = shapeAdapter
 
-        gridView.setOnItemClickListener { _, _, position: Int, _ ->
+        binding.gridView.setOnItemClickListener { _, _, position: Int, _ ->
             run {
                 when (position) {
                     0 -> {
