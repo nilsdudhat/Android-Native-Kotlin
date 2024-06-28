@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="vehicle"
+            type="com.udemy.databinding.app.Vehicle" />
+
+        <variable
+            name="clickListener"
+            type="com.udemy.databinding.app.MainActivityClickListeners" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
+
+        <EditText
+            android:id="@+id/edt_name"
+            android:text="@={vehicle.name}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="32dp"
+            app:layout_constraintBottom_toTopOf="@+id/vehicle_name"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/vehicle_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text='@{"Manufacturer Company: " + vehicle.name}'
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@+id/vehicle_model"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edt_name" />
+
+        <TextView
+            android:id="@+id/vehicle_model"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text='@{"Model Year: " + vehicle.modelYear}'
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@+id/btn_click_me"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/vehicle_name" />
+
+        <Button
+            android:id="@+id/btn_click_me"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{clickListener::runMe}"
+            android:text="Click Me!"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/vehicle_model" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
