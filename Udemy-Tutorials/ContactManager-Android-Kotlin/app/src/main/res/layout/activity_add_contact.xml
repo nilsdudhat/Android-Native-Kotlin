@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="isUpdate"
+            type="boolean" />
+
+        <variable
+            name="contact"
+            type="com.udemy.contact.manager.app.database.Contact" />
+
+        <variable
+            name="viewModel"
+            type="com.udemy.contact.manager.app.database.ContactViewModel" />
+
+        <variable
+            name="saveClick"
+            type="com.udemy.contact.manager.app.clickHandlers.AddContactActivityClickHandler" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:title='@{isUpdate ? "Update Contact" : "Add Contact"}' />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:alpha="0.10"
+            android:background="@color/black"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            android:fitsSystemWindows="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/main"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context=".activities.AddNewContactActivity">
+
+                <EditText
+                    android:id="@+id/edt_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:hint="Enter Name"
+                    android:inputType="text"
+                    android:text="@={contact.name}"
+                    android:textColor="@color/black"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="HardcodedText" />
+
+                <EditText
+                    android:id="@+id/edt_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="24dp"
+                    android:hint="Enter Email"
+                    android:inputType="textEmailAddress"
+                    android:text="@={contact.email}"
+                    android:textColor="@color/black"
+                    app:layout_constraintTop_toBottomOf="@+id/edt_name"
+                    tools:ignore="HardcodedText" />
+
+                <Button
+                    android:id="@+id/btn_save"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:onClick="@{() -> saveClick.onSaveClick(isUpdate, contact, viewModel)}"
+                    android:text='@{isUpdate ? "Update" : "Save"}'
+                    app:layout_constraintBottom_toBottomOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
