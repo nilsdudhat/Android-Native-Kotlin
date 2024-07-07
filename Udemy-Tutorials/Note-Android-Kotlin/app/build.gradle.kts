@@ -2,14 +2,16 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     id("kotlin-kapt")
+    id("androidx.navigation.safeargs.kotlin")
+    id("kotlin-parcelize")
 }
 
 android {
-    namespace = "com.udemy.contact.manager.app"
+    namespace = "com.udemy.note.app"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.udemy.contact.manager.app"
+        applicationId = "com.udemy.note.app"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -52,23 +54,24 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
     // Room Database
-    implementation(libs.room.runtime)
-    //noinspection KaptUsageInsteadOfKsp
-    kapt(libs.room.compiler)
-
-    // Room Coroutines
     implementation(libs.androidx.room.ktx)
+    implementation(libs.androidx.room.runtime)
+    annotationProcessor(libs.androidx.room.compiler)
+    kapt(libs.androidx.room.compiler)
 
     // Rx Java
     implementation(libs.rxjava)
     implementation(libs.rxandroid)
 
-    // Kotlin Coroutines
+    // Coroutines
     implementation(libs.kotlinx.coroutines.android)
 
-    // ViewModel
-    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    // Navigation
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
 
-    // LiveData
+    // Lifecycle
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.lifecycle.livedata.ktx)
+    kapt(libs.androidx.lifecycle.compiler)
 }
