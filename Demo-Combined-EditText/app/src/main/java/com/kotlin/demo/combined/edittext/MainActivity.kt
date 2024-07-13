@@ -1,10 +1,11 @@
 package com.kotlin.demo.combined.edittext
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import androidx.appcompat.app.AppCompatActivity
 import com.kotlin.demo.combined.edittext.databinding.ActivityMainBinding
+import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,7 +20,9 @@ class MainActivity : AppCompatActivity() {
             override fun afterTextChanged(s: Editable?) {
                 if (binding.edtKilos.isCursorVisible && binding.edtKilos.hasFocus()) {
                     if (binding.edtKilos.text.isNotEmpty()) {
-                        binding.edtPounds.setText(convertKiloToPounds(binding.edtKilos.text.toString().toDouble()).toString())
+                        binding.edtPounds.setText(
+                            convertKiloToPounds(binding.edtKilos.text.toString().toDouble())
+                        )
                     } else {
                         binding.edtPounds.setText("")
                     }
@@ -39,7 +42,9 @@ class MainActivity : AppCompatActivity() {
             override fun afterTextChanged(s: Editable?) {
                 if (binding.edtPounds.isCursorVisible && binding.edtPounds.hasFocus()) {
                     if (binding.edtPounds.text.isNotEmpty()) {
-                        binding.edtKilos.setText(convertPoundToKilos(binding.edtPounds.text.toString().toDouble()).toString())
+                        binding.edtKilos.setText(
+                            convertPoundToKilos(binding.edtPounds.text.toString().toDouble())
+                        )
                     } else {
                         binding.edtKilos.setText("")
                     }
@@ -56,11 +61,13 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    private fun convertKiloToPounds(kilos : Double): Double {
-        return kilos / 2.20462
+    private fun convertKiloToPounds(kilos: Double): String {
+        val conversion = kilos / 2.20462
+        return String.format(Locale.getDefault(), "%.2f", conversion)
     }
 
-    private fun convertPoundToKilos(pounds : Double) : Double {
-        return pounds * 2.20462
+    private fun convertPoundToKilos(pounds: Double): String {
+        val conversion = pounds * 2.20462
+        return String.format(Locale.getDefault(), "%.2f", conversion)
     }
 }
