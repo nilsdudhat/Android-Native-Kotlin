@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="result"
+            type="String" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_gradient"
+        tools:context=".activities.ResultActivity">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/start_line"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="16dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/end_line"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="16dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/bottom_line"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_end="16dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/top_line"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="16dp" />
+
+        <TextView
+            android:id="@+id/txt_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Quiz Result"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/txt_result"
+            app:layout_constraintEnd_toEndOf="@+id/end_line"
+            app:layout_constraintStart_toStartOf="@+id/start_line"
+            app:layout_constraintTop_toTopOf="@+id/top_line"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/txt_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{result}"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/btn_quiz_again"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_title" />
+
+        <Button
+            android:id="@+id/btn_quiz_again"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
+            android:text="Start Quiz Again"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/bottom_line"
+            app:layout_constraintEnd_toEndOf="@+id/end_line"
+            app:layout_constraintStart_toStartOf="@+id/start_line"
+            tools:ignore="HardcodedText" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

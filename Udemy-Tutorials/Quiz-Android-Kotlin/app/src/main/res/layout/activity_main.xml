@@ -1,19 +1,199 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <data>
+        <variable
+            name="nextClick"
+            type="com.udemy.quiz.app.clicklisteners.OnNextClickListener" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <variable
+            name="radioGroup"
+            type="android.widget.RadioGroup" />
+
+        <variable
+            name="isLoading"
+            type="Boolean" />
+
+        <variable
+            name="isDataAvailable"
+            type="Boolean" />
+
+        <variable
+            name="result"
+            type="String" />
+
+        <variable
+            name="isFinish"
+            type="Boolean" />
+
+        <variable
+            name="question"
+            type="com.udemy.quiz.app.models.Question" />
+
+        <import type="android.view.View" />
+        <import type="com.udemy.quiz.app.R" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_gradient"
+        tools:context=".activities.MainActivity">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/start_line"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="16dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/end_line"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="16dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/bottom_line"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_end="16dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/top_line"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="16dp" />
+
+        <TextView
+            android:id="@+id/txt_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Quiz"
+            android:textColor="@color/white"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/divider_guide"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/top_line"
+            tools:ignore="HardcodedText" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/divider_guide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.25" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:text="No Data Available"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:visibility="@{isLoading ? View.GONE : !isDataAvailable ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="@+id/bottom_line"
+            app:layout_constraintEnd_toEndOf="@+id/end_line"
+            app:layout_constraintStart_toStartOf="@+id/start_line"
+            app:layout_constraintTop_toBottomOf="@+id/divider_guide"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/txt_question"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{question.question}"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:visibility="@{isLoading ? View.GONE : isDataAvailable ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toTopOf="@+id/radio_options"
+            app:layout_constraintEnd_toEndOf="@+id/end_line"
+            app:layout_constraintStart_toStartOf="@+id/start_line"
+            app:layout_constraintTop_toBottomOf="@+id/divider_guide" />
+
+        <RadioGroup
+            android:id="@+id/radio_options"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="vertical"
+            android:visibility="@{isLoading ? View.GONE : isDataAvailable ? View.VISIBLE : View.GONE}"
+            app:layout_constraintEnd_toEndOf="@+id/end_line"
+            app:layout_constraintStart_toStartOf="@+id/start_line"
+            app:layout_constraintTop_toBottomOf="@+id/txt_question">
+
+            <RadioButton
+                android:id="@+id/radio_option_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:buttonTint="@color/white"
+                android:text="@{question.option1}"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+            <RadioButton
+                android:id="@+id/radio_option_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:buttonTint="@color/white"
+                android:text="@{question.option2}"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+            <RadioButton
+                android:id="@+id/radio_option_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:buttonTint="@color/white"
+                android:text="@{question.option3}"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+            <RadioButton
+                android:id="@+id/radio_option_4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{question.option4}"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:buttonTint="@color/white" />
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/btn_next"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
+            android:text='@{isFinish ? "Finish" : "Next", default = "Next"}'
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:onClick="@{() -> nextClick.onClick()}"
+            android:visibility="@{isLoading ? View.GONE : isDataAvailable ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toTopOf="@+id/txt_result"
+            app:layout_constraintEnd_toEndOf="@+id/end_line"
+            app:layout_constraintStart_toStartOf="@+id/start_line"
+            app:layout_constraintTop_toBottomOf="@+id/radio_options" />
+
+        <TextView
+            android:id="@+id/txt_result"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{result}"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:visibility="@{isLoading ? View.GONE : isDataAvailable ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="@+id/bottom_line"
+            app:layout_constraintEnd_toEndOf="@+id/end_line"
+            app:layout_constraintStart_toStartOf="@+id/start_line"
+            app:layout_constraintTop_toBottomOf="@+id/btn_next" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

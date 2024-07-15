@@ -35,6 +35,10 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    buildFeatures {
+        viewBinding = true
+        dataBinding = true
+    }
 }
 
 dependencies {
@@ -50,6 +54,24 @@ dependencies {
 
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
+
+    // LiveData
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+    // ViewModel
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    // Annotation processor
+    kapt(libs.androidx.lifecycle.compiler)
+
+    // Coroutines
+    implementation(libs.kotlinx.coroutines.android)
+
+    // Room Database
+    implementation(libs.androidx.room.runtime)
+    annotationProcessor(libs.androidx.room.compiler)
+
+    // Retrofit
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
 }
 
 // Allow references to generated code
