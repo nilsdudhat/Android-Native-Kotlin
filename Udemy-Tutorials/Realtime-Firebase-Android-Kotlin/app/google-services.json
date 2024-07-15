@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "308497063020",
+    "firebase_url": "https://fir-demo-60e6a-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "fir-demo-60e6a",
+    "storage_bucket": "fir-demo-60e6a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:308497063020:android:553995412c9f4ea4274c49",
+        "android_client_info": {
+          "package_name": "com.udemy.firebase.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDwDVLvIApZucjZ0ZjuBdNIS4yLciFPTj0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
