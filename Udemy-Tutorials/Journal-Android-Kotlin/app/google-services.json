@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "309516929955",
+    "project_id": "journal-app-1c0fa",
+    "storage_bucket": "journal-app-1c0fa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:309516929955:android:1ae5f19bad724be5446816",
+        "android_client_info": {
+          "package_name": "com.udemy.journal.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDs-smZD8EVIn5GD53mK2Uw9mwLQgQSiT8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
