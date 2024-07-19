@@ -7,13 +7,17 @@ import android.content.Context.INPUT_METHOD_SERVICE
 import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.os.SystemClock
 import android.text.format.DateUtils
 import android.util.Patterns
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
+import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
+import android.widget.TextView
 import android.widget.Toast
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.Timestamp
@@ -118,5 +122,61 @@ internal fun Dialog.setWidth(width: Float = 0.9f) {
         (Resources.getSystem().displayMetrics.widthPixels * width).toInt(),
         ViewGroup.LayoutParams.WRAP_CONTENT
     )
+}
+/*------------------------------------------------------------------------------------------------*/
+
+/*------------------------------------------------------------------------------------------------*/
+fun Activity.changeStatusBarColor(color: Int, isLight: Boolean) {
+    window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+    window.statusBarColor = color
+    WindowInsetsControllerCompat(window, window.decorView).isAppearanceLightStatusBars = isLight
+}
+
+/*------------------------------------------------------------------------------------------------*/
+fun View.asString(): String {
+    return when (this) {
+        is TextView -> text.toString().trim().ifNotNullOrElse({ it }, { "" })
+        else -> ""
+    }
+}
+
+inline fun <T : Any, R> T?.ifNotNullOrElse(ifNotNullPath: (T) -> R, elsePath: () -> R) =
+    let { if (it == null) elsePath() else ifNotNullPath(it) }
+/*------------------------------------------------------------------------------------------------*/
+
+/*------------------------------------------------------------------------------------------------*/
+fun View.setSafeOnClickListener(onSafeClick: (View) -> Unit) {
+    val safeClickListener = SafeClickListener {
+        onSafeClick(it)
+    }
+    setOnClickListener(safeClickListener)
+}
+
+class SafeClickListener(
+    private var defaultInterval: Int = 800,
+    private val onSafeCLick: (View) -> Unit,
+) : View.OnClickListener {
+    private var lastTimeClicked: Long = 0
+    override fun onClick(v: View) {
+        if (SystemClock.elapsedRealtime() - lastTimeClicked < defaultInterval) {
+            return
+        }
+        lastTimeClicked = SystemClock.elapsedRealtime()
+        onSafeCLick(v)
+    }
+}
+/*------------------------------------------------------------------------------------------------*/
+
+/*------------------------------------------------------------------------------------------------*/
+fun View.visible() {
+    this.visibility = View.VISIBLE
+}
+
+fun View.gone() {
+    this.visibility = View.GONE
+}
+
+fun View.invisible() {
+    this.visibility = View.INVISIBLE
 }
 /*------------------------------------------------------------------------------------------------*/
