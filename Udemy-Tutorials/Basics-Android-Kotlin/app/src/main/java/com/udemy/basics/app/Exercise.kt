@@ -10,7 +10,28 @@ fun main() {
 //    exercise5()
 //    exercise6()
 //    exercise7()
-    exercise8()
+//    exercise8()
+//    exercise9()
+    exercise10()
+}
+
+fun exercise10() {
+    listOf(1, 2, 3, 4, 5).forEach {
+        if (it == 3) return // non-local return directly to the caller of foo()
+        print(it)
+    }
+    println("this point is unreachable")
+}
+
+fun exercise9() {
+    for (i in 1..5) {
+        abc@ for (j in 1..5) {
+            if (j == i) {
+                break@abc
+            }
+            println("$i $j")
+        }
+    }
 }
 
 fun exercise8() {
@@ -45,7 +66,7 @@ fun exercise6() {
     val resultArray = IntArray(array1.size)
 
     for (i in array1.indices) {
-       resultArray[i] = array1[i] * array2[i]
+        resultArray[i] = array1[i] * array2[i]
     }
 
     for (i in resultArray) {
@@ -74,10 +95,12 @@ fun exercise4() {
     val numberOfSpaces = statement.count { it.isWhitespace() }
     println("Number of spaces in statement is $numberOfSpaces")
 
-    val numberOfVowels = statement.count { it == 'a' || it == 'e' || it == 'i' || it == 'o' || it == 'u' }
+    val numberOfVowels =
+        statement.count { it == 'a' || it == 'e' || it == 'i' || it == 'o' || it == 'u' }
     println("Number of vowels in statement is $numberOfVowels")
 
-    val numberOfConsonants = statement.count { it != 'a' && it != 'e' && it != 'i' && it != 'o' && it != 'u' }
+    val numberOfConsonants =
+        statement.count { it != 'a' && it != 'e' && it != 'i' && it != 'o' && it != 'u' }
     println("Number of consonants in statement is $numberOfConsonants")
 
     val numberOfDigits = statement.count { it.isDigit() }
@@ -124,7 +147,7 @@ fun exercise2() {
     println("Perimeter is: $perimeter")
 }
 
-private fun exercise1() {
+fun exercise1() {
     val scanner = Scanner(System.`in`)
     print("Enter two number: ")
 

@@ -19,5 +19,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Note-Android-Kotlin"
+rootProject.name = "Movie-TMDB-Android-Kotlin"
 include(":app")
