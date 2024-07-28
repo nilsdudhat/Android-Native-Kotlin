@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_main"
+    app:startDestination="@id/grid_fragment">
+
+    <fragment
+        android:id="@+id/list_fragment"
+        android:name="com.demo.movie.tmdb.app.fragments.ListFragment"
+        tools:layout="@layout/fragment_list">
+        <action
+            android:id="@+id/action_list_to_grid"
+            app:destination="@id/grid_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/grid_fragment"
+        android:name="com.demo.movie.tmdb.app.fragments.GridFragment"
+        tools:layout="@layout/fragment_grid">
+        <action
+            android:id="@+id/action_grid_to_list"
+            app:destination="@id/list_fragment" />
+    </fragment>
+</navigation>
