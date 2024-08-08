@@ -12,7 +12,128 @@ fun main() {
 //    exercise7()
 //    exercise8()
 //    exercise9()
-    exercise10()
+//    exercise10()
+//    exercise11()
+//    exercise12()
+//    exercise13()
+//    exercise14()
+    exercise15()
+}
+
+fun exercise15() {
+    //   *****
+    //  *******
+    // *********
+    //  *******
+    //   *****
+    //    ***
+    //     *
+
+    val rows = 5
+    val charLengthInRow = 9
+
+    for (i in 3..rows) {
+        val spaces = rows - i
+        for (j in 1..spaces) {
+            print(" ")
+        }
+        val stars = charLengthInRow - (spaces * 2)
+        for (j in 1..stars) {
+            print("*")
+        }
+        for (j in 1..spaces) {
+            print(" ")
+        }
+        println()
+    }
+    for (i in (rows - 1) downTo 1) {
+        val spaces = rows - i
+        for (j in 1..spaces) {
+            print(" ")
+        }
+        val stars = charLengthInRow - (spaces * 2)
+        for (j in 1..stars) {
+            print("*")
+        }
+        for (j in 1..spaces) {
+            print(" ")
+        }
+        println()
+    }
+}
+
+fun exercise14() {
+    val temp = "KANCHANBEN"
+    var s1 = "KANCHANBEN"
+    var s2 = "NILESH"
+
+    temp.forEach {
+        if (s2.contains(it)) {
+            s1 = s1.replaceFirst("$it", "")
+            s2 = s2.replaceFirst("$it", "")
+        }
+    }
+
+    print("$s1$s2")
+}
+
+fun exercise13() {
+    // ****1****
+    // ***123***
+    // **12345**
+    // *1234567*
+    // 123456789
+
+    val rows = 5
+    for (i in 1..rows) {
+        val spaces = rows - i
+        for (j in 1..spaces) {
+            print(" ")
+        }
+        val numberLength = 9 - (spaces * 2)
+        for (j in 1..numberLength) {
+            print(j)
+        }
+        for (j in 1..spaces) {
+            print(" ")
+        }
+        println()
+    }
+}
+
+fun exercise12() {
+    // 12345
+    // ****
+    // 123
+    // **
+    // 1
+    // write code for above pattern with simple logic
+    val rows = 5
+    for (i in rows downTo 1) {
+        for (j in 1..i) {
+            print(if (i % 2 == 0) "*" else j)
+        }
+        println()
+    }
+}
+
+fun exercise11() {
+    // A
+    // **
+    // DEF
+    // ****
+    // KLMNO
+    // write code for above pattern with simple logic
+    val rows = 5
+    var alphabet = 'A'
+    for (i in 1..rows) {
+        for (j in 1..i) {
+            print(if (i % 2 == 0) "*" else alphabet)
+            alphabet++
+        }
+        println()
+    }
+    println()
 }
 
 fun exercise10() {
