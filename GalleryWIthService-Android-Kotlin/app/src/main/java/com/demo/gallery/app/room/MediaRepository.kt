@@ -2,6 +2,8 @@ package com.demo.gallery.app.room
 
 import android.content.Context
 import androidx.lifecycle.LiveData
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class MediaRepository(context: Context) {
 
@@ -10,6 +12,19 @@ class MediaRepository(context: Context) {
     init {
         val mediaDatabase = MediaDatabase.getInstance(context)
         mediaDao = mediaDatabase.getMediaDao()
+    }
+
+    suspend fun loadMediaByCursor(applicationContext: Context): Boolean {
+        val list = withContext(Dispatchers.IO) {
+            return@withContext com.demo.gallery.app.utils.getAllMedia(applicationContext)
+        }
+
+        for (model in list) {
+            if (!isMediaExistByPath(model.path)) {
+                insert(model)
+            }
+        }
+        return true
     }
 
     fun getAllMedia(): LiveData<List<Media>> {

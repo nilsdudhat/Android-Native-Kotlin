@@ -5,10 +5,14 @@ import android.app.Dialog
 import android.content.Context
 import android.content.Context.INPUT_METHOD_SERVICE
 import android.content.res.Resources
+import android.database.Cursor
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.net.Uri
 import android.os.SystemClock
+import android.provider.MediaStore
 import android.text.format.DateUtils
+import android.util.Log
 import android.util.Patterns
 import android.view.View
 import android.view.ViewGroup
@@ -24,6 +28,7 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
+
 
 /*------------------------------------------------------------------------------------------------*/
 fun getTimeAgo(date: Date): String {
@@ -59,6 +64,22 @@ fun isEmailValid(email: String): Boolean {
     return Patterns.EMAIL_ADDRESS.matcher(email).matches()
 }
 /*------------------------------------------------------------------------------------------------*/
+
+fun getRealPathFromURI(context: Context, contentUri: Uri?): String? {
+    var cursor: Cursor? = null
+    try {
+        val proj = arrayOf(MediaStore.Images.Media.DATA)
+        cursor = context.contentResolver.query(contentUri!!, proj, null, null, null)
+        val columnIndex = cursor!!.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+        cursor.moveToFirst()
+        return cursor.getString(columnIndex)
+    } catch (error: Exception) {
+        Log.d("--catch--", "getRealPathFromURI: $error")
+    } finally {
+        cursor?.close()
+    }
+    return null
+}
 
 /*------------------------------------------------------------------------------------------------*/
 fun <T : ViewModel> T.createFactory(): ViewModelProvider.Factory {

@@ -28,6 +28,6 @@ interface MediaDao {
     @Query("DELETE FROM media_table")
     suspend fun deleteAllMedia()
 
-    @Query("SELECT * FROM media_table ORDER BY dateModified DESC")
+    @Query("SELECT * FROM media_table ORDER BY dateAdded DESC")
     fun getAllMedia(): LiveData<List<Media>>
 }

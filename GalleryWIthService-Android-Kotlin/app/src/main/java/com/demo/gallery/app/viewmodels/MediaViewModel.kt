@@ -11,11 +11,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-data class MediaFactory(val context: Context)
+data class MediaFactory(val applicationContext: Context)
 
-class MediaViewModel(mediaFactory: MediaFactory) : ViewModel() {
+class MediaViewModel(private val mediaFactory: MediaFactory) : ViewModel() {
 
-    private val mediaRepository = MediaRepository(mediaFactory.context)
+    private val mediaRepository = MediaRepository(mediaFactory.applicationContext)
 
     fun getAllMedia(): LiveData<List<Media>> {
         return mediaRepository.getAllMedia()
@@ -45,6 +45,17 @@ class MediaViewModel(mediaFactory: MediaFactory) : ViewModel() {
         }
     }
 
+    fun loadMediaByCursor(onFinished: (Boolean) -> Unit) {
+        viewModelScope.launch(Dispatchers.IO) {
+            mediaRepository.loadMediaByCursor(mediaFactory.applicationContext)
+            onFinished(true)
+        }
+    }
+
+    private suspend fun isMediaExistByPath(path: String): Boolean {
+        return mediaRepository.isMediaExistByPath(path)
+    }
+
     fun isMediaExistByPath(
         path: String,
         isExistCallback: (Boolean) -> Unit,
@@ -57,7 +68,7 @@ class MediaViewModel(mediaFactory: MediaFactory) : ViewModel() {
         }
     }
 
-    fun getMediaExistByPath(
+    fun getMediaByPath(
         path: String,
         mediaCallback: (Media) -> Unit,
     ) {

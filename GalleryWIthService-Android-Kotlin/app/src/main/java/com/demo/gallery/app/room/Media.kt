@@ -12,7 +12,7 @@ data class Media(
     @PrimaryKey(autoGenerate = true) val id: Int? = null,
     val fileID: String,
     val path: String,
-    val dateModified: String,
+    val dateAdded: String,
     val fileFormat: String,
     val size: String,
 ) : Parcelable, Serializable
