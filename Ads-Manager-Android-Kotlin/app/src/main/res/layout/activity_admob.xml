@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.adsmanager.app.viewmodels.AdmobActivityViewModel" />
+        <variable
+            name="adsViewModel"
+            type="com.adsmanager.app.viewmodels.AdsViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".activities.AdmobActivity">
+
+        <Button
+            android:id="@+id/btn_banner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Banner"
+            android:onClick="@{() -> viewModel.btnBannerClicked()}"
+            app:layout_constraintBottom_toTopOf="@+id/btn_small_native"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btn_small_native"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Small Native"
+            android:onClick="@{() -> viewModel.btnSmallNativeClicked()}"
+            app:layout_constraintBottom_toTopOf="@+id/btn_big_native"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_banner" />
+
+        <Button
+            android:id="@+id/btn_big_native"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Big Native"
+            android:onClick="@{() -> viewModel.btnBigNativeClicked()}"
+            app:layout_constraintBottom_toTopOf="@+id/btn_interstitial"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_small_native" />
+
+        <Button
+            android:id="@+id/btn_interstitial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Interstitial"
+            android:onClick="@{() -> adsViewModel.displayInterstitialAd()}"
+            app:layout_constraintBottom_toTopOf="@+id/btn_reward_video"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_big_native" />
+
+        <Button
+            android:id="@+id/btn_reward_video"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reward Video"
+            android:onClick="@{() -> adsViewModel.displayRewardVideoAd()}"
+            app:layout_constraintBottom_toTopOf="@+id/btn_reward_interstitial"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_interstitial" />
+
+        <Button
+            android:id="@+id/btn_reward_interstitial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reward Interstitial"
+            android:onClick="@{() -> adsViewModel.displayRewardInterstitialAd()}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_reward_video" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
