@@ -7,17 +7,22 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
 import com.demo.movie.tmdb.app.R
 import com.demo.movie.tmdb.app.databinding.ActivityMainBinding
 import com.demo.movie.tmdb.app.models.Movie
+import com.demo.movie.tmdb.app.utils.KeepStateNavigator
 import com.demo.movie.tmdb.app.utils.ProgressUtils
 import com.demo.movie.tmdb.app.utils.createFactory
 import com.demo.movie.tmdb.app.utils.observeOnce
 import com.demo.movie.tmdb.app.viewmodels.MainFactory
 import com.demo.movie.tmdb.app.viewmodels.MainViewModel
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -76,8 +81,21 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setUpToolbar() {
+        val navController = Navigation.findNavController(this, R.id.fragment_container)
+        val navHostFragment: Fragment? = supportFragmentManager
+            .findFragmentById(R.id.fragment_container)
+        val childFragmentManager: FragmentManager = navHostFragment!!.getChildFragmentManager()
+
         binding.toolbar.setOnMenuItemClickListener(Toolbar.OnMenuItemClickListener {
-            val navController = Navigation.findNavController(this, R.id.fragment_container)
+            navController.navigatorProvider.addNavigator(
+                KeepStateNavigator(
+                    this,
+                    childFragmentManager,
+                    R.id.fragment_container
+                )
+            )
+
+            navController.setGraph(R.navigation.navigation_main)
 
             Log.d("--fragments--", "current: " + navController.currentDestination?.id)
             Log.d("--fragments--", "list_fragment: " + R.id.list_fragment)
@@ -86,13 +104,37 @@ class MainActivity : AppCompatActivity() {
             when (it.itemId) {
                 R.id.item_list -> {
                     if (navController.currentDestination?.id != R.id.list_fragment) {
-                        navController.navigate(R.id.action_grid_to_list)
+                        navController.apply {
+                            navigate(
+                                R.id.action_grid_to_list,
+                                null,
+                                NavOptions.Builder()
+                                    .setRestoreState(true)
+                                    .setPopUpTo(
+                                        graph.startDestinationId,
+                                        saveState = true,
+                                        inclusive = true,
+                                    ).build()
+                            )
+                        }
                     }
                 }
 
                 R.id.item_grid -> {
                     if (navController.currentDestination?.id != R.id.grid_fragment) {
-                        navController.navigate(R.id.action_list_to_grid)
+                        navController.apply {
+                            navigate(
+                                R.id.action_list_to_grid,
+                                null,
+                                NavOptions.Builder()
+                                    .setRestoreState(true)
+                                    .setPopUpTo(
+                                        graph.startDestinationId,
+                                        saveState = true,
+                                        inclusive = true,
+                                    ).build()
+                            )
+                        }
                     }
                 }
             }

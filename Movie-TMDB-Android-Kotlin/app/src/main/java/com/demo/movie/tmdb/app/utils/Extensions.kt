@@ -18,11 +18,14 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.view.WindowInsetsControllerCompat
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigator
+import androidx.navigation.fragment.FragmentNavigator
 import java.util.Calendar
 import java.util.Date
 
@@ -63,11 +66,18 @@ fun <T : ViewModel> T.createFactory(): ViewModelProvider.Factory {
 }
 /*------------------------------------------------------------------------------------------------*/
 
+@Navigator.Name("keep_state_fragment") // 'keep_state_fragment' is used in navigation/nav_graph.xml
+class KeepStateNavigator(
+    context: Context,
+    manager: FragmentManager, // MUST pass childFragmentManager.
+    containerId: Int
+) : FragmentNavigator(context, manager, containerId)
+
 /*------------------------------------------------------------------------------------------------*/
 fun <T> LiveData<T>.observeOnce(lifecycleOwner: LifecycleOwner, observer: Observer<T?>) {
     observe(lifecycleOwner, object : Observer<T?> {
-        override fun onChanged(t: T?) {
-            observer.onChanged(t)
+        override fun onChanged(value: T?) {
+            observer.onChanged(value)
             removeObserver(this)
         }
     })

@@ -2,12 +2,18 @@ package com.demo.movie.tmdb.app.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.RecyclerView
 import com.demo.movie.tmdb.app.databinding.ItemListBinding
 import com.demo.movie.tmdb.app.interfaces.OnLastViewAttached
 import com.demo.movie.tmdb.app.models.Movie
+import com.demo.movie.tmdb.app.viewmodels.MainViewModel
 
-class ListAdapter(private val onLastViewAttached: OnLastViewAttached) : RecyclerView.Adapter<ListAdapter.ViewHolder>() {
+class ListAdapter(
+    private val onLastViewAttached: OnLastViewAttached,
+    private val viewModel: MainViewModel
+) :
+    RecyclerView.Adapter<ListAdapter.ViewHolder>() {
 
     private var movieList = ArrayList<Movie>()
 
@@ -20,13 +26,15 @@ class ListAdapter(private val onLastViewAttached: OnLastViewAttached) : Recycler
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding: ItemListBinding = ItemListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding: ItemListBinding =
+            ItemListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val movie = movieList[position]
         holder.binding.movie = movie
+        holder.binding.viewModel = viewModel
     }
 
     override fun getItemCount(): Int {

@@ -1,6 +1,7 @@
 package com.demo.movie.tmdb.app.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +15,7 @@ import com.demo.movie.tmdb.app.models.Movie
 
 class GridFragment : Fragment(), OnLastViewAttached {
 
-    private lateinit var binding: FragmentGridBinding
+    lateinit var binding: FragmentGridBinding
 
     private var adapter: GridAdapter? = null
 
@@ -22,7 +23,10 @@ class GridFragment : Fragment(), OnLastViewAttached {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        binding = FragmentGridBinding.inflate(inflater, container, false)
+        if (!::binding.isInitialized) {
+            binding = FragmentGridBinding.inflate(inflater, container, false)
+            initRecyclerView()
+        }
         return binding.root
     }
 
@@ -33,11 +37,13 @@ class GridFragment : Fragment(), OnLastViewAttached {
             if (it == null) {
                 return@observe
             }
-            displayMovies(it)
+            adapter?.setMovies(it)
+            binding.isEmpty = it.isEmpty()
         }
     }
 
-    private fun displayMovies(moviesList: List<Movie>) {
+    private fun initRecyclerView() {
+        Log.d("--fragment--", "initRecyclerView: ")
         if (binding.rvMovies.layoutManager == null) {
             binding.rvMovies.layoutManager = GridLayoutManager(requireContext(), 2)
         }
@@ -49,9 +55,6 @@ class GridFragment : Fragment(), OnLastViewAttached {
             )
             binding.rvMovies.adapter = adapter
         }
-
-        adapter?.setMovies(moviesList)
-        binding.isEmpty = moviesList.isEmpty()
     }
 
     override fun onLastViewAttach() {

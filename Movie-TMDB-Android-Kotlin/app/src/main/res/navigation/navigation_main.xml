@@ -11,7 +11,11 @@
         tools:layout="@layout/fragment_list">
         <action
             android:id="@+id/action_list_to_grid"
-            app:destination="@id/grid_fragment" />
+            app:destination="@id/grid_fragment"
+            app:popUpTo="@id/list_fragment"
+            app:popUpToInclusive="true"
+            app:popUpToSaveState="true"
+            app:restoreState="true" />
     </fragment>
 
     <fragment
@@ -20,6 +24,10 @@
         tools:layout="@layout/fragment_grid">
         <action
             android:id="@+id/action_grid_to_list"
-            app:destination="@id/list_fragment" />
+            app:destination="@id/list_fragment"
+            app:popUpTo="@id/grid_fragment"
+            app:popUpToInclusive="true"
+            app:popUpToSaveState="true"
+            app:restoreState="true" />
     </fragment>
 </navigation>
