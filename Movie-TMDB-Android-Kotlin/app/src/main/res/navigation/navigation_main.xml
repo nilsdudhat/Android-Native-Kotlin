@@ -3,31 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_main"
-    app:startDestination="@id/grid_fragment">
+    app:startDestination="@id/list_fragment">
 
     <fragment
         android:id="@+id/list_fragment"
         android:name="com.demo.movie.tmdb.app.fragments.ListFragment"
-        tools:layout="@layout/fragment_list">
-        <action
-            android:id="@+id/action_list_to_grid"
-            app:destination="@id/grid_fragment"
-            app:popUpTo="@id/list_fragment"
-            app:popUpToInclusive="true"
-            app:popUpToSaveState="true"
-            app:restoreState="true" />
-    </fragment>
+        android:label="Popular Movies"
+        tools:layout="@layout/fragment_list" />
 
     <fragment
         android:id="@+id/grid_fragment"
         android:name="com.demo.movie.tmdb.app.fragments.GridFragment"
-        tools:layout="@layout/fragment_grid">
-        <action
-            android:id="@+id/action_grid_to_list"
-            app:destination="@id/list_fragment"
-            app:popUpTo="@id/grid_fragment"
-            app:popUpToInclusive="true"
-            app:popUpToSaveState="true"
-            app:restoreState="true" />
-    </fragment>
+        android:label="Popular Movies"
+        tools:layout="@layout/fragment_grid" />
 </navigation>

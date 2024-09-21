@@ -2,6 +2,7 @@ package com.demo.movie.tmdb.app.activities
 
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -13,6 +14,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
+import androidx.navigation.ui.navigateUp
+import androidx.navigation.ui.onNavDestinationSelected
+import androidx.navigation.ui.setupWithNavController
 import com.demo.movie.tmdb.app.R
 import com.demo.movie.tmdb.app.databinding.ActivityMainBinding
 import com.demo.movie.tmdb.app.models.Movie
@@ -39,6 +47,8 @@ class MainActivity : AppCompatActivity() {
 
     var totalPages = 0
     var currentPage = 0
+
+    private lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,64 +91,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setUpToolbar() {
-        val navController = Navigation.findNavController(this, R.id.fragment_container)
-        val navHostFragment: Fragment? = supportFragmentManager
-            .findFragmentById(R.id.fragment_container)
-        val childFragmentManager: FragmentManager = navHostFragment!!.getChildFragmentManager()
 
-        binding.toolbar.setOnMenuItemClickListener(Toolbar.OnMenuItemClickListener {
-            navController.navigatorProvider.addNavigator(
-                KeepStateNavigator(
-                    this,
-                    childFragmentManager,
-                    R.id.fragment_container
-                )
-            )
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragment_container) as NavHostFragment
+        val navController = navHostFragment.navController
+        val appBarConfiguration = AppBarConfiguration(setOf(R.id.list_fragment, R.id.grid_fragment))
 
-            navController.setGraph(R.navigation.navigation_main)
+        binding.toolbar.setupWithNavController(navController, appBarConfiguration)
 
-            Log.d("--fragments--", "current: " + navController.currentDestination?.id)
-            Log.d("--fragments--", "list_fragment: " + R.id.list_fragment)
-            Log.d("--fragments--", "grid_fragment: " + R.id.grid_fragment)
-
-            when (it.itemId) {
-                R.id.item_list -> {
-                    if (navController.currentDestination?.id != R.id.list_fragment) {
-                        navController.apply {
-                            navigate(
-                                R.id.action_grid_to_list,
-                                null,
-                                NavOptions.Builder()
-                                    .setRestoreState(true)
-                                    .setPopUpTo(
-                                        graph.startDestinationId,
-                                        saveState = true,
-                                        inclusive = true,
-                                    ).build()
-                            )
-                        }
-                    }
-                }
-
-                R.id.item_grid -> {
-                    if (navController.currentDestination?.id != R.id.grid_fragment) {
-                        navController.apply {
-                            navigate(
-                                R.id.action_list_to_grid,
-                                null,
-                                NavOptions.Builder()
-                                    .setRestoreState(true)
-                                    .setPopUpTo(
-                                        graph.startDestinationId,
-                                        saveState = true,
-                                        inclusive = true,
-                                    ).build()
-                            )
-                        }
-                    }
-                }
-            }
-            return@OnMenuItemClickListener true
-        })
+        binding.toolbar.setOnMenuItemClickListener {
+            return@setOnMenuItemClickListener it.onNavDestinationSelected(navController) ||
+                    super.onOptionsItemSelected(it)
+        }
     }
 }

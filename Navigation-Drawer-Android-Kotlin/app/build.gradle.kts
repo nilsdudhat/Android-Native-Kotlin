@@ -1,22 +1,18 @@
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.jetbrains.kotlin.android)
-    id("kotlin-kapt")
-    id("kotlin-parcelize")
+    alias(libs.plugins.kotlin.android)
 }
 
 android {
-    namespace = "com.demo.movie.tmdb.app"
+    namespace = "com.navigation.drawer.app"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.demo.movie.tmdb.app"
+        applicationId = "com.navigation.drawer.app"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
-
-        multiDexEnabled = true
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -38,7 +34,6 @@ android {
         jvmTarget = "1.8"
     }
     buildFeatures {
-        dataBinding = true
         viewBinding = true
     }
 }
@@ -48,34 +43,12 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
-    implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-
-    // Multidex
-    implementation(libs.androidx.multidex)
-
-    // Image Processing
-    implementation(libs.github.glide)
-    kapt(libs.compiler)
-
-    // api request
-    implementation(libs.retrofit)
-    implementation(libs.converter.gson)
-
-    // ViewModel
-    implementation(libs.androidx.lifecycle.viewmodel.ktx)
-    // LiveData
-    implementation(libs.androidx.lifecycle.livedata.ktx)
-    // Annotation processor
-    kapt(libs.androidx.lifecycle.compiler)
-
-    // Coroutines Kotlin
-    implementation(libs.kotlinx.coroutines.android)
-
-    // Navigation
-    implementation(libs.androidx.navigation.fragment)
-    implementation(libs.androidx.navigation.ui.ktx)
 }
