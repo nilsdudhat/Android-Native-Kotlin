@@ -11,10 +11,15 @@ import java.util.ArrayList
 
 class GridAdapter(
     private val onLastViewAttached: OnLastViewAttached,
-    private val mainViewModel: MainViewModel
+    private val mainViewModel: MainViewModel,
 ) : RecyclerView.Adapter<GridAdapter.ViewHolder>() {
 
-    private var movieList : ArrayList<Movie> = ArrayList()
+    var movieList: ArrayList<Movie> = ArrayList()
+        set(value) {
+            val size = field.size
+            field = value
+            notifyItemRangeChanged(size, value.size - 1)
+        }
 
     override fun onViewAttachedToWindow(holder: ViewHolder) {
         super.onViewAttachedToWindow(holder)
@@ -37,11 +42,6 @@ class GridAdapter(
 
     override fun getItemCount(): Int {
         return movieList.size
-    }
-
-    fun setMovies(movieList: List<Movie>) {
-        this.movieList = ArrayList(movieList)
-        notifyDataSetChanged()
     }
 
     class ViewHolder(val binding: ItemGridBinding) : RecyclerView.ViewHolder(binding.root)

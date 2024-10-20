@@ -2,7 +2,6 @@ package com.demo.movie.tmdb.app.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.RecyclerView
 import com.demo.movie.tmdb.app.databinding.ItemListBinding
 import com.demo.movie.tmdb.app.interfaces.OnLastViewAttached
@@ -15,7 +14,12 @@ class ListAdapter(
 ) :
     RecyclerView.Adapter<ListAdapter.ViewHolder>() {
 
-    private var movieList = ArrayList<Movie>()
+    var movieList: java.util.ArrayList<Movie> = java.util.ArrayList()
+        set(value) {
+            val size = field.size
+            field = value
+            notifyItemRangeChanged(size, value.size - 1)
+        }
 
     override fun onViewAttachedToWindow(holder: ViewHolder) {
         super.onViewAttachedToWindow(holder)
@@ -39,11 +43,6 @@ class ListAdapter(
 
     override fun getItemCount(): Int {
         return movieList.size
-    }
-
-    fun setMovies(movieList: List<Movie>) {
-        this.movieList = java.util.ArrayList(movieList)
-        notifyDataSetChanged()
     }
 
     class ViewHolder(val binding: ItemListBinding) : RecyclerView.ViewHolder(binding.root)

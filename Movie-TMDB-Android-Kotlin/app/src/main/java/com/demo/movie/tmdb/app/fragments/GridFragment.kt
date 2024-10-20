@@ -6,12 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.demo.movie.tmdb.app.activities.MainActivity
 import com.demo.movie.tmdb.app.adapters.GridAdapter
 import com.demo.movie.tmdb.app.databinding.FragmentGridBinding
 import com.demo.movie.tmdb.app.interfaces.OnLastViewAttached
-import com.demo.movie.tmdb.app.models.Movie
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class GridFragment : Fragment(), OnLastViewAttached {
 
@@ -37,15 +39,18 @@ class GridFragment : Fragment(), OnLastViewAttached {
             if (it == null) {
                 return@observe
             }
-            adapter?.setMovies(it)
-            binding.isEmpty = it.isEmpty()
+            lifecycleScope.launch(Dispatchers.Main) {
+                adapter?.movieList = it
+                binding.isEmpty = it.isEmpty()
+            }
         }
     }
 
     private fun initRecyclerView() {
         Log.d("--fragment--", "initRecyclerView: ")
         if (binding.rvMovies.layoutManager == null) {
-            binding.rvMovies.layoutManager = GridLayoutManager(requireContext(), 2)
+            binding.rvMovies.layoutManager =
+                GridLayoutManager(requireContext(), 2)
         }
 
         if (adapter == null) {
@@ -58,8 +63,11 @@ class GridFragment : Fragment(), OnLastViewAttached {
     }
 
     override fun onLastViewAttach() {
-        if ((requireActivity() as MainActivity).totalPages > (requireActivity() as MainActivity).currentPage) {
-            (requireActivity() as MainActivity).getPopularMovies((requireActivity() as MainActivity).currentPage + 1)
+        if ((requireActivity() as MainActivity).totalPages >
+            (requireActivity() as MainActivity).currentPage
+        ) {
+            (requireActivity() as MainActivity)
+                .getPopularMovies((requireActivity() as MainActivity).currentPage + 1)
         }
     }
 }

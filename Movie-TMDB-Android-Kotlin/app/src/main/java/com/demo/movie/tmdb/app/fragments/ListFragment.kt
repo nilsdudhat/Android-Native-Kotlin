@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.demo.movie.tmdb.app.activities.MainActivity
@@ -14,6 +15,8 @@ import com.demo.movie.tmdb.app.adapters.ListAdapter
 import com.demo.movie.tmdb.app.databinding.FragmentListBinding
 import com.demo.movie.tmdb.app.interfaces.OnLastViewAttached
 import com.demo.movie.tmdb.app.models.Movie
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class ListFragment : Fragment(), OnLastViewAttached {
 
@@ -39,15 +42,18 @@ class ListFragment : Fragment(), OnLastViewAttached {
             if (it == null) {
                 return@observe
             }
-            adapter?.setMovies(it)
-            binding.isEmpty = it.isEmpty()
+            lifecycleScope.launch(Dispatchers.Main) {
+                adapter?.movieList = it
+                binding.isEmpty = it.isEmpty()
+            }
         }
     }
 
     private fun initRecyclerView() {
         Log.d("--fragment--", "initRecyclerView: ")
         if (binding.rvMovies.layoutManager == null) {
-            binding.rvMovies.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            binding.rvMovies.layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         }
 
         if (adapter == null) {
@@ -60,8 +66,11 @@ class ListFragment : Fragment(), OnLastViewAttached {
     }
 
     override fun onLastViewAttach() {
-        if ((requireActivity() as MainActivity).totalPages > (requireActivity() as MainActivity).currentPage) {
-            (requireActivity() as MainActivity).getPopularMovies((requireActivity() as MainActivity).currentPage + 1)
+        if ((requireActivity() as MainActivity).totalPages >
+            (requireActivity() as MainActivity).currentPage
+        ) {
+            (requireActivity() as MainActivity)
+                .getPopularMovies((requireActivity() as MainActivity).currentPage + 1)
         }
     }
 }
