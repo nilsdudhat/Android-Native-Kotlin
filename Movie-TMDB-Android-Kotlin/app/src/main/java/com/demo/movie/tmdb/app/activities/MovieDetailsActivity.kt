@@ -7,12 +7,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.demo.movie.tmdb.app.R
 import com.demo.movie.tmdb.app.databinding.ActivityMovieDetailsBinding
 import com.demo.movie.tmdb.app.models.Movie
 import com.demo.movie.tmdb.app.utils.ProgressUtils
-import com.demo.movie.tmdb.app.utils.observeOnce
 import com.demo.movie.tmdb.app.viewmodels.MovieDetailsViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class MovieDetailsActivity : AppCompatActivity() {
 
@@ -45,9 +47,17 @@ class MovieDetailsActivity : AppCompatActivity() {
         }
 
         ProgressUtils.showLoading(this)
-        movieDetailsViewModel.value.getMovieDetails(movie!!.id).observeOnce(this) {
-            ProgressUtils.hideLoading()
-            binding.movieDetails = it
+
+        lifecycleScope.launch(Dispatchers.IO) {
+            movieDetailsViewModel.value.getMovieDetails(movie!!.id).collect {
+                if (it == null) {
+                    return@collect
+                }
+                lifecycleScope.launch(Dispatchers.Main) {
+                    ProgressUtils.hideLoading()
+                    binding.movieDetails = it
+                }
+            }
         }
     }
 }
