@@ -5,6 +5,7 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
 
         <item name="android:actionButtonStyle">@style/ActionButton</item>
+        <item name="android:windowContentTransitions">true</item>
     </style>
 
     <style name="Theme.MovieTMDBAndroidKotlin" parent="Base.Theme.MovieTMDBAndroidKotlin" />

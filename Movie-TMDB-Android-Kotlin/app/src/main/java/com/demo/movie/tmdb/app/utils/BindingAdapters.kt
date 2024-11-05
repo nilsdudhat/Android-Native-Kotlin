@@ -5,6 +5,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.demo.movie.tmdb.app.models.Genre
 import com.demo.movie.tmdb.app.models.SpokenLanguage
 
@@ -13,6 +14,7 @@ fun loadPoster(view: ImageView, poster_path: String?) {
     if (poster_path != null) {
         Glide.with(view)
             .load("${Constants.POSTER_BASE_URL}$poster_path")
+            .transition(DrawableTransitionOptions.withCrossFade())
             .centerCrop()
             .into(view)
     }
@@ -23,6 +25,7 @@ fun loadBackDrop(view: ImageView, backdrop_path: String?) {
     if (backdrop_path != null) {
         Glide.with(view)
             .load("${Constants.BACKDROP_BASE_URL}$backdrop_path")
+            .transition(DrawableTransitionOptions.withCrossFade())
             .centerCrop()
             .into(view)
     }

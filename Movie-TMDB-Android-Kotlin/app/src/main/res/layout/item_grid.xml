@@ -19,7 +19,6 @@
         android:layout_marginHorizontal="8dp"
         android:layout_marginTop="16dp"
         android:onClick="@{(view) -> viewModel.onMovieClick(view, movie)}"
-        android:transitionName="poster"
         app:cardCornerRadius="8dp"
         app:cardElevation="1dp"
         app:cardPreventCornerOverlap="true">
@@ -33,21 +32,24 @@
                 poster_path="@{movie.poster_path}"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:transitionName="poster"
                 app:layout_constraintDimensionRatio="0.80"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/txt_title"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="8dp"
                 android:layout_marginTop="8dp"
                 android:ellipsize="end"
                 android:maxLines="1"
+                app:layout_constraintStart_toStartOf="parent"
                 android:text="@{movie.title}"
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold"
+                android:transitionName="title"
                 app:layout_constraintTop_toBottomOf="@+id/img_poster" />
 
             <TextView
