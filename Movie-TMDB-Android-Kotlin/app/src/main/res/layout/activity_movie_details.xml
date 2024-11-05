@@ -28,33 +28,35 @@
         <androidx.core.widget.NestedScrollView
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:fillViewport="true"
-            android:fitsSystemWindows="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <ImageView
-                    android:id="@+id/img_backdrop"
-                    backdrop_path="@{movieDetails.backdrop_path}"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    app:layout_constraintDimensionRatio="1.75"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:padding="16dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/img_backdrop">
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/img_backdrop"
+                        backdrop_path="@{movieDetails.backdrop_path}"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintDimensionRatio="1.75"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp">
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/card_poster"
@@ -84,49 +86,112 @@
                         app:layout_constraintStart_toEndOf="@+id/card_poster"
                         app:layout_constraintTop_toTopOf="parent">
 
-                        <TextView
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text='@{"Release Date: " + movieDetails.release_date}' />
+                            android:orientation="horizontal">
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text='@{"Rating: " + movieDetails.vote_average}' />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Release Date: "
+                                android:textStyle="bold" />
 
-                        <TextView
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text='@{movieDetails.release_date}' />
+                        </LinearLayout>
+
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text='@{"Popularity: " + movieDetails.popularity}' />
+                            android:layout_marginTop="8dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Rating: "
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text='@{String.valueOf(movieDetails.vote_average)}' />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Popularity: "
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text='@{String.valueOf(movieDetails.popularity)}' />
+                        </LinearLayout>
                     </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/txt_genres"
-                        genres="@{movieDetails.genres}"
+                    <LinearLayout
+                        android:id="@+id/genres_container"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:textStyle="bold"
-                        app:layout_constraintTop_toBottomOf="@+id/card_poster" />
+                        android:layout_marginTop="24dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintTop_toBottomOf="@+id/card_poster">
 
-                    <TextView
-                        android:id="@+id/txt_languages"
-                        spoken_languages="@{movieDetails.spoken_languages}"
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Genres : "
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/txt_genres"
+                            genres="@{movieDetails.genres}"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintTop_toBottomOf="@+id/card_poster" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/languages_container"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:textStyle="bold"
-                        app:layout_constraintTop_toBottomOf="@+id/txt_genres" />
+                        android:orientation="horizontal"
+                        app:layout_constraintTop_toBottomOf="@+id/genres_container">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Languages : "
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/txt_languages"
+                            spoken_languages="@{movieDetails.spoken_languages}"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
 
                     <TextView
                         android:id="@+id/txt_overview"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="16dp"
                         android:text="@{movieDetails.overview}"
-                        app:layout_constraintTop_toBottomOf="@+id/txt_languages" />
+                        app:layout_constraintTop_toBottomOf="@+id/languages_container" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
         </androidx.core.widget.NestedScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

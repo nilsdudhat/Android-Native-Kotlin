@@ -16,6 +16,13 @@
         app:title="Popular Movies"
         app:titleTextColor="@color/black" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:alpha="0.10"
+        android:background="@color/black"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_container"
         android:name="androidx.navigation.fragment.NavHostFragment"
