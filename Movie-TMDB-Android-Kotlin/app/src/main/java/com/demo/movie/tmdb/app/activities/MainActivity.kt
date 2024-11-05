@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -17,22 +16,19 @@ import com.demo.movie.tmdb.app.R
 import com.demo.movie.tmdb.app.databinding.ActivityMainBinding
 import com.demo.movie.tmdb.app.models.Movie
 import com.demo.movie.tmdb.app.utils.ProgressUtils
-import com.demo.movie.tmdb.app.utils.createFactory
 import com.demo.movie.tmdb.app.viewmodels.MainFactory
 import com.demo.movie.tmdb.app.viewmodels.MainViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    val mainViewModel = lazy {
-        ViewModelProvider(
-            this,
-            MainViewModel(MainFactory(this)).createFactory()
-        )[MainViewModel::class.java]
-    }
+    val mainViewModel: MainViewModel
+            by viewModel { parametersOf(MainFactory(this@MainActivity)) }
 
     val movieListData = MutableLiveData<ArrayList<Movie>?>(null)
 
@@ -61,7 +57,7 @@ class MainActivity : AppCompatActivity() {
         getPopularMovies(1)
 
         lifecycleScope.launch {
-            mainViewModel.value.data.collect {
+            mainViewModel.data.collect {
                 lifecycleScope.launch(Dispatchers.Main) {
                     ProgressUtils.hideLoading()
                 }
@@ -86,11 +82,12 @@ class MainActivity : AppCompatActivity() {
 
     fun getPopularMovies(pageNumber: Int) {
         Log.d("--timer--", "getPopularMovies: " + System.currentTimeMillis())
-        mainViewModel.value.getPopularMovies(pageNumber)
+        mainViewModel.getPopularMovies(pageNumber)
     }
 
     private fun setUpToolbar() {
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragment_container) as NavHostFragment
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.fragment_container) as NavHostFragment
         val navController = navHostFragment.navController
         val appBarConfiguration = AppBarConfiguration(setOf(R.id.list_fragment, R.id.grid_fragment))
 

@@ -56,7 +56,7 @@ class GridFragment : Fragment(), OnLastViewAttached {
         if (adapter == null) {
             adapter = GridAdapter(
                 this,
-                (requireActivity() as MainActivity).mainViewModel.value,
+                (requireActivity() as MainActivity).mainViewModel,
             )
             binding.rvMovies.adapter = adapter
         }

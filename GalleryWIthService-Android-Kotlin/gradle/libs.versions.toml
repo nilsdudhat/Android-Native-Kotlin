@@ -1,19 +1,20 @@
 [versions]
-agp = "8.5.2"
-compiler = "4.14.2"
+agp = "8.6.1"
+compiler = "4.16.0"
 coreSplashscreen = "1.0.1"
+databindingKspProcessor = "1.0.0"
 glide = "4.16.0"
-kotlin = "2.0.0"
+kotlin = "2.0.21"
 coreKtx = "1.13.1"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 appcompat = "1.7.0"
-kotlinxCoroutinesAndroid = "1.7.3"
-lifecycleCompiler = "2.8.4"
-lifecycleLivedataKtx = "2.8.4"
+kotlinxCoroutinesAndroid = "1.8.1"
+lifecycleCompiler = "2.8.6"
+lifecycleLivedataKtx = "2.8.6"
 material = "1.12.0"
-activity = "1.9.1"
+activity = "1.9.3"
 constraintlayout = "2.1.4"
 multidex = "2.0.1"
 roomCompiler = "2.6.1"
@@ -30,6 +31,7 @@ androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref =
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomCompiler" }
 androidx-work-runtime-ktx = { module = "androidx.work:work-runtime-ktx", version.ref = "workRuntimeKtx" }
 compiler = { module = "com.github.bumptech.glide:compiler", version.ref = "compiler" }
+databinding-ksp-processor = { module = "com.example:databinding-ksp-processor", version.ref = "databindingKspProcessor" }
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }

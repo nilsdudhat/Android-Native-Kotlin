@@ -59,7 +59,7 @@ class ListFragment : Fragment(), OnLastViewAttached {
         if (adapter == null) {
             adapter = ListAdapter(
                 this,
-                (requireActivity() as MainActivity).mainViewModel.value,
+                (requireActivity() as MainActivity).mainViewModel,
             )
             binding.rvMovies.adapter = adapter
         }

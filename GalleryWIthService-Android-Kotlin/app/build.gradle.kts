@@ -1,9 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-    id("com.google.devtools.ksp") version "2.0.0-1.0.23"
-    id("kotlin-parcelize")
     id("kotlin-kapt")
+    id("kotlin-parcelize")
 }
 
 android {
@@ -13,7 +12,7 @@ android {
     defaultConfig {
         applicationId = "com.demo.gallery.app"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -70,15 +69,15 @@ dependencies {
     // Room Database
     implementation(libs.androidx.room.ktx)
     // KSP for Room Compiler
-    ksp(libs.androidx.room.compiler)
+    kapt(libs.androidx.room.compiler)
 
     // ViewModel
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     // LiveData
     implementation(libs.androidx.lifecycle.livedata.ktx)
     // Annotation processor
-    ksp(libs.androidx.lifecycle.compiler)
+    kapt(libs.androidx.lifecycle.compiler)
 
     implementation(libs.glide)
-    ksp(libs.compiler)
+    kapt(libs.compiler)
 }
