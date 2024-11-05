@@ -17,6 +17,7 @@ import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LifecycleOwner
@@ -26,6 +27,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigator
 import androidx.navigation.fragment.FragmentNavigator
+import com.google.android.material.snackbar.Snackbar
 import java.util.Calendar
 import java.util.Date
 
@@ -191,6 +193,25 @@ fun View.setSafeOnClickListener(onSafeClick: (View) -> Unit) {
         onSafeClick(it)
     }
     setOnClickListener(safeClickListener)
+}
+
+fun Activity.showSnackBar(
+    message: String,
+    view: View? = null,
+    action: String? = "OK",
+    actionListener: View.OnClickListener? = null
+) {
+    Snackbar
+        .make(
+            view ?: this.findViewById(android.R.id.content),
+            message,
+            Snackbar.LENGTH_LONG,
+        )
+        .setAction(action) {
+            actionListener?.onClick(it)
+        }
+        .setActionTextColor(ContextCompat.getColor(this, android.R.color.holo_red_light))
+        .show()
 }
 
 class SafeClickListener(

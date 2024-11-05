@@ -16,12 +16,16 @@ import com.demo.movie.tmdb.app.R
 import com.demo.movie.tmdb.app.databinding.ActivityMainBinding
 import com.demo.movie.tmdb.app.models.Movie
 import com.demo.movie.tmdb.app.utils.ProgressUtils
+import com.demo.movie.tmdb.app.utils.Status
+import com.demo.movie.tmdb.app.utils.showSnackBar
 import com.demo.movie.tmdb.app.viewmodels.MainFactory
 import com.demo.movie.tmdb.app.viewmodels.MainViewModel
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -52,30 +56,48 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun observer() {
-        ProgressUtils.showLoading(this)
-
         getPopularMovies(1)
 
         lifecycleScope.launch {
             mainViewModel.data.collect {
                 lifecycleScope.launch(Dispatchers.Main) {
-                    ProgressUtils.hideLoading()
-                }
-                Log.d("--timer--", "getPopularMovies: " + System.currentTimeMillis())
-                Log.d("--timer--", "getPopularMovies: $it")
+                    Log.d("--timer--", "getPopularMovies: " + System.currentTimeMillis())
+                    Log.d("--timer--", "getPopularMovies: $it")
 
-                val movies = it?.results
-                if (movies != null) {
-                    var oldMovies = movieListData.value
-                    if (oldMovies == null) {
-                        oldMovies = ArrayList()
+                    when (it.status) {
+                        Status.LOADING -> {
+                            if (movieListData.value == null || movieListData.value!!.isEmpty()) {
+                                ProgressUtils.showLoading(this@MainActivity)
+                            }
+                        }
+
+                        Status.SUCCESS -> {
+                            ProgressUtils.hideLoading()
+
+                            val movies = it.data?.results
+                            if (movies != null) {
+                                var oldMovies = movieListData.value
+                                if (oldMovies == null) {
+                                    oldMovies = ArrayList()
+                                }
+                                oldMovies.addAll(movies)
+                                movieListData.postValue(oldMovies)
+                            }
+
+                            currentPage = it.data?.page ?: 0
+                            totalPages = it.data?.total_pages ?: 0
+                        }
+
+                        Status.ERROR -> {
+                            ProgressUtils.hideLoading()
+
+                            showSnackBar(
+                                message = it.message ?: "Something went wrong",
+                                action = "Okay",
+                            )
+                        }
                     }
-                    oldMovies.addAll(movies)
-                    movieListData.postValue(oldMovies)
                 }
-
-                currentPage = it?.page ?: 0
-                totalPages = it?.total_pages ?: 0
             }
         }
     }

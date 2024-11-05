@@ -6,34 +6,27 @@ import com.demo.movie.tmdb.app.models.MovieDetails
 import com.demo.movie.tmdb.app.models.PopularMovies
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import retrofit2.Response
 
 class MovieRepository {
 
     private val apiClient = lazy { APIClient.getInstance().create(APIInterface::class.java) }
 
-    suspend fun getPopularMovies(pageNumber: Int): PopularMovies? {
+    suspend fun getPopularMovies(pageNumber: Int): Response<PopularMovies?> {
 
         val response = withContext(Dispatchers.IO) {
             return@withContext apiClient.value.getPopularMovies(pageNumber)
         }
 
-        return if (response.isSuccessful) {
-            response.body()
-        } else {
-            null
-        }
+        return response
     }
 
-    suspend fun getMovieDetails(movieID: Int): MovieDetails? {
+    suspend fun getMovieDetails(movieID: Int): Response<MovieDetails?> {
 
         val response = withContext(Dispatchers.IO) {
             return@withContext apiClient.value.getMovieDetails(movieID)
         }
 
-        return if (response.isSuccessful) {
-            response.body()
-        } else {
-            null
-        }
+        return response
     }
 }

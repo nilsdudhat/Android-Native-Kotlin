@@ -10,8 +10,8 @@ import retrofit2.http.Query
 interface APIInterface {
 
     @GET("movie/popular")
-    suspend fun getPopularMovies(@Query("page") pageNumber: Int) : Response<PopularMovies>
+    suspend fun getPopularMovies(@Query("page") pageNumber: Int) : Response<PopularMovies?>
 
     @GET("movie/{id}")
-    suspend fun getMovieDetails(@Path("id") id: Int) : Response<MovieDetails>
+    suspend fun getMovieDetails(@Path("id") id: Int) : Response<MovieDetails?>
 }

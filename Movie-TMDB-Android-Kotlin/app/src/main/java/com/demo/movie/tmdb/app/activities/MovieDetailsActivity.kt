@@ -11,6 +11,8 @@ import com.demo.movie.tmdb.app.R
 import com.demo.movie.tmdb.app.databinding.ActivityMovieDetailsBinding
 import com.demo.movie.tmdb.app.models.Movie
 import com.demo.movie.tmdb.app.utils.ProgressUtils
+import com.demo.movie.tmdb.app.utils.Status
+import com.demo.movie.tmdb.app.utils.showSnackBar
 import com.demo.movie.tmdb.app.viewmodels.MovieDetailsViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -45,16 +47,22 @@ class MovieDetailsActivity : AppCompatActivity() {
             onBackPressedDispatcher.onBackPressed()
         }
 
-        ProgressUtils.showLoading(this)
-
         lifecycleScope.launch(Dispatchers.IO) {
             movieDetailsViewModel.getMovieDetails(movie!!.id).collect {
-                if (it == null) {
-                    return@collect
-                }
                 lifecycleScope.launch(Dispatchers.Main) {
-                    ProgressUtils.hideLoading()
-                    binding.movieDetails = it
+                    when(it.status) {
+                        Status.SUCCESS -> {
+                            ProgressUtils.hideLoading()
+                            binding.movieDetails = it.data
+                        }
+                        Status.ERROR -> {
+                            ProgressUtils.hideLoading()
+                            it.message?.let { it1 -> showSnackBar(it1) }
+                        }
+                        Status.LOADING -> {
+                            ProgressUtils.showLoading(this@MovieDetailsActivity)
+                        }
+                    }
                 }
             }
         }
