@@ -30,10 +30,14 @@
             <ImageView
                 android:id="@+id/img_poster"
                 poster_path="@{movie.poster_path}"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:scaleType="centerCrop"
+                android:src="@android:color/transparent"
                 android:transitionName="poster"
                 app:layout_constraintDimensionRatio="0.80"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -44,12 +48,12 @@
                 android:layout_marginTop="8dp"
                 android:ellipsize="end"
                 android:maxLines="1"
-                app:layout_constraintStart_toStartOf="parent"
-                android:text="@{movie.title}"
+                android:text="@{movie.title, default = @string/app_name}"
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:transitionName="title"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/img_poster" />
 
             <TextView

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.demo.movie.tmdb.app.activities.MainActivity
 import com.demo.movie.tmdb.app.adapters.GridAdapter
 import com.demo.movie.tmdb.app.adapters.ListAdapter
+import com.demo.movie.tmdb.app.databinding.FragmentGridBinding
 import com.demo.movie.tmdb.app.databinding.FragmentListBinding
 import com.demo.movie.tmdb.app.interfaces.OnLastViewAttached
 import com.demo.movie.tmdb.app.models.Movie
@@ -20,18 +21,19 @@ import kotlinx.coroutines.launch
 
 class ListFragment : Fragment(), OnLastViewAttached {
 
-    lateinit var binding: FragmentListBinding
+    private val binding by lazy {
+        FragmentListBinding.inflate(LayoutInflater.from(requireContext()))
+    }
 
-    private var adapter: ListAdapter? = null
+    private val adapter by lazy {
+        ListAdapter(this, (requireActivity() as MainActivity).mainViewModel)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        if (!::binding.isInitialized) {
-            binding = FragmentListBinding.inflate(inflater, container, false)
-            initRecyclerView()
-        }
+        initRecyclerView()
         return binding.root
     }
 
@@ -43,7 +45,7 @@ class ListFragment : Fragment(), OnLastViewAttached {
                 return@observe
             }
             lifecycleScope.launch(Dispatchers.Main) {
-                adapter?.movieList = it
+                adapter.movieList = it
                 binding.isEmpty = it.isEmpty()
             }
         }
@@ -56,21 +58,12 @@ class ListFragment : Fragment(), OnLastViewAttached {
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         }
 
-        if (adapter == null) {
-            adapter = ListAdapter(
-                this,
-                (requireActivity() as MainActivity).mainViewModel,
-            )
-            binding.rvMovies.adapter = adapter
-        }
+        binding.rvMovies.adapter = adapter
     }
 
     override fun onLastViewAttach() {
-        if ((requireActivity() as MainActivity).totalPages >
-            (requireActivity() as MainActivity).currentPage
-        ) {
-            (requireActivity() as MainActivity)
-                .getPopularMovies((requireActivity() as MainActivity).currentPage + 1)
+        if ((requireActivity() as MainActivity).totalPages > (requireActivity() as MainActivity).currentPage) {
+            (requireActivity() as MainActivity).getPopularMovies((requireActivity() as MainActivity).currentPage + 1)
         }
     }
 }

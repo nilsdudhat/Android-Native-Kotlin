@@ -18,7 +18,7 @@ class GridAdapter(
         set(value) {
             val size = field.size
             field = value
-            notifyItemRangeChanged(size, value.size - 1)
+            notifyItemRangeChanged(size, value.size)
         }
 
     override fun onViewAttachedToWindow(holder: ViewHolder) {

@@ -19,20 +19,8 @@ object APIClient {
         }
     }
 
-    fun getInstance(): Retrofit {
-
-        val httpClient = OkHttpClient.Builder()
-
-        httpClient.addInterceptor { chain ->
-            val request: Request =
-                chain.request().newBuilder()
-                    .addHeader("accept", "application/json")
-                    .addHeader("Authorization", "Bearer ${Constants.API_TOKEN}")
-                    .build()
-            chain.proceed(request)
-        }
-
-        return Retrofit.Builder()
+    fun getInstance(httpClient: OkHttpClient.Builder, retrofitBuilder: Retrofit.Builder): Retrofit {
+        return retrofitBuilder
             .baseUrl(Constants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(httpClient.build())

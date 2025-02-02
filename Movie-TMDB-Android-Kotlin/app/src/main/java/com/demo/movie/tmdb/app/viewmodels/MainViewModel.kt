@@ -1,14 +1,14 @@
 package com.demo.movie.tmdb.app.viewmodels
 
-import android.app.Activity
 import android.content.Intent
 import android.view.View
 import androidx.core.app.ActivityOptionsCompat
+import androidx.core.util.Pair
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.demo.movie.tmdb.app.R
 import com.demo.movie.tmdb.app.activities.MovieDetailsActivity
-import com.demo.movie.tmdb.app.databinding.ActivityMainBinding
+import com.demo.movie.tmdb.app.helpers.CurrentActivityHolder
 import com.demo.movie.tmdb.app.models.Movie
 import com.demo.movie.tmdb.app.models.PopularMovies
 import com.demo.movie.tmdb.app.repositories.MovieRepository
@@ -16,13 +16,11 @@ import com.demo.movie.tmdb.app.utils.Resource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
-import androidx.core.util.Pair
+import org.koin.mp.KoinPlatform.getKoin
 
-data class MainFactory(val activity: Activity, val binding: ActivityMainBinding)
+class MainViewModel : ViewModel() {
 
-class MainViewModel(private val mainFactory: MainFactory) : ViewModel() {
-
-    private val movieRepository = lazy { MovieRepository() }
+    private val movieRepository = lazy { getKoin().get<MovieRepository>() }
 
     val data = MutableStateFlow<Resource<PopularMovies>>(Resource.loading(null))
 
@@ -45,14 +43,23 @@ class MainViewModel(private val mainFactory: MainFactory) : ViewModel() {
     }
 
     fun onMovieClick(view: View, movie: Movie) {
+        val activity = getKoin().get<CurrentActivityHolder>().getCurrentActivity()
+
         val pairTitle = Pair.create<View, String>(view.findViewById(R.id.txt_title), "title")
         val pairPoster = Pair.create<View, String>(view.findViewById(R.id.img_poster), "poster")
         val options =
-            ActivityOptionsCompat.makeSceneTransitionAnimation(mainFactory.activity, pairTitle, pairPoster)
-        val bundle = options.toBundle()
+            activity
+                ?.let {
+                    ActivityOptionsCompat.makeSceneTransitionAnimation(
+                        it,
+                        pairTitle,
+                        pairPoster
+                    )
+                }
+        val bundle = options?.toBundle()
 
-        val intent = Intent(mainFactory.activity, MovieDetailsActivity::class.java)
+        val intent = Intent(activity, MovieDetailsActivity::class.java)
         intent.putExtra("movie", movie)
-        mainFactory.activity.startActivity(intent, bundle)
+        activity?.startActivity(intent, bundle)
     }
 }

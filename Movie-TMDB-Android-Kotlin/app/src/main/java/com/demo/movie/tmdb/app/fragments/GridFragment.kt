@@ -17,18 +17,19 @@ import kotlinx.coroutines.launch
 
 class GridFragment : Fragment(), OnLastViewAttached {
 
-    lateinit var binding: FragmentGridBinding
+    private val binding by lazy {
+        FragmentGridBinding.inflate(LayoutInflater.from(requireContext()))
+    }
 
-    private var adapter: GridAdapter? = null
+    private val adapter by lazy {
+        GridAdapter(this, (requireActivity() as MainActivity).mainViewModel)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        if (!::binding.isInitialized) {
-            binding = FragmentGridBinding.inflate(inflater, container, false)
-            initRecyclerView()
-        }
+        initRecyclerView()
         return binding.root
     }
 
@@ -40,7 +41,7 @@ class GridFragment : Fragment(), OnLastViewAttached {
                 return@observe
             }
             lifecycleScope.launch(Dispatchers.Main) {
-                adapter?.movieList = it
+                adapter.movieList = it
                 binding.isEmpty = it.isEmpty()
             }
         }
@@ -52,14 +53,7 @@ class GridFragment : Fragment(), OnLastViewAttached {
             binding.rvMovies.layoutManager =
                 GridLayoutManager(requireContext(), 2)
         }
-
-        if (adapter == null) {
-            adapter = GridAdapter(
-                this,
-                (requireActivity() as MainActivity).mainViewModel,
-            )
-            binding.rvMovies.adapter = adapter
-        }
+        binding.rvMovies.adapter = adapter
     }
 
     override fun onLastViewAttach() {

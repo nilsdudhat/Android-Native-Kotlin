@@ -18,20 +18,18 @@ import com.demo.movie.tmdb.app.models.Movie
 import com.demo.movie.tmdb.app.utils.ProgressUtils
 import com.demo.movie.tmdb.app.utils.Status
 import com.demo.movie.tmdb.app.utils.showSnackBar
-import com.demo.movie.tmdb.app.viewmodels.MainFactory
 import com.demo.movie.tmdb.app.viewmodels.MainViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import org.koin.core.parameter.parametersOf
-
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
+    val binding: ActivityMainBinding by lazy {
+        ActivityMainBinding.inflate(layoutInflater)
+    }
 
-    val mainViewModel: MainViewModel
-            by viewModel { parametersOf(MainFactory(this@MainActivity, binding)) }
+    val mainViewModel: MainViewModel by viewModel()
 
     val movieListData = MutableLiveData<ArrayList<Movie>?>(null)
 
@@ -41,7 +39,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())

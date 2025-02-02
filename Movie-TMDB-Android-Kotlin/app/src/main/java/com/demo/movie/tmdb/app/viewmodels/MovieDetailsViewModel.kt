@@ -8,10 +8,11 @@ import com.demo.movie.tmdb.app.utils.Resource
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import org.koin.mp.KoinPlatform.getKoin
 
 class MovieDetailsViewModel : ViewModel() {
 
-    private val movieRepository = lazy { MovieRepository() }
+    private val movieRepository = lazy { getKoin().get<MovieRepository>() }
 
     fun getMovieDetails(movieID: Int): MutableSharedFlow<Resource<MovieDetails?>> {
         val data = MutableStateFlow<Resource<MovieDetails?>>(Resource.loading(null))

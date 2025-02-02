@@ -56,6 +56,7 @@
                         backdrop_path="@{movieDetails.backdrop_path}"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
+                        android:scaleType="centerCrop"
                         app:layout_constraintDimensionRatio="1.75"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -83,6 +84,7 @@
                             poster_path="@{movieDetails.poster_path}"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:scaleType="centerCrop"
                             android:transitionName="poster" />
                     </androidx.cardview.widget.CardView>
 

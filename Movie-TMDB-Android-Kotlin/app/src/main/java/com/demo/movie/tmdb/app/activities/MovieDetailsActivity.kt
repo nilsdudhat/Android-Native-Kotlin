@@ -20,16 +20,17 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MovieDetailsActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMovieDetailsBinding
+    val binding: ActivityMovieDetailsBinding by lazy {
+        ActivityMovieDetailsBinding.inflate(layoutInflater)
+    }
 
     private val movieDetailsViewModel : MovieDetailsViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        binding = ActivityMovieDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets

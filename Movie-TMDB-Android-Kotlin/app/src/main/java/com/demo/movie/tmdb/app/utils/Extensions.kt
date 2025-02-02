@@ -10,13 +10,18 @@ import android.graphics.drawable.ColorDrawable
 import android.os.SystemClock
 import android.text.format.DateUtils
 import android.util.Patterns
+import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
+import android.widget.FrameLayout
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.fragment.app.FragmentManager
@@ -27,10 +32,58 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigator
 import androidx.navigation.fragment.FragmentNavigator
+import com.bumptech.glide.RequestManager
 import com.google.android.material.snackbar.Snackbar
+import org.koin.mp.KoinPlatform.getKoin
 import java.util.Calendar
 import java.util.Date
 
+fun centerInConstraintLayout(parent: ConstraintLayout, view: View, matchView: View) {
+    val constraintSet = ConstraintSet()
+    constraintSet.clone(parent)
+
+    constraintSet.clear(view.id, ConstraintSet.LEFT)
+    constraintSet.clear(view.id, ConstraintSet.TOP)
+    constraintSet.clear(view.id, ConstraintSet.RIGHT)
+    constraintSet.clear(view.id, ConstraintSet.BOTTOM)
+
+    // Center horizontally
+    constraintSet.connect(
+        view.id, ConstraintSet.START,
+        matchView.id, ConstraintSet.START, 0
+    )
+    constraintSet.connect(
+        view.id, ConstraintSet.END,
+        matchView.id, ConstraintSet.END, 0
+    )
+
+    // Center vertically
+    constraintSet.connect(
+        view.id, ConstraintSet.TOP,
+        matchView.id, ConstraintSet.TOP, 0
+    )
+    constraintSet.connect(
+        view.id, ConstraintSet.BOTTOM,
+        matchView.id, ConstraintSet.BOTTOM, 0
+    )
+
+    // Set horizontal and vertical bias to center
+    /*constraintSet.setHorizontalBias(view.id, 0.5f)
+    constraintSet.setVerticalBias(view.id, 0.5f)*/
+
+    // Apply the constraints
+    constraintSet.applyTo(parent)
+}
+
+fun centerInFrameLayout(parent: FrameLayout, view: View) {
+    val layoutParams = view.layoutParams as FrameLayout.LayoutParams
+    layoutParams.gravity = Gravity.CENTER
+}
+
+fun centerInLinearLayout(parent: LinearLayout, view: View) {
+    val layoutParams = view.layoutParams as LinearLayout.LayoutParams
+    layoutParams.gravity = Gravity.CENTER
+}
 /*------------------------------------------------------------------------------------------------*/
 fun getTimeAgo(date: Date): String {
     val timeAgo: String = DateUtils.getRelativeTimeSpanString(
@@ -48,8 +101,6 @@ fun getTimeAgo(timeStamp: java.sql.Timestamp): String {
     return timeAgo
 }
 /*------------------------------------------------------------------------------------------------*/
-
-/*------------------------------------------------------------------------------------------------*/
 fun isWebUrl(url: String): Boolean {
     return Patterns.WEB_URL.matcher(url).matches()
 }
@@ -58,8 +109,6 @@ fun isEmailValid(email: String): Boolean {
     return Patterns.EMAIL_ADDRESS.matcher(email).matches()
 }
 /*------------------------------------------------------------------------------------------------*/
-
-/*------------------------------------------------------------------------------------------------*/
 fun <T : ViewModel> T.createFactory(): ViewModelProvider.Factory {
     val viewModel = this
     return object : ViewModelProvider.Factory {
@@ -67,7 +116,6 @@ fun <T : ViewModel> T.createFactory(): ViewModelProvider.Factory {
     }
 }
 /*------------------------------------------------------------------------------------------------*/
-
 @Navigator.Name("keep_state_fragment") // 'keep_state_fragment' is used in navigation/nav_graph.xml
 class KeepStateNavigator(
     context: Context,
@@ -85,12 +133,8 @@ fun <T> LiveData<T>.observeOnce(lifecycleOwner: LifecycleOwner, observer: Observ
     })
 }
 /*------------------------------------------------------------------------------------------------*/
-
-/*------------------------------------------------------------------------------------------------*/
 fun Context.toast(message: CharSequence, toastLength: Int) =
     Toast.makeText(this, message, toastLength).show()
-/*------------------------------------------------------------------------------------------------*/
-
 /*------------------------------------------------------------------------------------------------*/
 fun View.showKeyboard() {
     this.requestFocus()
@@ -117,8 +161,6 @@ fun Activity.hideKeyboard() {
     imm.hideSoftInputFromWindow(this.currentFocus?.windowToken, 0)
 }
 /*------------------------------------------------------------------------------------------------*/
-
-/*------------------------------------------------------------------------------------------------*/
 internal fun Activity.commonDialog(layoutResourceId: Int, dialogBuilder: Dialog.() -> Unit) {
     Dialog(this).apply {
         requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -141,8 +183,6 @@ internal fun Dialog.setWidth(width: Float = 0.9f) {
     )
 }
 /*------------------------------------------------------------------------------------------------*/
-
-/*------------------------------------------------------------------------------------------------*/
 fun Activity.changeStatusBarColor(color: Int, isLight: Boolean) {
     window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
     window.statusBarColor = color
@@ -160,14 +200,20 @@ fun View.asString(): String {
 inline fun <T : Any, R> T?.ifNotNullOrElse(ifNotNullPath: (T) -> R, elsePath: () -> R) =
     let { if (it == null) elsePath() else ifNotNullPath(it) }
 /*------------------------------------------------------------------------------------------------*/
-
-/*------------------------------------------------------------------------------------------------*/
 enum class Status {
     SUCCESS,
     ERROR,
     LOADING,
 }
+/*------------------------------------------------------------------------------------------------*/
+fun getGlideManager(): RequestManager {
+    return getKoin().get<RequestManager>()
+}
 
+fun getKoinContext(): Context {
+    return getKoin().get<Context>()
+}
+/*------------------------------------------------------------------------------------------------*/
 data class Resource<out T>(val status: Status, val data: T?, val message: String?) {
 
     companion object {
@@ -186,14 +232,27 @@ data class Resource<out T>(val status: Status, val data: T?, val message: String
     }
 }
 /*------------------------------------------------------------------------------------------------*/
-
-/*------------------------------------------------------------------------------------------------*/
 fun View.setSafeOnClickListener(onSafeClick: (View) -> Unit) {
     val safeClickListener = SafeClickListener {
         onSafeClick(it)
     }
     setOnClickListener(safeClickListener)
 }
+
+class SafeClickListener(
+    private var defaultInterval: Int = 800,
+    private val onSafeCLick: (View) -> Unit,
+) : View.OnClickListener {
+    private var lastTimeClicked: Long = 0
+    override fun onClick(v: View) {
+        if (SystemClock.elapsedRealtime() - lastTimeClicked < defaultInterval) {
+            return
+        }
+        lastTimeClicked = SystemClock.elapsedRealtime()
+        onSafeCLick(v)
+    }
+}
+/*------------------------------------------------------------------------------------------------*/
 
 fun Activity.showSnackBar(
     message: String,
@@ -213,21 +272,6 @@ fun Activity.showSnackBar(
         .setActionTextColor(ContextCompat.getColor(this, android.R.color.holo_red_light))
         .show()
 }
-
-class SafeClickListener(
-    private var defaultInterval: Int = 800,
-    private val onSafeCLick: (View) -> Unit,
-) : View.OnClickListener {
-    private var lastTimeClicked: Long = 0
-    override fun onClick(v: View) {
-        if (SystemClock.elapsedRealtime() - lastTimeClicked < defaultInterval) {
-            return
-        }
-        lastTimeClicked = SystemClock.elapsedRealtime()
-        onSafeCLick(v)
-    }
-}
-/*------------------------------------------------------------------------------------------------*/
 
 /*------------------------------------------------------------------------------------------------*/
 fun View.visible() {
