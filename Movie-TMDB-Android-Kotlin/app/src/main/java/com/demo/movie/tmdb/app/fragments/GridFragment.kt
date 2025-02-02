@@ -29,20 +29,32 @@ class GridFragment : Fragment(), OnLastViewAttached {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        initRecyclerView()
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        if (binding.rvMovies.layoutManager == null) {
+            binding.rvMovies.layoutManager =
+                GridLayoutManager(requireContext(), 2)
+        }
+
+        binding.isSkeleton = true
+
         (requireActivity() as MainActivity).movieListData.observe(requireActivity()) {
             if (it == null) {
                 return@observe
             }
             lifecycleScope.launch(Dispatchers.Main) {
-                adapter.movieList = it
-                binding.isEmpty = it.isEmpty()
+                binding.isSkeleton = false
+
+                binding.root.post {
+                    initRecyclerView()
+
+                    adapter.movieList = it
+                    binding.isEmpty = it.isEmpty()
+                }
             }
         }
     }
@@ -53,7 +65,10 @@ class GridFragment : Fragment(), OnLastViewAttached {
             binding.rvMovies.layoutManager =
                 GridLayoutManager(requireContext(), 2)
         }
-        binding.rvMovies.adapter = adapter
+        if (binding.rvMovies.tag == "skeleton") {
+            binding.rvMovies.tag = null
+            binding.rvMovies.adapter = adapter
+        }
     }
 
     override fun onLastViewAttach() {

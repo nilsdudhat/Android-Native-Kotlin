@@ -15,7 +15,6 @@ import androidx.navigation.ui.setupWithNavController
 import com.demo.movie.tmdb.app.R
 import com.demo.movie.tmdb.app.databinding.ActivityMainBinding
 import com.demo.movie.tmdb.app.models.Movie
-import com.demo.movie.tmdb.app.utils.ProgressUtils
 import com.demo.movie.tmdb.app.utils.Status
 import com.demo.movie.tmdb.app.utils.showSnackBar
 import com.demo.movie.tmdb.app.viewmodels.MainViewModel
@@ -62,14 +61,10 @@ class MainActivity : AppCompatActivity() {
 
                     when (it.status) {
                         Status.LOADING -> {
-                            if (movieListData.value == null || movieListData.value!!.isEmpty()) {
-                                ProgressUtils.showLoading(this@MainActivity)
-                            }
+
                         }
 
                         Status.SUCCESS -> {
-                            ProgressUtils.hideLoading()
-
                             val movies = it.data?.results
                             if (movies != null) {
                                 var oldMovies = movieListData.value
@@ -85,8 +80,6 @@ class MainActivity : AppCompatActivity() {
                         }
 
                         Status.ERROR -> {
-                            ProgressUtils.hideLoading()
-
                             showSnackBar(
                                 message = it.message ?: "Something went wrong",
                                 action = "Okay",

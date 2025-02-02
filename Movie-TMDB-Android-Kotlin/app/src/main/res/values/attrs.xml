@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SkeletonRecyclerView">
+        <attr name="showSkeleton" format="boolean"/>
+        <attr name="skeletonItem" format="reference"/>
+        <attr name="skeletonItemCount" format="integer"/>
+        <attr name="skeletonLayoutManager" format="enum">
+            <enum name="linear" value="0"/>
+            <enum name="grid" value="1"/>
+            <enum name="flex" value="2"/>
+        </attr>
+        <attr name="spanCount" format="integer"/>
+    </declare-styleable>
+</resources>

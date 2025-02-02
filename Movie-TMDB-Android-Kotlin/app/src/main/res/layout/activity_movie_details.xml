@@ -7,6 +7,10 @@
             name="movieDetails"
             type="com.demo.movie.tmdb.app.models.MovieDetails" />
 
+        <variable
+            name="isSkeleton"
+            type="Boolean" />
+
         <import type="android.view.View" />
     </data>
 
@@ -45,6 +49,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                isSkeletonVisible="@{isSkeleton, default = true}"
                 android:orientation="vertical">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -166,7 +171,6 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/txt_genres"
                             genres="@{movieDetails.genres}"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -188,14 +192,12 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/txt_languages"
                             spoken_languages="@{movieDetails.spoken_languages}"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
                     </LinearLayout>
 
                     <TextView
-                        android:id="@+id/txt_overview"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"

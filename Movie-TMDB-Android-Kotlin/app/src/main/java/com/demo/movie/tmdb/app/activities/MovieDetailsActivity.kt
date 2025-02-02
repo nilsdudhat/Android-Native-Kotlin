@@ -7,10 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
-import com.demo.movie.tmdb.app.R
 import com.demo.movie.tmdb.app.databinding.ActivityMovieDetailsBinding
 import com.demo.movie.tmdb.app.models.Movie
-import com.demo.movie.tmdb.app.utils.ProgressUtils
 import com.demo.movie.tmdb.app.utils.Status
 import com.demo.movie.tmdb.app.utils.showSnackBar
 import com.demo.movie.tmdb.app.viewmodels.MovieDetailsViewModel
@@ -53,15 +51,15 @@ class MovieDetailsActivity : AppCompatActivity() {
                 lifecycleScope.launch(Dispatchers.Main) {
                     when(it.status) {
                         Status.SUCCESS -> {
-                            ProgressUtils.hideLoading()
+                            binding.isSkeleton = false
                             binding.movieDetails = it.data
                         }
                         Status.ERROR -> {
-                            ProgressUtils.hideLoading()
+                            binding.isSkeleton = false
                             it.message?.let { it1 -> showSnackBar(it1) }
                         }
                         Status.LOADING -> {
-                            ProgressUtils.showLoading(this@MovieDetailsActivity)
+                            binding.isSkeleton = true
                         }
                     }
                 }

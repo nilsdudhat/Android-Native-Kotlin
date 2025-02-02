@@ -40,13 +40,26 @@ class ListFragment : Fragment(), OnLastViewAttached {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        if (binding.rvMovies.layoutManager == null) {
+            binding.rvMovies.layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        }
+
+        binding.isSkeleton = true
+
         (requireActivity() as MainActivity).movieListData.observe(requireActivity()) {
             if (it == null) {
                 return@observe
             }
             lifecycleScope.launch(Dispatchers.Main) {
-                adapter.movieList = it
-                binding.isEmpty = it.isEmpty()
+                binding.isSkeleton = false
+
+                binding.root.post {
+                    initRecyclerView()
+
+                    adapter.movieList = it
+                    binding.isEmpty = it.isEmpty()
+                }
             }
         }
     }
@@ -58,7 +71,10 @@ class ListFragment : Fragment(), OnLastViewAttached {
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         }
 
-        binding.rvMovies.adapter = adapter
+        if (binding.rvMovies.tag == "skeleton") {
+            binding.rvMovies.tag = null
+            binding.rvMovies.adapter = adapter
+        }
     }
 
     override fun onLastViewAttach() {
