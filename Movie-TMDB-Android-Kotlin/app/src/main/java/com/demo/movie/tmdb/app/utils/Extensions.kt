@@ -5,6 +5,7 @@ import android.app.Dialog
 import android.content.Context
 import android.content.Context.INPUT_METHOD_SERVICE
 import android.content.res.Resources
+import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.SystemClock
@@ -17,13 +18,16 @@ import android.view.Window
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.FrameLayout
+import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat
 import androidx.core.view.WindowInsetsControllerCompat
+import androidx.core.view.children
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
@@ -33,12 +37,114 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigator
 import androidx.navigation.fragment.FragmentNavigator
 import com.bumptech.glide.RequestManager
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import com.google.android.material.snackbar.Snackbar
 import org.koin.mp.KoinPlatform.getKoin
 import java.util.Calendar
 import java.util.Date
 
-fun centerInConstraintLayout(parent: ConstraintLayout, view: View, matchView: View) {
+fun loadImageWithProgressBar(view: ImageView, path: String?) {
+    if (path != null) {
+        view.setBackgroundResource(android.R.color.transparent)
+
+        // Create circular progress programmatically
+        val parentView = view.parent as ViewGroup
+
+        // Remove any existing progress bar first
+        parentView.children
+            .filterIsInstance<ProgressBar>()
+            .forEach { parentView.removeView(it) }
+
+        var progressIndicator: ProgressBar?
+
+        progressIndicator = ProgressBar(getKoinContext()).apply {
+            id = View.generateViewId()
+            layoutParams = when (parentView) {
+                is ConstraintLayout -> ConstraintLayout.LayoutParams(
+                    ConstraintLayout.LayoutParams.WRAP_CONTENT,
+                    ConstraintLayout.LayoutParams.WRAP_CONTENT,
+                )
+
+                is FrameLayout -> FrameLayout.LayoutParams(
+                    FrameLayout.LayoutParams.WRAP_CONTENT,
+                    FrameLayout.LayoutParams.WRAP_CONTENT,
+                    Gravity.CENTER,
+                )
+
+                is LinearLayout -> LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                ).apply {
+                    gravity = Gravity.CENTER
+                }
+
+                else -> ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                )
+            }
+        }
+
+        // Add progress indicator to parent
+        parentView.addView(progressIndicator)
+
+        when (parentView) {
+            is ConstraintLayout -> centerInConstraintLayout(parentView, progressIndicator, view)
+            is FrameLayout -> centerInFrameLayout(parentView, progressIndicator)
+            is LinearLayout -> centerInLinearLayout(parentView, progressIndicator)
+        }
+
+        // Function to safely remove progress indicator
+        fun removeProgress() {
+            progressIndicator.let { progress ->
+                progress?.visibility = View.GONE
+                parentView.post {
+                    try {
+                        if (progress?.parent != null) {
+                            parentView.removeView(progress)
+                        }
+                    } catch (e: Exception) {
+                        // Handle any potential exceptions during removal
+                    }
+                }
+                progressIndicator = null
+            }
+        }
+
+        getGlideManager()
+            .asBitmap()
+            .load(path)
+            .addListener(object : RequestListener<Bitmap> {
+
+                override fun onResourceReady(
+                    resource: Bitmap,
+                    model: Any,
+                    target: Target<Bitmap>?,
+                    dataSource: DataSource,
+                    isFirstResource: Boolean,
+                ): Boolean {
+                    removeProgress()
+                    return false
+                }
+
+                override fun onLoadFailed(
+                    e: GlideException?,
+                    model: Any?,
+                    target: Target<Bitmap>,
+                    isFirstResource: Boolean,
+                ): Boolean {
+                    removeProgress()
+                    return false
+                }
+            })
+            .into(view)
+    }
+}
+
+private fun centerInConstraintLayout(parent: ConstraintLayout, view: View, matchView: View) {
     val constraintSet = ConstraintSet()
     constraintSet.clone(parent)
 
@@ -75,12 +181,12 @@ fun centerInConstraintLayout(parent: ConstraintLayout, view: View, matchView: Vi
     constraintSet.applyTo(parent)
 }
 
-fun centerInFrameLayout(parent: FrameLayout, view: View) {
+private fun centerInFrameLayout(parent: FrameLayout, view: View) {
     val layoutParams = view.layoutParams as FrameLayout.LayoutParams
     layoutParams.gravity = Gravity.CENTER
 }
 
-fun centerInLinearLayout(parent: LinearLayout, view: View) {
+private fun centerInLinearLayout(parent: LinearLayout, view: View) {
     val layoutParams = view.layoutParams as LinearLayout.LayoutParams
     layoutParams.gravity = Gravity.CENTER
 }
