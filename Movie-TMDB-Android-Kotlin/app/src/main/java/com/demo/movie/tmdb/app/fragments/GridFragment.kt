@@ -12,6 +12,7 @@ import com.demo.movie.tmdb.app.activities.MainActivity
 import com.demo.movie.tmdb.app.adapters.GridAdapter
 import com.demo.movie.tmdb.app.databinding.FragmentGridBinding
 import com.demo.movie.tmdb.app.interfaces.OnLastViewAttached
+import com.demo.movie.tmdb.app.utils.ProgressUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -35,46 +36,40 @@ class GridFragment : Fragment(), OnLastViewAttached {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        Log.d("--fragment--", "GridFragment: onViewCreated")
+
         if (binding.rvMovies.layoutManager == null) {
-            binding.rvMovies.layoutManager =
-                GridLayoutManager(requireContext(), 2)
+            binding.rvMovies.layoutManager = GridLayoutManager(requireContext(), 2)
         }
 
-        binding.isSkeleton = true
+        ProgressUtils.showLoading(requireActivity())
 
         (requireActivity() as MainActivity).movieListData.observe(requireActivity()) {
             if (it == null) {
                 return@observe
             }
             lifecycleScope.launch(Dispatchers.Main) {
-                binding.isSkeleton = false
+                ProgressUtils.hideLoading()
 
-                binding.root.post {
-                    initRecyclerView()
+                initRecyclerView()
 
-                    adapter.movieList = it
-                    binding.isEmpty = it.isEmpty()
-                }
+                adapter.movieList = it
+                binding.isEmpty = it.isEmpty()
             }
         }
     }
 
     private fun initRecyclerView() {
-        Log.d("--fragment--", "initRecyclerView: ")
         if (binding.rvMovies.layoutManager == null) {
-            binding.rvMovies.layoutManager =
-                GridLayoutManager(requireContext(), 2)
+            binding.rvMovies.layoutManager = GridLayoutManager(requireContext(), 2)
         }
-        if (binding.rvMovies.tag == "skeleton") {
-            binding.rvMovies.tag = null
+        if (binding.rvMovies.adapter == null) {
             binding.rvMovies.adapter = adapter
         }
     }
 
     override fun onLastViewAttach() {
-        if ((requireActivity() as MainActivity).totalPages >
-            (requireActivity() as MainActivity).currentPage
-        ) {
+        if ((requireActivity() as MainActivity).totalPages > (requireActivity() as MainActivity).currentPage) {
             (requireActivity() as MainActivity)
                 .getPopularMovies((requireActivity() as MainActivity).currentPage + 1)
         }

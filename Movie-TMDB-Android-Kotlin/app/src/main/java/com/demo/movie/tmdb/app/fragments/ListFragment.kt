@@ -16,6 +16,7 @@ import com.demo.movie.tmdb.app.databinding.FragmentGridBinding
 import com.demo.movie.tmdb.app.databinding.FragmentListBinding
 import com.demo.movie.tmdb.app.interfaces.OnLastViewAttached
 import com.demo.movie.tmdb.app.models.Movie
+import com.demo.movie.tmdb.app.utils.ProgressUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -40,39 +41,37 @@ class ListFragment : Fragment(), OnLastViewAttached {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        Log.d("--fragment--", "ListFragment: onViewCreated")
+
         if (binding.rvMovies.layoutManager == null) {
             binding.rvMovies.layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         }
 
-        binding.isSkeleton = true
+        ProgressUtils.showLoading(requireActivity())
 
         (requireActivity() as MainActivity).movieListData.observe(requireActivity()) {
             if (it == null) {
                 return@observe
             }
             lifecycleScope.launch(Dispatchers.Main) {
-                binding.isSkeleton = false
+                ProgressUtils.hideLoading()
 
-                binding.root.post {
-                    initRecyclerView()
+                initRecyclerView()
 
-                    adapter.movieList = it
-                    binding.isEmpty = it.isEmpty()
-                }
+                adapter.movieList = it
+                binding.isEmpty = it.isEmpty()
             }
         }
     }
 
     private fun initRecyclerView() {
-        Log.d("--fragment--", "initRecyclerView: ")
         if (binding.rvMovies.layoutManager == null) {
             binding.rvMovies.layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         }
 
-        if (binding.rvMovies.tag == "skeleton") {
-            binding.rvMovies.tag = null
+        if (binding.rvMovies.adapter == null) {
             binding.rvMovies.adapter = adapter
         }
     }
