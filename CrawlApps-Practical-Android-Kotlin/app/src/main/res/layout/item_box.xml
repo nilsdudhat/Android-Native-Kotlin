@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -10,25 +11,34 @@
             type="Map&lt;String, Integer&gt;" />
     </data>
 
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:background="@drawable/border_box"
-        android:padding="1dp">
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-        <View
-            color='@{map["color"]}'
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+        <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/border_box"
+            android:padding="1dp"
+            app:layout_constraintDimensionRatio="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            map='@{map}'
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textColor="@color/black"
-            android:textSize="6sp"
-            android:textStyle="bold"
-            android:gravity="center"
-            tools:ignore="SmallSp" />
-    </FrameLayout>
+            <View
+                color='@{map["color"]}'
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <TextView
+                map='@{map}'
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="6sp"
+                android:textStyle="bold"
+                tools:ignore="SmallSp" />
+        </FrameLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

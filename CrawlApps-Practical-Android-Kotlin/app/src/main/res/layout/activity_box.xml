@@ -22,8 +22,9 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_boxes"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
             android:background="@drawable/border_box"
             android:padding="1dp"
             app:layout_constraintBottom_toTopOf="@+id/btn_group_id"
@@ -35,8 +36,8 @@
             android:id="@+id/btn_group_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Group ID"
             android:onClick="@{() -> viewModel.displayGroupIDs(size)}"
+            android:text="Group ID"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
