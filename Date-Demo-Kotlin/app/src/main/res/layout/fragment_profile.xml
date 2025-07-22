@@ -1,0 +1,723 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.belive.dating.activities.dashboard.fragments.profile.ProfileViewModel" />
+
+        <variable
+            name="message"
+            type="android.text.SpannableString" />
+
+        <import type="android.view.View" />
+
+        <import type="com.belive.dating.payment.ProductType" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:backgroundTint="@android:color/transparent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:liftOnScrollColor="@android:color/transparent">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:backgroundTint="@android:color/transparent"
+                app:contentScrim="@android:color/transparent"
+                app:layout_scrollFlags="scroll|enterAlways">
+
+                <TextView
+                    android:id="@+id/txt_message"
+                    style="@style/SubTitleStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_16sdp"
+                    android:paddingHorizontal="@dimen/_16sdp"
+                    android:text="@{message}"
+                    android:textColor="@color/colorTextHint"
+                    app:layout_collapseMode="none"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <app.juky.squircleview.views.SquircleConstraintLayout
+                    android:id="@+id/edit_profile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_16sdp"
+                    android:orientation="vertical"
+                    app:squircle_background_color="?boxBackground"
+                    app:squircle_corner_smoothing_percentage="0">
+
+                    <app.juky.squircleview.views.SquircleConstraintLayout
+                        android:id="@+id/profile_title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:squircle_background_gradient_drawable="@drawable/bg_gradient_profile_title"
+                        app:squircle_corner_smoothing_percentage="0"
+                        app:squircle_ripple_drawable="@drawable/ripple_rectangle">
+
+                        <TextView
+                            style="@style/TitleStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:padding="@dimen/_8sdp"
+                            android:text="@string/my_profile"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_12ssp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent" />
+
+                        <ImageView
+                            android:layout_width="@dimen/_16sdp"
+                            android:layout_height="@dimen/_16sdp"
+                            android:layout_marginEnd="@dimen/_8sdp"
+                            android:src="@drawable/ic_pen_square"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:tint="@color/white" />
+                    </app.juky.squircleview.views.SquircleConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/profile_bg"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/_12sdp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/profile_title">
+
+                        <ImageView
+                            android:id="@+id/imgProfile"
+                            android:layout_width="@dimen/_40sdp"
+                            android:layout_height="@dimen/_40sdp"
+                            android:src="@drawable/ic_user"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:imageUrl="@{viewModel.profileImage}"
+                            tools:isCircle="@{true}"
+                            tools:isIcon="@{false}" />
+
+                        <LinearLayout
+                            android:id="@+id/profile_details"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/_12sdp"
+                            android:orientation="vertical"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/profile_percentage_container"
+                            app:layout_constraintStart_toEndOf="@+id/imgProfile"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <TextView
+                                style="@style/SubTitleStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:ellipsize="end"
+                                android:lines="1"
+                                android:marqueeRepeatLimit="marquee_forever"
+                                android:text='@{(viewModel.name == null) ? "Name" : viewModel.name, default = "Name"}'
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/_14ssp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_2sdp"
+                                android:lines="1"
+                                android:text='@{(viewModel.gender == null) ? "Gender - Age" : viewModel.gender + " - " + viewModel.age, default = "Gender - Age"}'
+                                android:textColor="@color/white_50"
+                                android:textSize="@dimen/_10ssp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/profile_percentage_container"
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/_24sdp"
+                            android:background="@drawable/bg_rounded_light"
+                            android:orientation="horizontal"
+                            android:padding="@dimen/_2sdp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:paddingHorizontal="@dimen/_8sdp"
+                                android:text='@{(viewModel.profilePercentage == null) ? "0% Complete" : viewModel.profilePercentage + "% Complete", default = "0% Complete"}'
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/_10ssp" />
+
+                            <ImageButton
+                                android:id="@+id/img_details"
+                                style="@style/ImageButton.NoBackground"
+                                android:layout_width="@dimen/_20sdp"
+                                android:layout_height="@dimen/_20sdp"
+                                android:layout_gravity="end|center_vertical"
+                                android:background="@drawable/oval_filled"
+                                android:backgroundTint="@color/colorErrorExtraDark"
+                                android:padding="@dimen/_5sdp"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/ic_info"
+                                android:visibility="gone"
+                                app:tint="@color/white"
+                                tools:visibility="@{(viewModel.profilePercentage == null) ? true : (viewModel.profilePercentage != 100), default = visible}" />
+                        </LinearLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </app.juky.squircleview.views.SquircleConstraintLayout>
+
+                <app.juky.squircleview.views.SquircleConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_16sdp"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:orientation="vertical"
+                    app:squircle_background_color="?boxBackground"
+                    app:squircle_corner_smoothing_percentage="0">
+
+                    <TextView
+                        android:id="@+id/txt_balance_title"
+                        style="@style/TitleStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_gradient_profile_title"
+                        android:gravity="center"
+                        android:padding="@dimen/_8sdp"
+                        android:text="@string/my_balance"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12ssp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/balance_container"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_balance_title">
+
+                        <LinearLayout
+                            android:id="@+id/ll_rewind"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:background="?attr/selectableItemBackground"
+                            android:gravity="center"
+                            android:paddingVertical="@dimen/_10sdp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/divider_1"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <ImageView
+                                android:layout_width="@dimen/_20sdp"
+                                android:layout_height="@dimen/_20sdp"
+                                android:padding="@dimen/_3sdp"
+                                android:src="@drawable/ic_rewind" />
+
+                            <TextView
+                                android:id="@+id/txtRewind"
+                                style="@style/SubTitleStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_2sdp"
+                                android:text='@{viewModel.rewinds, default = "0"}'
+                                android:textColor="?colorOnBackground"
+                                android:textSize="@dimen/_14ssp"
+                                tools:visibility="@{(viewModel.isUnlimitedRewinds() == null) ? true : !viewModel.isUnlimitedRewinds(), default = visible}" />
+
+                            <ImageView
+                                android:id="@+id/rewindInfi"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_2sdp"
+                                android:src="@drawable/ic_infinity"
+                                app:tint="?colorOnBackground"
+                                tools:visibility="@{(viewModel.isUnlimitedRewinds() == null) ? false : viewModel.isUnlimitedRewinds(), default = gone}" />
+                        </LinearLayout>
+
+                        <View
+                            android:id="@+id/divider_1"
+                            android:layout_width="@dimen/_1sdp"
+                            android:layout_height="0dp"
+                            android:background="?boxBorderLight"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/ll_super_like"
+                            app:layout_constraintStart_toEndOf="@+id/ll_rewind"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <LinearLayout
+                            android:id="@+id/ll_super_like"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:background="?attr/selectableItemBackground"
+                            android:gravity="center"
+                            android:paddingVertical="@dimen/_10sdp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/divider_2"
+                            app:layout_constraintStart_toEndOf="@+id/divider_1"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <ImageView
+                                android:layout_width="@dimen/_20sdp"
+                                android:layout_height="@dimen/_20sdp"
+                                android:padding="@dimen/_1sdp"
+                                android:src="@drawable/ic_super_like" />
+
+                            <TextView
+                                android:id="@+id/txtSuperLike"
+                                style="@style/SubTitleStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_2sdp"
+                                android:text='@{viewModel.superLikes, default = "0"}'
+                                android:textColor="?colorOnBackground"
+                                android:textSize="@dimen/_14ssp" />
+                        </LinearLayout>
+
+                        <View
+                            android:id="@+id/divider_2"
+                            android:layout_width="@dimen/_1sdp"
+                            android:layout_height="0dp"
+                            android:background="?boxBorderLight"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/ll_like"
+                            app:layout_constraintStart_toEndOf="@+id/ll_super_like"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <LinearLayout
+                            android:id="@+id/ll_like"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:background="?attr/selectableItemBackground"
+                            android:gravity="center"
+                            android:paddingVertical="@dimen/_10sdp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/divider_3"
+                            app:layout_constraintStart_toEndOf="@+id/divider_2"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <ImageView
+                                android:layout_width="@dimen/_22sdp"
+                                android:layout_height="@dimen/_22sdp"
+                                android:src="@drawable/ic_like" />
+
+                            <TextView
+                                android:id="@+id/txtLike"
+                                style="@style/SubTitleStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_2sdp"
+                                android:text='@{viewModel.likes, default = "0"}'
+                                android:textColor="?colorOnBackground"
+                                android:textSize="@dimen/_14ssp"
+                                tools:visibility="@{(viewModel.isUnlimitedRewinds() == null) ? true : !viewModel.isUnlimitedLikes(), default = visible}" />
+
+                            <ImageView
+                                android:id="@+id/likeInfi"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_2sdp"
+                                android:src="@drawable/ic_infinity"
+                                app:tint="?colorOnBackground"
+                                tools:visibility="@{(viewModel.isUnlimitedRewinds() == null) ? false : viewModel.isUnlimitedLikes(), default = gone}" />
+                        </LinearLayout>
+
+                        <View
+                            android:id="@+id/divider_3"
+                            android:layout_width="@dimen/_1sdp"
+                            android:layout_height="0dp"
+                            android:background="?boxBorderLight"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/ll_boost"
+                            app:layout_constraintStart_toEndOf="@+id/ll_like"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <LinearLayout
+                            android:id="@+id/ll_boost"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:background="?attr/selectableItemBackground"
+                            android:gravity="center"
+                            android:paddingVertical="@dimen/_10sdp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/divider_3"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <ImageView
+                                android:layout_width="@dimen/_20sdp"
+                                android:layout_height="@dimen/_20sdp"
+                                android:padding="@dimen/_2sdp"
+                                android:src="@drawable/ic_boost" />
+
+                            <TextView
+                                android:id="@+id/txtBoost"
+                                style="@style/SubTitleStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_2sdp"
+                                android:text='@{viewModel.boosts, default = "0"}'
+                                android:textColor="?colorOnBackground"
+                                android:textSize="@dimen/_14ssp" />
+                        </LinearLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <View
+                        android:id="@+id/divider_5"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/_1sdp"
+                        android:background="?boxBorderLight"
+                        app:layout_constraintTop_toBottomOf="@+id/balance_container" />
+
+                    <app.juky.squircleview.views.SquircleConstraintLayout
+                        android:id="@+id/diamonds_container"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/divider_5"
+                        app:squircle_background_color="@android:color/transparent"
+                        app:squircle_corner_smoothing_percentage="0">
+
+                        <TextView
+                            style="@style/SubTitleStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_16sdp"
+                            android:text="@string/my_diamonds"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_10ssp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/_30sdp"
+                            android:gravity="center"
+                            android:paddingHorizontal="@dimen/_16sdp"
+                            android:paddingVertical="@dimen/_4sdp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent">
+
+                            <ImageView
+                                android:layout_width="@dimen/_16sdp"
+                                android:layout_height="@dimen/_16sdp"
+                                android:src="@drawable/ic_diamond" />
+
+                            <TextView
+                                style="@style/SubTitleStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_4sdp"
+                                android:layout_marginEnd="@dimen/_8sdp"
+                                android:gravity="center"
+                                android:includeFontPadding="false"
+                                android:text='@{viewModel.diamonds, default = "100"}'
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/_14ssp"
+                                tools:visibility="@{viewModel.isLifetimeMember() == null ? true :!viewModel.isLifetimeMember(), default = visible}" />
+
+                            <ImageView
+                                android:layout_width="@dimen/_16sdp"
+                                android:layout_height="@dimen/_16sdp"
+                                android:src="@drawable/add_circle"
+                                app:tint="?boxBorder"
+                                tools:visibility="@{viewModel.isLifetimeMember() == null ? true :!viewModel.isLifetimeMember(), default = visible}" />
+
+                            <ImageView
+                                android:id="@+id/img_infinity"
+                                android:layout_width="@dimen/_16sdp"
+                                android:layout_height="@dimen/_8sdp"
+                                android:layout_marginStart="@dimen/_8sdp"
+                                android:scaleType="fitCenter"
+                                android:src="@drawable/ic_infinity"
+                                tools:visibility="@{viewModel.isLifetimeMember() == null ? false : viewModel.isLifetimeMember(), default = gone}" />
+                        </LinearLayout>
+                    </app.juky.squircleview.views.SquircleConstraintLayout>
+                </app.juky.squircleview.views.SquircleConstraintLayout>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_32sdp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:layout_marginBottom="@dimen/_8sdp"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/profile_belive_premium" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <androidx.viewpager.widget.ViewPager
+                        android:id="@+id/paywallPager"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        tools:visibility="@{viewModel.activePackage == null, default = visible}" />
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_16sdp"
+                        tools:visibility='@{viewModel.activePackage == ProductType.GOLD, default = gone}'>
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:adjustViewBounds="true"
+                            android:src="@drawable/transparent_gold_active" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:layout_margin="@dimen/_16sdp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                style="@style/SubTitleStyle"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="@string/gold_subscription_is_active"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/_13ssp" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_4sdp"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="@dimen/_4sdp"
+                                    android:text="@string/renew_date"
+                                    android:textColor="@color/colorTextHint"
+                                    android:textSize="@dimen/_10ssp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@{viewModel.renewDate}"
+                                    android:textColor="@color/white"
+                                    android:textSize="@dimen/_12ssp" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_16sdp"
+                        tools:visibility='@{viewModel.activePackage == ProductType.PLATINUM, default = gone}'>
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:adjustViewBounds="true"
+                            android:src="@drawable/transparent_platinum_active" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:layout_margin="@dimen/_16sdp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                style="@style/SubTitleStyle"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="@string/platinum_subscription_is_active"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/_13ssp" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_4sdp"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="@dimen/_4sdp"
+                                    android:text="@string/renew_date"
+                                    android:textColor="@color/colorTextHint"
+                                    android:textSize="@dimen/_10ssp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@{viewModel.renewDate}"
+                                    android:textColor="@color/white"
+                                    android:textSize="@dimen/_12ssp" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/frame_lifetime"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_16sdp"
+                        tools:visibility='@{viewModel.activePackage == ProductType.LIFETIME , default = gone}'>
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:adjustViewBounds="true"
+                            android:src="@drawable/transparent_lifetime_active" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:layout_margin="@dimen/_16sdp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                style="@style/SubTitleStyle"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="@string/lifetime_subscription_is_active"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/_13ssp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_marginTop="@dimen/_4sdp"
+                                android:text="@string/unlimited_access"
+                                android:textColor="@color/colorTextHint"
+                                android:textSize="@dimen/_10ssp" />
+                        </LinearLayout>
+                    </FrameLayout>
+
+                    <HorizontalScrollView
+                        android:id="@+id/scroll_slice"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_16sdp"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        android:fadingEdge="none"
+                        android:overScrollMode="never"
+                        android:scrollbars="none"
+                        tools:visibility="@{viewModel.activePackage == null, default = visible}">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/img_slice"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:adjustViewBounds="true"
+                                android:scaleType="fitStart"
+                                android:src="@drawable/banner_place_slice" />
+                        </LinearLayout>
+                    </HorizontalScrollView>
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_16sdp"
+                        android:layout_marginTop="@dimen/_1sdp"
+                        tools:visibility="@{viewModel.activePackage != ProductType.LIFETIME, default = visible}">
+
+                        <com.airbnb.lottie.LottieAnimationView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            app:lottie_autoPlay="true"
+                            app:lottie_loop="true"
+                            app:lottie_rawRes="@raw/bg_premium" />
+
+                        <LinearLayout
+                            android:id="@+id/layout_get_premium"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_40sdp"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="@dimen/_16sdp"
+                                android:layout_height="@dimen/_16sdp"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginStart="@dimen/_16sdp"
+                                android:src="@drawable/ic_double_next"
+                                tools:isReverse="@{false}"
+                                tools:translationXAnimation="@{20f}" />
+
+                            <TextView
+                                style="@style/TitleStyle"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text='@{viewModel.activePackage == null ? "Get Premium" : "Manage Subscription", default = "Get Premium"}'
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_14ssp" />
+
+                            <ImageView
+                                android:layout_width="@dimen/_16sdp"
+                                android:layout_height="@dimen/_16sdp"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginEnd="@dimen/_16sdp"
+                                android:rotation="180"
+                                android:src="@drawable/ic_double_next"
+                                tools:isReverse="@{true}"
+                                tools:translationXAnimation="@{20f}" />
+                        </LinearLayout>
+                    </FrameLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

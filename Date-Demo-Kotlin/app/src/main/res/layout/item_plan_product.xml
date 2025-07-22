@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="isSelected"
+            type="Boolean" />
+
+        <variable
+            name="premiumType"
+            type="com.belive.dating.payment.ProductType" />
+
+        <variable
+            name="isActive"
+            type="Boolean" />
+
+        <variable
+            name="title"
+            type="String" />
+
+        <variable
+            name="price"
+            type="StringBuilder" />
+
+        <variable
+            name="discount"
+            type="Integer" />
+
+        <import type="com.belive.dating.R" />
+    </data>
+
+    <app.juky.squircleview.views.SquircleConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_8sdp"
+        app:squircle_background_color="@android:color/transparent"
+        app:squircle_corner_smoothing_percentage="30">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:gradientDrawable="@{isSelected ? premiumType : null, default = null}">
+
+            <app.juky.squircleview.views.SquircleConstraintLayout
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:squircle_background_color="@android:color/transparent"
+                app:squircle_border_width="@dimen/_1sdp"
+                app:squircle_corner_smoothing_percentage="30"
+                tools:squircle_border_color="@{isSelected ? R.color.colorTransparent : R.color.boxBorderLight, default = @color/boxBorderLight}" />
+
+            <FrameLayout
+                android:id="@+id/layout_discount"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/_8sdp"
+                android:paddingBottom="@dimen/_8sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    style="@style/SubTitleStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text='@{"Save " + discount + "%", default = "Save 15%"}'
+                    android:textSize="@dimen/_12ssp"
+                    tools:textColor="@{isSelected ? R.color.black : R.color.white, default = @color/white}"
+                    tools:visibility="@{!isActive, default = visible}" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    tools:visibility="@{isActive, default = gone}">
+
+                    <TextView
+                        style="@style/SubTitleStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/active"
+                        android:textSize="@dimen/_12ssp"
+                        tools:textColor="@{isSelected ? R.color.black : R.color.white, default = @color/white}" />
+
+                    <ImageView
+                        android:layout_width="@dimen/_16sdp"
+                        android:layout_height="@dimen/_16sdp"
+                        android:layout_marginStart="@dimen/_4sdp"
+                        android:src="@drawable/ic_tick_circle"
+                        tools:tint="@{isSelected ? R.color.black : R.color.white, default = @color/white}" />
+                </LinearLayout>
+            </FrameLayout>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_1sdp"
+                android:background="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/layout_discount"
+                tools:visibility='@{isSelected, default = gone}' />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_1sdp"
+                android:background="?boxBorderLight"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/layout_discount"
+                tools:visibility='@{!isSelected, default = visible}' />
+
+            <TextView
+                android:id="@+id/txt_period"
+                style="@style/TitleStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/_8sdp"
+                android:elegantTextHeight="true"
+                android:gravity="center"
+                android:text='@{title, default="1 week"}'
+                android:textSize="@dimen/_16ssp"
+                app:layout_constraintBottom_toTopOf="@+id/layout_price"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/layout_discount"
+                tools:textColor="@{isSelected ? R.color.black : R.color.white, default = @color/white}" />
+
+            <LinearLayout
+                android:id="@+id/layout_price"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_8sdp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <TextView
+                    style="@style/SubTitleStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text='@{price, default = "₹199"}'
+                    android:textColor="@{isSelected ? @color/black : @color/white, default = @color/white}"
+                    android:textSize="@dimen/_12ssp" />
+
+                <TextView
+                    style="@style/SubTitleStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" / Week"
+                    android:textSize="@dimen/_12ssp"
+                    tools:textColor="@{isSelected ? R.color.black : R.color.white, default = @color/white}" />
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </app.juky.squircleview.views.SquircleConstraintLayout>
+</layout>

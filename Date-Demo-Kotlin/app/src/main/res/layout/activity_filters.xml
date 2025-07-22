@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.belive.dating.activities.filter.FiltersViewModel" />
+
+        <import type="android.view.View" />
+
+        <import type="com.belive.dating.R" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".activities.filter.FiltersActivity">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:navigationIcon="@drawable/ic_back"
+            app:title="@string/filter"
+            app:titleCentered="true"
+            app:titleTextAppearance="@style/TitleStyle" />
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="@dimen/_16sdp"
+            android:layout_marginBottom="@dimen/_16sdp"
+            android:fillViewport="true"
+            android:visibility="@{viewModel.isDataLoaded() ? View.VISIBLE : View.GONE, default = visible}"
+            app:layout_constraintBottom_toTopOf="@+id/btnApply"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:text="Manage filter with your own way."
+                    android:textColor="?colorOnBackground"
+                    android:textSize="@dimen/_12ssp" />
+
+                <app.juky.squircleview.views.SquircleConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    app:squircle_background_color="?boxBackground"
+                    app:squircle_border_color="?boxBorderLight"
+                    app:squircle_border_width="@dimen/_2sdp"
+                    app:squircle_corner_smoothing_percentage="0">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/layout_location"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/_12sdp"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:id="@+id/txt_location_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/active_location"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_12ssp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <LinearLayout
+                            android:id="@+id/layout_active_location"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end"
+                            android:layout_marginStart="@dimen/_16sdp"
+                            android:gravity="end|center_vertical"
+                            android:orientation="horizontal"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/txt_location_title"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <ImageView
+                                android:id="@+id/img_active_location"
+                                android:layout_width="@dimen/_20sdp"
+                                android:layout_height="@dimen/_20sdp"
+                                android:background="@drawable/oval_filled"
+                                android:padding="@dimen/_4sdp"
+                                android:src="@drawable/ic_active_location"
+                                android:tag="@string/skip_skeleton_animation" />
+
+                            <TextView
+                                android:id="@+id/txt_current_location"
+                                style="@style/SubTitleStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_8sdp"
+                                android:ellipsize="end"
+                                android:lines="1"
+                                android:marqueeRepeatLimit="marquee_forever"
+                                android:tag="@string/skip_skeleton_animation"
+                                android:text='@{viewModel.location.third, default = "City, State, Country"}'
+                                android:textColor="@color/primary_color"
+                                android:textSize="@dimen/_12ssp" />
+                        </LinearLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <View
+                        android:id="@+id/divider_location"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_1sdp"
+                        android:background="?boxBorderLight"
+                        app:layout_constraintTop_toBottomOf="@+id/layout_location" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="@dimen/_8sdp"
+                        app:layout_constraintTop_toBottomOf="@+id/divider_location">
+
+                        <TextView
+                            android:id="@+id/txt_location_message"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginHorizontal="@dimen/_4sdp"
+                            android:gravity="center"
+                            android:text="Change Location Preferences to see Belive members in other locations."
+                            android:textColor="@color/white_60"
+                            android:textSize="@dimen/_12ssp" />
+
+                        <Button
+                            android:id="@+id/btn_change_location"
+                            style="@style/FilledButtonStyle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/_56sdp"
+                            android:layout_marginTop="@dimen/_8sdp"
+                            android:layout_marginBottom="@dimen/_4sdp"
+                            android:backgroundTint='@color/white'
+                            android:ellipsize="end"
+                            android:enabled="true"
+                            android:maxLines="1"
+                            android:padding="@dimen/_8sdp"
+                            android:text="@string/change_location"
+                            android:textSize="@dimen/_12ssp" />
+                    </LinearLayout>
+                </app.juky.squircleview.views.SquircleConstraintLayout>
+
+                <app.juky.squircleview.views.SquircleConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    app:squircle_background_color="?boxBackground"
+                    app:squircle_border_color="?boxBorderLight"
+                    app:squircle_border_width="@dimen/_2sdp"
+                    app:squircle_corner_smoothing_percentage="0">
+
+                    <LinearLayout
+                        android:id="@+id/distance_range"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/_12sdp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/_16sdp"
+                            android:layout_weight="1"
+                            android:text="Miximum Distance"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_12ssp" />
+
+                        <TextView
+                            android:id="@+id/txt_distance"
+                            style="@style/SubTitleStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text='@{viewModel.distance.toString(), default = "100"}'
+                            android:textColor="@color/primary_color"
+                            android:textSize="@dimen/_12ssp" />
+
+                        <TextView
+                            style="@style/SubTitleStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=" / "
+                            android:textColor="@color/primary_color"
+                            android:textSize="@dimen/_12ssp" />
+
+                        <TextView
+                            style="@style/SubTitleStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text='@{viewModel.isDistanceInKms() ? "250 kms" : "250 miles", default = "250 miles"}'
+                            android:textColor="?colorOnBackground"
+                            android:textSize="@dimen/_12ssp" />
+                    </LinearLayout>
+
+                    <androidx.appcompat.widget.AppCompatSeekBar
+                        android:id="@+id/seek_distance"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_10sdp"
+                        android:max="250"
+                        android:maxHeight="@dimen/_2sdp"
+                        android:min="10"
+                        android:padding="0dp"
+                        android:progress='@{viewModel.distance, default = 100}'
+                        android:progressDrawable="@drawable/seekbar_progress_style"
+                        android:thumb="@drawable/seekbar_thumb"
+                        android:thumbOffset="0dp"
+                        android:thumbTint="@color/white"
+                        app:layout_constraintTop_toBottomOf="@+id/distance_range" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_12sdp"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:layout_marginBottom="@dimen/_12sdp"
+                        android:text="Only show people in this range"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_12ssp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/seek_distance" />
+                </app.juky.squircleview.views.SquircleConstraintLayout>
+
+                <app.juky.squircleview.views.SquircleConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    app:squircle_background_color="?boxBackground"
+                    app:squircle_border_color="?boxBorderLight"
+                    app:squircle_border_width="@dimen/_1sdp"
+                    app:squircle_corner_smoothing_percentage="0">
+
+                    <FrameLayout
+                        android:id="@+id/age_range"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/_12sdp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Age Range"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_12ssp" />
+
+                        <TextView
+                            android:id="@+id/txt_age"
+                            style="@style/SubTitleStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end"
+                            android:text='@{viewModel.ageMin.intValue() + "-" + viewModel.ageMax.intValue(), default = "18-60"}'
+                            android:textColor="@color/primary_color"
+                            android:textSize="@dimen/_12ssp" />
+                    </FrameLayout>
+
+                    <com.belive.dating.helpers.helper_views.rangeseekbar.DoubleValueSeekBarView
+                        android:id="@+id/double_range_seekbar"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_12sdp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/age_range"
+                        app:r2CurrentMaxValue="40"
+                        app:r2CurrentMinValue="25"
+                        app:r2barHeight="@dimen/_2sdp"
+                        app:r2baseColor="@color/primary_dark_8"
+                        app:r2circleFillColor="@color/white"
+                        app:r2circleRadius="10dp"
+                        app:r2circleTextColor="@color/primary_color"
+                        app:r2circleTextSize="5sp"
+                        app:r2fillColor="@color/primary_color"
+                        app:r2maxValue="60"
+                        app:r2maxValueStep="1"
+                        app:r2minValue="18"
+                        app:r2minValueStep="1" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_12sdp"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:layout_marginBottom="@dimen/_12sdp"
+                        android:text="Only show people in this range"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_12ssp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/double_range_seekbar" />
+                </app.juky.squircleview.views.SquircleConstraintLayout>
+
+                <app.juky.squircleview.views.SquircleConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    app:squircle_background_color="?boxBackground"
+                    app:squircle_border_color="?boxBorderLight"
+                    app:squircle_border_width="@dimen/_1sdp"
+                    app:squircle_corner_smoothing_percentage="0">
+
+                    <TextView
+                        android:id="@+id/show_me"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_12sdp"
+                        android:text="Show me"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_12ssp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_12sdp"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingTop="@dimen/_4sdp"
+                        android:paddingBottom="@dimen/_4sdp"
+                        app:layout_constraintTop_toBottomOf="@+id/show_me">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Whom do you want to see?"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_12ssp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/seek_age" />
+
+                        <Spinner
+                            android:id="@+id/spinner_interest"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            android:gravity="end"
+                            android:paddingVertical="@dimen/_8sdp"
+                            android:popupBackground="@drawable/spinner_popup_bg"
+                            android:spinnerMode="dropdown" />
+                    </LinearLayout>
+                </app.juky.squircleview.views.SquircleConstraintLayout>
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <Button
+            android:id="@+id/btnApply"
+            style="@style/FilledButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_32sdp"
+            android:layout_marginBottom="@dimen/_16sdp"
+            android:layout_weight="1"
+            android:enabled="@{viewModel.isFilterUpdated() ? true : false, default = false}"
+            android:padding="@dimen/_12sdp"
+            android:text="@string/apply"
+            android:textSize="@dimen/_14sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

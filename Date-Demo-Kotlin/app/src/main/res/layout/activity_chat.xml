@@ -1,0 +1,471 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.belive.dating.activities.chat.ChatViewModel" />
+
+        <import type="com.belive.dating.preferences.pref_helpers.UserPrefs" />
+
+        <import type="com.belive.dating.R" />
+
+        <import type="com.belive.dating.activities.chat.MediaSendType" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        tools:context=".activities.chat.ChatActivity">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_header"
+            android:layout_width="0dp"
+            android:layout_height="?actionBarSize"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="@{!viewModel.isDeleteView(), default = gone}">
+
+            <ImageButton
+                android:id="@+id/btn_back"
+                style="@style/ImageButton.NoBackground"
+                android:layout_width="@dimen/_32sdp"
+                android:layout_height="@dimen/_32sdp"
+                android:layout_gravity="start|center_vertical"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:background="@drawable/ripple_oval"
+                android:padding="@dimen/_6sdp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_back"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="?colorOnBackground" />
+
+            <ImageView
+                android:id="@+id/img_profile"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_margin="@dimen/_8sdp"
+                android:src="@drawable/ic_user"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintDimensionRatio="1"
+                app:layout_constraintStart_toEndOf="@+id/btn_back"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:chatProfileImageUrl="@{viewModel.profileImage}" />
+
+            <View
+                android:layout_width="@dimen/_12sdp"
+                android:layout_height="@dimen/_12sdp"
+                android:layout_gravity="end|bottom"
+                android:background="@drawable/status_online"
+                app:layout_constraintBottom_toBottomOf="@+id/img_profile"
+                app:layout_constraintEnd_toEndOf="@+id/img_profile"
+                tools:visibility="@{viewModel.isOnline(), default = gone}" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginEnd="@dimen/_16sdp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/img_profile"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    style="@style/SubTitleStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_4sdp"
+                    android:text='@{viewModel.profileName, default = "Name"}' />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text='@{viewModel.isOnline() ? "Online" : "Offline", default = "Offline"}'
+                    android:textSize="@dimen/_10ssp"
+                    tools:visibility="@{viewModel.isFriendTyping() ? false : true, default = visible}" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/typing"
+                    android:textSize="@dimen/_10ssp"
+                    tools:visibility="@{viewModel.isFriendTyping() ? true : false, default = gone}" />
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_delete"
+            android:layout_width="0dp"
+            android:layout_height="?actionBarSize"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layout_header"
+            tools:visibility="@{viewModel.isDeleteView(), default = visible}">
+
+            <ImageButton
+                android:id="@+id/btn_close"
+                style="@style/ImageButton.NoBackground"
+                android:layout_width="@dimen/_32sdp"
+                android:layout_height="@dimen/_32sdp"
+                android:layout_gravity="start|center_vertical"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:background="@drawable/ripple_oval"
+                android:padding="@dimen/_10sdp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_close"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="?colorOnBackground" />
+
+            <TextView
+                style="@style/SubTitleStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:text='@{viewModel.deleteCount + " Selected", default = "0 Selected"}'
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/btn_close"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/btn_delete"
+                style="@style/ImageButton.NoBackground"
+                android:layout_width="@dimen/_32sdp"
+                android:layout_height="@dimen/_32sdp"
+                android:layout_gravity="start|center_vertical"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:background="@drawable/ripple_oval"
+                android:padding="@dimen/_6sdp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_trash"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="?colorOnBackground" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/header_divider"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_1sdp"
+            android:background="@color/colorDivider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layout_delete"
+            tools:visibility="@{!viewModel.isLoading(), default = visible}" />
+
+        <ProgressBar
+            android:id="@+id/layout_progress"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminateDuration="300"
+            android:indeterminateOnly="true"
+            android:indeterminateTint="?colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/header_divider"
+            tools:visibility="@{viewModel.isLoading(), default = visible}" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_chat"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="@dimen/_8sdp"
+            app:layout_constraintBottom_toTopOf="@+id/layout_footer"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layout_progress" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_8sdp"
+            android:layout_marginBottom="@dimen/_8sdp"
+            app:layout_constraintBottom_toTopOf="@+id/layout_footer"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:visibility="@{viewModel.mediaSendType != null, default = visible}">
+
+            <app.juky.squircleview.views.SquircleConstraintLayout
+                android:id="@+id/layout_media"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_8sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:squircle_background_color="?boxBackground"
+                app:squircle_corner_smoothing_percentage="30">
+
+                <app.juky.squircleview.views.SquircleConstraintLayout
+                    android:id="@+id/layout_video"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="@dimen/_12sdp"
+                    android:paddingVertical="@dimen/_8sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/layout_image"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:squircle_background_color="@color/pure_black"
+                    app:squircle_corner_smoothing_percentage="50">
+
+                    <ImageButton
+                        android:id="@+id/btn_video"
+                        android:layout_width="@dimen/_32sdp"
+                        android:layout_height="@dimen/_32sdp"
+                        android:layout_gravity="start|center_vertical"
+                        android:layout_marginBottom="@dimen/_4sdp"
+                        android:background="@drawable/bg_send"
+                        android:backgroundTint="@color/pink_color"
+                        android:padding="@dimen/_8sdp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_video"
+                        app:layout_constraintBottom_toTopOf="@+id/txt_video"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/white" />
+
+                    <TextView
+                        android:id="@+id/txt_video"
+                        style="@style/SubTitleStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:gravity="center_horizontal"
+                        android:marqueeRepeatLimit="marquee_forever"
+                        android:maxLines="1"
+                        android:text="@string/video"
+                        android:textSize="@dimen/_12ssp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+                </app.juky.squircleview.views.SquircleConstraintLayout>
+
+                <app.juky.squircleview.views.SquircleConstraintLayout
+                    android:id="@+id/layout_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="@dimen/_12sdp"
+                    android:paddingVertical="@dimen/_8sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/layout_video"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:squircle_background_color="@color/pure_black"
+                    app:squircle_corner_smoothing_percentage="50">
+
+                    <ImageButton
+                        android:id="@+id/btn_image"
+                        android:layout_width="@dimen/_32sdp"
+                        android:layout_height="@dimen/_32sdp"
+                        android:layout_gravity="start|center_vertical"
+                        android:layout_marginBottom="@dimen/_4sdp"
+                        android:background="@drawable/bg_send"
+                        android:backgroundTint="@color/lifetime_plan"
+                        android:padding="@dimen/_8sdp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_photo"
+                        app:layout_constraintBottom_toTopOf="@+id/txt_image"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/white" />
+
+                    <TextView
+                        android:id="@+id/txt_image"
+                        style="@style/SubTitleStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:gravity="center_horizontal"
+                        android:marqueeRepeatLimit="marquee_forever"
+                        android:maxLines="1"
+                        android:text="@string/image"
+                        android:textSize="@dimen/_12ssp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+                </app.juky.squircleview.views.SquircleConstraintLayout>
+            </app.juky.squircleview.views.SquircleConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_footer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_8sdp"
+            android:layout_marginBottom="@dimen/_8sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginEnd="@dimen/_6sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btn_send"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/layout_reply"
+                tools:src="@{viewModel.isReply() ? R.drawable.bg_message_rounded : R.drawable.bg_message_circular, default = @drawable/bg_message_rounded}" />
+
+            <LinearLayout
+                android:id="@+id/layout_reply"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginEnd="@dimen/_16sdp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toTopOf="@+id/edtMessage"
+                app:layout_constraintEnd_toStartOf="@+id/btn_send"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="@{viewModel.isReply(), default = visible}">
+
+                <app.juky.squircleview.views.SquircleConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    app:squircle_background_color="@color/primary_dark_6"
+                    app:squircle_corner_smoothing_percentage="50"
+                    tools:squircle_background_color='@{viewModel.replyId == UserPrefs.INSTANCE.userId ? R.color.primary_dark_6 : R.color.colorOnBackground, default = @color/colorOnBackground}'
+                    tools:visibility="@{viewModel.isReply(), default = visible}">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_4sdp"
+                        android:background="?boxBackground"
+                        android:paddingVertical="@dimen/_4sdp"
+                        android:paddingStart="@dimen/_8sdp"
+                        android:paddingEnd="@dimen/_4sdp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent">
+
+                        <TextView
+                            android:id="@+id/txt_to_replay_name"
+                            style="@style/SubTitleStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text='@{viewModel.toReplyName, default = "Name"}'
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_12ssp"
+                            app:layout_constraintEnd_toStartOf="@+id/btn_cancel_reply"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/txtReplay"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/_24sdp"
+                            android:ellipsize="end"
+                            android:marqueeRepeatLimit="marquee_forever"
+                            android:maxLines="2"
+                            android:text='@{viewModel.toReplyMessage, default = "Message"}'
+                            android:textColor="?colorOnBackground"
+                            android:textSize="@dimen/_10ssp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/txt_to_replay_name"
+                            tools:visibility="@{viewModel.toReplyMessage != null, default = visible}" />
+
+                        <ImageView
+                            android:layout_width="@dimen/_36sdp"
+                            android:layout_height="@dimen/_36sdp"
+                            android:layout_marginTop="@dimen/_4sdp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/txt_to_replay_name"
+                            tools:chatImage="@{viewModel.toReplyImage}"
+                            tools:visibility="@{viewModel.toReplyImage != null, default = gone}" />
+
+                        <ImageButton
+                            android:id="@+id/btn_cancel_reply"
+                            style="@style/ImageButton.NoBackground"
+                            android:layout_width="@dimen/_16sdp"
+                            android:layout_height="@dimen/_16sdp"
+                            android:layout_gravity="start|center_vertical"
+                            android:background="@drawable/ripple_oval"
+                            android:padding="@dimen/_4sdp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/ic_close"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:tint="?colorOnBackground" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </app.juky.squircleview.views.SquircleConstraintLayout>
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/btn_attachment"
+                style="@style/ImageButton.NoBackground"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_gravity="start|center_vertical"
+                android:layout_marginVertical="@dimen/_4sdp"
+                android:layout_marginStart="@dimen/_4sdp"
+                android:background="@drawable/ripple_oval"
+                android:padding="@dimen/_6sdp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_plus"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/btn_send"
+                app:tint="?colorOnBackground" />
+
+            <EditText
+                android:id="@+id/edtMessage"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_6sdp"
+                android:background="@null"
+                android:hint="@string/type_message_here"
+                android:maxLines="1"
+                android:paddingVertical="@dimen/_8sdp"
+                android:paddingStart="@dimen/_4sdp"
+                android:paddingEnd="@dimen/_8sdp"
+                android:singleLine="true"
+                android:text="@={viewModel.messageSend}"
+                android:textColor="@color/white"
+                android:textColorHint="@color/colorTextHint"
+                android:textSize="@dimen/_12ssp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btn_send"
+                app:layout_constraintStart_toEndOf="@+id/btn_attachment" />
+
+            <ImageButton
+                android:id="@+id/btn_send"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_gravity="start|center_vertical"
+                android:background="@drawable/bg_send"
+                android:paddingVertical="@dimen/_6sdp"
+                android:paddingStart="@dimen/_6sdp"
+                android:paddingEnd="@dimen/_8sdp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_send"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/edtMessage"
+                app:tint="@color/black" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

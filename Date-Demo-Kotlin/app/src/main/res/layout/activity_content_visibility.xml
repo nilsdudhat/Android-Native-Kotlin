@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.belive.dating.activities.settings.content_visibility.ContentVisibilityViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".activities.settings.content_visibility.ContentVisibilityActivity">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:navigationIcon="@drawable/ic_back"
+            app:title="@string/manage_notifications"
+            app:titleCentered="true"
+            app:titleTextAppearance="@style/SubTitleStyle" />
+
+        <LinearLayout
+            android:id="@+id/layout_about_me"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:background="?boxBackground"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/_16sdp"
+            android:paddingTop="@dimen/_8sdp"
+            android:paddingBottom="@dimen/_4sdp"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/show_about_me"
+                android:textColor="?colorOnBackground"
+                android:textSize="@dimen/_12ssp" />
+
+            <com.google.android.material.materialswitch.MaterialSwitch
+                android:id="@+id/switch_about_me"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:checked="@{viewModel.showAboutMe}"
+                android:scaleX="0.8"
+                android:scaleY="0.8"
+                app:thumbIcon="@drawable/switch_icon"
+                app:thumbIconTint="?colorOnBackground" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_zodiac"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?boxBackground"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/_16sdp"
+            android:paddingVertical="@dimen/_4sdp"
+            app:layout_constraintTop_toBottomOf="@+id/layout_about_me">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/show_zodiac"
+                android:textColor="?colorOnBackground"
+                android:textSize="@dimen/_12ssp" />
+
+            <com.google.android.material.materialswitch.MaterialSwitch
+                android:id="@+id/switch_new_message"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:checked="@{viewModel.showZodiac}"
+                android:scaleX="0.8"
+                android:scaleY="0.8"
+                app:thumbIcon="@drawable/switch_icon"
+                app:thumbIconTint="?colorOnBackground" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_education"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?boxBackground"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/_16sdp"
+            android:paddingVertical="@dimen/_4sdp"
+            app:layout_constraintTop_toBottomOf="@+id/layout_zodiac">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/show_education"
+                android:textColor="?colorOnBackground"
+                android:textSize="@dimen/_12ssp" />
+
+            <com.google.android.material.materialswitch.MaterialSwitch
+                android:id="@+id/switch_education"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:checked="@{viewModel.showEducation}"
+                android:scaleX="0.8"
+                android:scaleY="0.8"
+                app:thumbIcon="@drawable/switch_icon"
+                app:thumbIconTint="?colorOnBackground" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_opposite_gender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?boxBackground"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/_16sdp"
+            android:paddingVertical="@dimen/_4sdp"
+            app:layout_constraintTop_toBottomOf="@+id/layout_education">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/show_date_interest"
+                android:textColor="?colorOnBackground"
+                android:textSize="@dimen/_12ssp" />
+
+            <com.google.android.material.materialswitch.MaterialSwitch
+                android:id="@+id/switch_opposite_gender"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:checked="@{viewModel.showOppositeGender}"
+                android:scaleX="0.8"
+                android:scaleY="0.8"
+                app:thumbIcon="@drawable/switch_icon"
+                app:thumbIconTint="?colorOnBackground" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_sexual_orientation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?boxBackground"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/_16sdp"
+            android:paddingVertical="@dimen/_4sdp"
+            app:layout_constraintTop_toBottomOf="@+id/layout_opposite_gender">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/show_sexual_orientation"
+                android:textColor="?colorOnBackground"
+                android:textSize="@dimen/_12ssp" />
+
+            <com.google.android.material.materialswitch.MaterialSwitch
+                android:id="@+id/switch_sexual_orientation"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:checked="@{viewModel.showSexualOrientation}"
+                android:scaleX="0.8"
+                android:scaleY="0.8"
+                app:thumbIcon="@drawable/switch_icon"
+                app:thumbIconTint="?colorOnBackground" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_interest"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?boxBackground"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/_16sdp"
+            android:paddingTop="@dimen/_4sdp"
+            android:paddingBottom="@dimen/_8sdp"
+            app:layout_constraintTop_toBottomOf="@+id/layout_sexual_orientation">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/show_interests"
+                android:textColor="?colorOnBackground"
+                android:textSize="@dimen/_12ssp" />
+
+            <com.google.android.material.materialswitch.MaterialSwitch
+                android:id="@+id/switch_interest"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:checked="@{viewModel.showInterest}"
+                android:scaleX="0.8"
+                android:scaleY="0.8"
+                app:thumbIcon="@drawable/switch_icon"
+                app:thumbIconTint="?colorOnBackground" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_save"
+            style="@style/FilledButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_32sdp"
+            android:layout_marginBottom="@dimen/_16sdp"
+            android:layout_weight="1"
+            android:clickable="@{viewModel.isButtonEnabled(), default = false}"
+            android:enabled="@{viewModel.isButtonEnabled(), default = false}"
+            android:padding="@dimen/_12sdp"
+            android:text="@string/save"
+            android:textSize="@dimen/_14sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

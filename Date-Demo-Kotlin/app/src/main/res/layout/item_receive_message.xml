@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="isSelected"
+            type="Boolean" />
+
+        <variable
+            name="message"
+            type="String" />
+
+        <variable
+            name="time"
+            type="String" />
+
+        <variable
+            name="isTimeVisible"
+            type="Boolean" />
+
+        <variable
+            name="seenProfileImage"
+            type="String" />
+
+        <variable
+            name="replyImage"
+            type="String" />
+
+        <variable
+            name="isReply"
+            type="Boolean" />
+
+        <variable
+            name="replyMessage"
+            type="String" />
+
+        <variable
+            name="replyName"
+            type="String" />
+
+        <import type="com.belive.dating.R" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_4sdp"
+        android:layout_marginBottom="@dimen/_8sdp"
+        tools:background="@{isSelected ? R.color.primary_color_05 : R.color.colorTransparent, default = @color/colorTransparent}">
+
+        <LinearLayout
+            android:id="@+id/layout_reply"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_4sdp"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toEndOf="@+id/imgProfile"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="@{isReply, default = visible}">
+
+            <View
+                android:layout_width="@dimen/_2sdp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/_2sdp"
+                android:background="?colorOnBackground" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginBottom="@dimen/_2sdp"
+                android:gravity="start"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txtReplyName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_4sdp"
+                    android:layout_marginBottom="@dimen/_2sdp"
+                    android:text='@{replyName, default = "Name"}'
+                    android:textColor="@color/colorTextHint"
+                    android:textSize="@dimen/_10ssp" />
+
+                <TextView
+                    android:id="@+id/txtReplyMessage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:autoLink="web"
+                    android:background="@drawable/bg_reply_on_receive_message"
+                    android:ellipsize="end"
+                    android:gravity="start"
+                    android:linksClickable="true"
+                    android:maxWidth="@dimen/_150sdp"
+                    android:maxLines="2"
+                    android:paddingVertical="@dimen/_6sdp"
+                    android:paddingStart="@dimen/_8sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:text='@{replyMessage, default = "Reply"}'
+                    android:textColor="@color/colorTextHint"
+                    android:textColorLink="@color/black"
+                    android:textSize="@dimen/_10ssp"
+                    tools:visibility="@{replyImage == null, default = visible}" />
+
+                <ImageView
+                    android:id="@+id/imgReplyPic"
+                    android:layout_width="@dimen/_48sdp"
+                    android:layout_height="@dimen/_48sdp"
+                    android:layout_marginStart="@dimen/_4sdp"
+                    android:gravity="start"
+                    android:scaleType="centerCrop"
+                    tools:chatReplyImage="@{replyImage}"
+                    tools:visibility="@{replyImage != null, default = gone}" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_4sdp"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toEndOf="@+id/imgProfile"
+            app:layout_constraintTop_toBottomOf="@+id/layout_reply">
+
+            <TextView
+                android:id="@+id/txtMyMessage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:autoLink="web"
+                android:background="@drawable/bg_receive_msg"
+                android:ellipsize="end"
+                android:gravity="start"
+                android:linksClickable="true"
+                android:maxWidth="@dimen/_200sdp"
+                android:maxLines="3"
+                android:paddingVertical="@dimen/_8sdp"
+                android:paddingStart="@dimen/_8sdp"
+                android:paddingEnd="@dimen/_12sdp"
+                android:text='@{message, default = "Message"}'
+                android:textColor="?colorOnBackground"
+                android:textColorLink="@color/black"
+                android:textSize="@dimen/_12ssp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_4sdp"
+                android:text='@{time, default = "Time"}'
+                android:textSize="@dimen/_10ssp"
+                tools:visibility="@{isTimeVisible, default = gone}" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imgProfile"
+            android:layout_width="@dimen/_28sdp"
+            android:layout_height="@dimen/_28sdp"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:layout_marginBottom="@dimen/_2sdp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_user"
+            android:visibility="@{seenProfileImage != null ? View.VISIBLE : View.INVISIBLE, default = visible}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:chatProfileImageUrl="@{seenProfileImage}" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

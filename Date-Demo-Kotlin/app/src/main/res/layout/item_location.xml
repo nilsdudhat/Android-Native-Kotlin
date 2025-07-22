@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="isSelected"
+            type="Boolean" />
+
+        <variable
+            name="deleteList"
+            type="java.util.List" />
+
+        <variable
+            name="isDeleteView"
+            type="androidx.databinding.ObservableField&lt;Boolean>" />
+
+        <variable
+            name="myLocation"
+            type="com.belive.dating.api.user.models.my_locations.MyLocation" />
+
+        <import type="android.view.View" />
+
+        <import type="com.belive.dating.R" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:tag="@string/skip_skeleton_animation">
+
+        <app.juky.squircleview.views.SquircleConstraintLayout
+            android:id="@+id/layout_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:squircle_background_color="@android:color/transparent"
+            app:squircle_corner_smoothing_percentage="0">
+
+            <TextView
+                android:id="@+id/txtLocationName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:layout_marginBottom="@dimen/_12sdp"
+                android:tag="@string/skip_skeleton_animation"
+                android:text="@{myLocation.name}"
+                android:textSize="@dimen/_12ssp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/guideline"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:textColor="@{isSelected ? R.color.primary_color : R.color.colorTextPrimary, default = @color/colorTextPrimary}" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.75" />
+
+            <ImageView
+                android:id="@+id/imgDone"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:layout_marginEnd="@dimen/_12sdp"
+                android:background="@drawable/oval_filled"
+                android:padding="@dimen/_4sdp"
+                android:src="@drawable/ic_active_location"
+                android:visibility="@{isDeleteView ? View.GONE : isSelected ? View.VISIBLE : View.GONE, default = gone}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <CheckBox
+                android:id="@+id/checkDelete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_4sdp"
+                android:button="@drawable/custom_checkbox"
+                android:checked="@{deleteList.contains(myLocation.id)}"
+                android:visibility="@{isDeleteView ? View.VISIBLE : View.GONE, default = gone}"
+                app:buttonTint="@color/colorError"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </app.juky.squircleview.views.SquircleConstraintLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            android:background="?dividerColor"
+            android:tag="@string/skip_skeleton_animation" />
+    </LinearLayout>
+</layout>

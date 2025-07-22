@@ -1,0 +1,123 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="BaseTheme" parent="Theme.Material3.Light.NoActionBar">
+
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorOnPrimary">@color/colorOnPrimary</item>
+
+        <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
+        <item name="colorOnPrimaryVariant">@color/colorOnPrimaryVariant</item>
+
+        <item name="colorSecondary">@color/colorSecondary</item>
+        <item name="colorOnSecondary">@color/colorOnSecondary</item>
+
+        <item name="colorBackground">@color/colorBackground</item>
+        <item name="colorOnBackground">@color/colorOnBackground</item>
+
+        <item name="colorBackground01">@color/colorBackground01</item>
+        <item name="colorBackground02">@color/colorBackground02</item>
+        <item name="colorBackground05">@color/colorBackground05</item>
+        <item name="colorBackground10">@color/colorBackground10</item>
+        <item name="colorBackground20">@color/colorBackground20</item>
+        <item name="colorBackground30">@color/colorBackground30</item>
+        <item name="colorBackground40">@color/colorBackground40</item>
+        <item name="colorBackground50">@color/colorBackground50</item>
+        <item name="colorBackground60">@color/colorBackground60</item>
+        <item name="colorBackground70">@color/colorBackground70</item>
+        <item name="colorBackground80">@color/colorBackground80</item>
+        <item name="colorBackground90">@color/colorBackground90</item>
+
+        <item name="colorOnBackground01">@color/colorOnBackground01</item>
+        <item name="colorOnBackground02">@color/colorOnBackground02</item>
+        <item name="colorOnBackground05">@color/colorOnBackground05</item>
+        <item name="colorOnBackground10">@color/colorOnBackground10</item>
+        <item name="colorOnBackground20">@color/colorOnBackground20</item>
+        <item name="colorOnBackground30">@color/colorOnBackground30</item>
+        <item name="colorOnBackground40">@color/colorOnBackground40</item>
+        <item name="colorOnBackground50">@color/colorOnBackground50</item>
+        <item name="colorOnBackground60">@color/colorOnBackground60</item>
+        <item name="colorOnBackground70">@color/colorOnBackground70</item>
+        <item name="colorOnBackground80">@color/colorOnBackground80</item>
+        <item name="colorOnBackground90">@color/colorOnBackground90</item>
+
+        <item name="colorSurface">@color/colorSurface</item>
+        <item name="colorOnSurface">@color/colorOnSurface</item>
+
+        <item name="colorSurfaceVariant">@color/colorSurfaceVariant</item>
+        <item name="colorOnSurfaceVariant">@color/colorOnSurfaceVariant</item>
+
+        <item name="colorError">@color/colorError</item>
+        <item name="colorErrorDark">@color/colorErrorDark</item>
+        <item name="colorErrorExtraDark">@color/colorErrorExtraDark</item>
+        <item name="colorOnError">@color/colorOnError</item>
+
+        <item name="colorPrimaryContainer">@color/colorPrimaryContainer</item>
+        <item name="colorOnPrimaryContainer">@color/colorOnPrimaryContainer</item>
+
+        <item name="dividerColor">@color/colorDivider</item>
+
+        <item name="dialogBackground">@color/dialogBackground</item>
+        <item name="dialogMessageColor">@color/dialogMessageColor</item>
+        <item name="dialogBorder">@color/dialogBorder</item>
+
+        <item name="boxBackground">@color/boxBackground</item>
+        <item name="boxBorder">@color/boxBorder</item>
+        <item name="boxBorderLight">@color/boxBorderLight</item>
+
+        <item name="pureBackground">@color/pure_white</item>
+        <item name="pureOnBackground">@color/pure_black</item>
+
+        <item name="android:layoutDirection">ltr</item>
+        <item name="android:textDirection">ltr</item>
+    </style>
+
+    <style name="AppTheme" parent="BaseTheme">
+
+        <item name="android:statusBarColor">@color/colorBackground</item>
+        <item name="android:navigationBarColor">@color/colorBackground</item>
+
+        <item name="android:windowBackground">@color/colorBackground</item>
+
+        <item name="fontFamily">@font/urbanist_regular</item>
+    </style>
+
+    <style name="AppTheme.AdAttribution">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">left</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:text">@string/ad</item>
+        <item name="android:background">#FFCC66</item>
+        <item name="android:width">15dp</item>
+        <item name="android:height">15dp</item>
+    </style>
+
+    <!-- Splash Theme -->
+    <style name="CustomSplashScreenTheme" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/splashBackground</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/logo_belive</item>
+        <item name="postSplashScreenTheme">@style/AppTheme</item>
+    </style>
+
+    <style name="BottomSheet" parent="@style/Widget.Material3.BottomSheet.Modal">
+        <item name="android:background">@drawable/bg_rounded_bottom_sheet</item>
+    </style>
+
+    <style name="BaseBottomSheetDialog" parent="@style/Theme.Material3.Dark.BottomSheetDialog">
+        <item name="android:windowIsFloating">false</item>
+        <item name="bottomSheetStyle">@style/BottomSheet</item>
+        <item name="colorSurfaceContainerLow">@color/colorBackground</item>
+        <item name="android:backgroundDimAmount">0.5</item>
+    </style>
+
+    <style name="BottomSheetDialogTheme" parent="BaseBottomSheetDialog" />
+
+    <!-- Custom style for the ImageButton -->
+    <style name="ImageButton.NoBackground" parent="Widget.AppCompat.ImageButton">
+        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+</resources>

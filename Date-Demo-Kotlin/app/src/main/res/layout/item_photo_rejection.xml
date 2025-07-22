@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="photo"
+            type="com.belive.dating.activities.introduction.upload_photo.PhotoValidationModel" />
+
+        <variable
+            name="isProfileVisible"
+            type="Boolean" />
+
+        <import type="android.view.View" />
+
+        <import type="com.belive.dating.R" />
+    </data>
+
+    <app.juky.squircleview.views.SquircleConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_4sdp"
+        app:squircle_background_color="@android:color/transparent"
+        app:squircle_border_width="@dimen/_2sdp"
+        app:squircle_corner_smoothing_percentage="0"
+        tools:squircle_border_color='@{photo.reject == null ? R.color.colorUnselected : R.color.colorError, default = @color/colorTextHint}'>
+
+        <app.juky.squircleview.views.SquircleConstraintLayout
+            android:id="@+id/main"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="2:3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:squircle_background_color="@android:color/transparent"
+            app:squircle_corner_smoothing_percentage="0"
+            tools:enable="@{photo.path == null ? true : photo.reject != null ? true : false}">
+
+            <ImageView
+                android:id="@+id/imgAdd"
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
+                android:padding="@dimen/_3sdp"
+                android:src="@drawable/add_circle"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/img_profile"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_margin="@dimen/_2sdp"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:isNetworkImage="@{photo.networkImage}"
+                tools:loadSelectedImage="@{photo.path}"
+                tools:overlaySelectedImage="@{photo.reject}" />
+
+            <eightbitlab.com.blurview.BlurView
+                android:id="@+id/blurView"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_margin="@dimen/_2sdp"
+                app:blurOverlayColor="#80000000"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:unsafe="@{photo.reject}" />
+
+            <ImageView
+                android:id="@+id/imgError"
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
+                android:padding="@dimen/_3sdp"
+                android:src="@drawable/ic_error_circle"
+                android:visibility="@{photo.reject == null ? View.GONE : View.VISIBLE, default = visible}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imgRemove"
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
+                android:layout_margin="@dimen/_5sdp"
+                android:background="?android:attr/selectableItemBackground"
+                android:padding="@dimen/_3sdp"
+                android:src="@drawable/close_circle"
+                android:visibility="@{photo.path == null ? View.GONE : View.VISIBLE, default = visible}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/primary_color" />
+
+            <TextView
+                style="@style/SubTitleStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_2sdp"
+                android:background="@color/primary_color_80"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="1"
+                android:padding="@dimen/_2sdp"
+                android:text="@string/profile_photo"
+                android:textColor="?colorOnPrimary"
+                android:textSize="@dimen/_12ssp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:visibility="@{isProfileVisible, default = gone}" />
+        </app.juky.squircleview.views.SquircleConstraintLayout>
+    </app.juky.squircleview.views.SquircleConstraintLayout>
+</layout>

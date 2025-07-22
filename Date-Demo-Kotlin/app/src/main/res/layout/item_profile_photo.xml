@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="photo"
+            type="String" />
+
+        <import type="android.view.View" />
+
+        <import type="com.belive.dating.R" />
+    </data>
+
+    <app.juky.squircleview.views.SquircleConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_4sdp"
+        android:padding="@dimen/_1sdp"
+        app:squircle_background_color="?boxBackground"
+        app:squircle_border_color="?boxBorderLight"
+        app:squircle_border_width="@dimen/_2sdp"
+        app:squircle_corner_smoothing_percentage="20">
+
+        <app.juky.squircleview.views.SquircleConstraintLayout
+            android:id="@+id/image_container"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="2:3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:squircle_background_color="@android:color/transparent"
+            app:squircle_corner_smoothing_percentage="20">
+
+            <ImageView
+                android:id="@+id/imgAdd"
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
+                android:padding="@dimen/_3sdp"
+                android:src="@drawable/add_circle"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/img_profile"
+                tools:isNetworkImage="@{true}"
+                tools:loadSelectedImage="@{photo}"
+                tools:overlaySelectedImage="@{null}"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </app.juky.squircleview.views.SquircleConstraintLayout>
+    </app.juky.squircleview.views.SquircleConstraintLayout>
+</layout>

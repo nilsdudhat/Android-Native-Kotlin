@@ -1,0 +1,898 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.belive.dating.activities.diamond.DiamondViewModel" />
+
+        <import type="com.belive.dating.R" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".activities.diamond.DiamondActivity">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_header"
+            android:layout_width="0dp"
+            android:layout_height="?actionBarSize"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageButton
+                android:id="@+id/btn_back"
+                style="@style/ImageButton.NoBackground"
+                android:layout_width="@dimen/_32sdp"
+                android:layout_height="@dimen/_32sdp"
+                android:layout_gravity="start|center_vertical"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:background="@drawable/ripple_oval"
+                android:padding="@dimen/_6sdp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_back"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="?colorOnBackground" />
+
+            <TextView
+                style="@style/SubTitleStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:text="@string/my_diamonds"
+                android:textColor="?colorOnBackground"
+                android:textSize="@dimen/_14ssp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/btn_back"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/btn_history"
+                style="@style/ImageButton.NoBackground"
+                android:layout_width="@dimen/_32sdp"
+                android:layout_height="@dimen/_32sdp"
+                android:layout_gravity="start|center_vertical"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:background="@drawable/ripple_oval"
+                android:padding="@dimen/_6sdp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_history"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/layout_diamonds"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="?colorOnBackground" />
+
+            <app.juky.squircleview.views.SquircleConstraintLayout
+                android:id="@+id/layout_diamonds"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_16sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:squircle_background_color="?colorPrimary"
+                app:squircle_corner_smoothing_percentage="50"
+                app:squircle_ripple_drawable="@drawable/ripple_rectangle">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_24sdp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:layout_width="@dimen/_16sdp"
+                        android:layout_height="@dimen/_16sdp"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:src="@drawable/ic_diamond" />
+
+                    <TextView
+                        style="@style/TitleStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_6sdp"
+                        android:text='@{String.valueOf(viewModel.questionData.diamonds), default = "0"}'
+                        android:textColor="?colorOnPrimary"
+                        android:textSize="@dimen/_14ssp" />
+
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="@color/black_50"
+                        android:paddingHorizontal="@dimen/_4sdp">
+
+                        <ImageView
+                            android:layout_width="@dimen/_16sdp"
+                            android:layout_height="@dimen/_16sdp"
+                            android:layout_gravity="center_vertical"
+                            android:padding="@dimen/_4sdp"
+                            android:rotation="45"
+                            android:src="@drawable/ic_close"
+                            app:tint="@color/white" />
+                    </FrameLayout>
+                </LinearLayout>
+            </app.juky.squircleview.views.SquircleConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="@dimen/_16sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layout_header"
+            tools:visibility="@{viewModel.questionData != null, default = visible}">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <app.juky.squircleview.views.SquircleConstraintLayout
+                    android:id="@+id/layout_claim_unlimited"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:paddingVertical="@dimen/_10sdp"
+                    app:squircle_background_color="?boxBackground"
+                    app:squircle_border_color="?boxBorderLight"
+                    app:squircle_border_width="@dimen/_1sdp"
+                    app:squircle_corner_smoothing_percentage="15">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/_12sdp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                style="@style/TitleStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/claim_unlimited_diamonds"
+                                android:textColor="@color/colorTextHint"
+                                android:textSize="@dimen/_10ssp" />
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_1sdp"
+                                android:background="@color/colorTextHint" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/container_watch_ads"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/_12sdp"
+                            android:layout_marginTop="@dimen/_12sdp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            tools:visibility="@{viewModel.isWatchAdsAvailable(), default = visible}">
+
+                            <TextView
+                                android:id="@+id/txt_watch_ads_title"
+                                style="@style/SubTitleStyle"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:ellipsize="end"
+                                android:lines="1"
+                                android:marqueeRepeatLimit="marquee_forever"
+                                android:text="@string/watch_ads"
+                                android:textColor="?colorOnBackground"
+                                android:textSize="@dimen/_11ssp" />
+
+                            <TextView
+                                android:id="@+id/txt_watch_ad_diamonds"
+                                style="@style/SubTitleStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_8sdp"
+                                android:text='@{"", default = "10"}'
+                                android:textColor="?colorOnBackground"
+                                android:textSize="@dimen/_12ssp" />
+
+                            <ImageView
+                                android:layout_width="@dimen/_14sdp"
+                                android:layout_height="@dimen/_14sdp"
+                                android:layout_marginStart="@dimen/_4sdp"
+                                android:layout_marginEnd="@dimen/_8sdp"
+                                android:src="@drawable/ic_diamond" />
+
+                            <app.juky.squircleview.views.SquircleConstraintLayout
+                                android:id="@+id/btn_watch_ads"
+                                android:layout_width="@dimen/_75sdp"
+                                android:layout_height="@dimen/_25sdp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:squircle_corner_smoothing_percentage="70"
+                                app:squircle_ripple_drawable="@drawable/ripple_rectangle"
+                                tools:enable="@{viewModel.isWatchAdsEnabled(), default = true}"
+                                tools:squircle_background_color='@{viewModel.isDailyOnlineTimeEnabled() ? R.color.primary_color : R.color.colorButtonDisabled, default = @color/colorButtonDisabled}'>
+
+                                <TextView
+                                    android:id="@+id/txt_btn_watch_ads"
+                                    style="@style/TitleStyle"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:gravity="center"
+                                    android:paddingVertical="@dimen/_4sdp"
+                                    android:text='@{viewModel.isWatchAdsEnabled() ? "Claim" : "Claimed", default = "Claimed"}'
+                                    android:textSize="@dimen/_10ssp"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    tools:textColor="@{viewModel.isWatchAdsEnabled() ? R.color.black : R.color.white, default = @color/white}" />
+                            </app.juky.squircleview.views.SquircleConstraintLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/container_daily_check_in"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/_12sdp"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            tools:visibility="@{viewModel.isDailyCheckInAvailable(), default = visible}">
+
+                            <TextView
+                                android:id="@+id/txt_daily_check_in_title"
+                                style="@style/SubTitleStyle"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:ellipsize="end"
+                                android:lines="1"
+                                android:marqueeRepeatLimit="marquee_forever"
+                                android:text="@string/daily_check_in"
+                                android:textColor="?colorOnBackground"
+                                android:textSize="@dimen/_11ssp" />
+
+                            <TextView
+                                android:id="@+id/txt_check_in_diamonds"
+                                style="@style/SubTitleStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_8sdp"
+                                android:text='@{"", default = "10"}'
+                                android:textColor="?colorOnBackground"
+                                android:textSize="@dimen/_12ssp" />
+
+                            <ImageView
+                                android:layout_width="@dimen/_14sdp"
+                                android:layout_height="@dimen/_14sdp"
+                                android:layout_marginStart="@dimen/_4sdp"
+                                android:layout_marginEnd="@dimen/_8sdp"
+                                android:src="@drawable/ic_diamond" />
+
+                            <app.juky.squircleview.views.SquircleConstraintLayout
+                                android:id="@+id/btn_check_in"
+                                android:layout_width="@dimen/_75sdp"
+                                android:layout_height="@dimen/_25sdp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:squircle_corner_smoothing_percentage="70"
+                                app:squircle_ripple_drawable="@drawable/ripple_rectangle"
+                                tools:enable="@{viewModel.isDailyCheckInEnabled(), default = false}"
+                                tools:squircle_background_color='@{viewModel.isDailyCheckInEnabled() ? R.color.primary_color : R.color.colorButtonDisabled, default = @color/colorButtonDisabled}'>
+
+                                <TextView
+                                    android:id="@+id/txt_btn_check_in"
+                                    style="@style/TitleStyle"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:gravity="center"
+                                    android:paddingVertical="@dimen/_4sdp"
+                                    android:text='@{viewModel.isDailyCheckInEnabled() ? "Claim" : "Claimed", default = "Claimed"}'
+                                    android:textSize="@dimen/_10ssp"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    tools:textColor="@{viewModel.isDailyCheckInEnabled() ? R.color.black : R.color.white, default = @color/white}" />
+                            </app.juky.squircleview.views.SquircleConstraintLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/container_daily_online_time"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:orientation="vertical"
+                            tools:visibility="@{viewModel.isDailyOnlineTimeAvailable(), default = visible}">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="@dimen/_12sdp"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:id="@+id/txt_daily_online_time_title"
+                                    style="@style/SubTitleStyle"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:ellipsize="end"
+                                    android:lines="1"
+                                    android:marqueeRepeatLimit="marquee_forever"
+                                    android:text="@string/daily_online_time"
+                                    android:textColor="?colorOnBackground"
+                                    android:textSize="@dimen/_11ssp" />
+
+                                <TextView
+                                    android:id="@+id/txt_daily_online_time_diamonds"
+                                    style="@style/SubTitleStyle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/_8sdp"
+                                    android:text='@{"", default = "10"}'
+                                    android:textColor="?colorOnBackground"
+                                    android:textSize="@dimen/_12ssp" />
+
+                                <ImageView
+                                    android:layout_width="@dimen/_14sdp"
+                                    android:layout_height="@dimen/_14sdp"
+                                    android:layout_marginStart="@dimen/_4sdp"
+                                    android:layout_marginEnd="@dimen/_8sdp"
+                                    android:src="@drawable/ic_diamond" />
+
+                                <app.juky.squircleview.views.SquircleConstraintLayout
+                                    android:id="@+id/btn_online_time"
+                                    android:layout_width="@dimen/_75sdp"
+                                    android:layout_height="@dimen/_25sdp"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:squircle_corner_smoothing_percentage="70"
+                                    app:squircle_ripple_drawable="@drawable/ripple_rectangle"
+                                    tools:enable="@{viewModel.isDailyOnlineTimeEnabled(), default = false}"
+                                    tools:squircle_background_color='@{viewModel.isDailyOnlineTimeEnabled() ? R.color.primary_color : R.color.colorButtonDisabled, default = @color/colorButtonDisabled}'>
+
+                                    <TextView
+                                        android:id="@+id/txt_btn_online_time"
+                                        style="@style/TitleStyle"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:gravity="center"
+                                        android:paddingVertical="@dimen/_4sdp"
+                                        android:text='@{viewModel.isDailyOnlineTimeEnabled() ? "Claim" : viewModel.dailyOnlineTimeSpent > 7 ? "Claimed" : "Wait", default = "Claimed"}'
+                                        android:textSize="@dimen/_10ssp"
+                                        app:layout_constraintBottom_toBottomOf="parent"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent"
+                                        tools:textColor="@{viewModel.isDailyOnlineTimeEnabled() ? R.color.black : R.color.white, default = @color/white}" />
+                                </app.juky.squircleview.views.SquircleConstraintLayout>
+                            </LinearLayout>
+
+                            <androidx.appcompat.widget.AppCompatSeekBar
+                                android:id="@+id/seek_time"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="@dimen/_80sdp"
+                                android:maxHeight="3dp"
+                                android:progress="50"
+                                android:progressDrawable="@drawable/seekbar_progress_style"
+                                android:splitTrack="false"
+                                android:thumb="@null"
+                                android:thumbOffset="0dp" />
+
+                            <TextView
+                                android:id="@+id/txt_total_time"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_12sdp"
+                                android:gravity="center"
+                                android:text="0/30 min"
+                                android:textColor="@color/colorTextHint"
+                                android:textSize="@dimen/_10ssp" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/_8sdp"
+                            android:layout_marginTop="@dimen/_8sdp"
+                            android:gravity="end"
+                            android:text="@string/desclaimer_daily_diamonds"
+                            android:textColor="@color/colorTextHint"
+                            android:textSize="@dimen/_8ssp" />
+                    </LinearLayout>
+                </app.juky.squircleview.views.SquircleConstraintLayout>
+
+                <FrameLayout
+                    android:id="@+id/ad_small_native"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:background="?boxBackground" />
+
+                <app.juky.squircleview.views.SquircleConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:paddingVertical="@dimen/_10sdp"
+                    app:squircle_background_color="?boxBackground"
+                    app:squircle_corner_smoothing_percentage="15">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/_12sdp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                style="@style/TitleStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/earn_diamonds_for_your_feedback"
+                                android:textColor="@color/colorTextHint"
+                                android:textSize="@dimen/_10ssp" />
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_1sdp"
+                                android:background="@color/colorTextHint" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/container_rate_app"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/_12sdp"
+                            android:layout_marginTop="@dimen/_12sdp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            tools:visibility="@{viewModel.isRateAppAvailable(), default = visible}">
+
+                            <TextView
+                                android:id="@+id/txt_rate_app_title"
+                                style="@style/SubTitleStyle"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:ellipsize="end"
+                                android:lines="1"
+                                android:marqueeRepeatLimit="marquee_forever"
+                                android:text="@string/rate_app"
+                                android:textColor="?colorOnBackground"
+                                android:textSize="@dimen/_11ssp" />
+
+                            <TextView
+                                android:id="@+id/txt_rate_app_diamonds"
+                                style="@style/SubTitleStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_8sdp"
+                                android:text='@{"", default = "10"}'
+                                android:textColor="?colorOnBackground"
+                                android:textSize="@dimen/_12ssp" />
+
+                            <ImageView
+                                android:layout_width="@dimen/_14sdp"
+                                android:layout_height="@dimen/_14sdp"
+                                android:layout_marginStart="@dimen/_4sdp"
+                                android:layout_marginEnd="@dimen/_8sdp"
+                                android:src="@drawable/ic_diamond" />
+
+                            <app.juky.squircleview.views.SquircleConstraintLayout
+                                android:id="@+id/btn_rate_app"
+                                android:layout_width="@dimen/_75sdp"
+                                android:layout_height="@dimen/_25sdp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:squircle_corner_smoothing_percentage="70"
+                                app:squircle_ripple_drawable="@drawable/ripple_rectangle"
+                                tools:enable="@{viewModel.isRateAppEnabled(), default = false}"
+                                tools:squircle_background_color="@{viewModel.isRateAppEnabled() ? R.color.primary_color : R.color.colorButtonDisabled, default = @color/colorButtonDisabled}">
+
+                                <TextView
+                                    android:id="@+id/txt_btn_rate_app"
+                                    style="@style/TitleStyle"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:gravity="center"
+                                    android:paddingVertical="@dimen/_4sdp"
+                                    android:text='@{viewModel.isRateAppEnabled() ? "Claim" : "Claimed", default = "Claimed"}'
+                                    android:textSize="@dimen/_10ssp"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    tools:textColor="@{viewModel.isRateAppEnabled() ? R.color.black : R.color.white, default = @color/white}" />
+                            </app.juky.squircleview.views.SquircleConstraintLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/container_invite_friend"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/_12sdp"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            tools:visibility="@{viewModel.isInviteFriendAvailable(), default = visible}">
+
+                            <TextView
+                                android:id="@+id/txt_invite_friend_title"
+                                style="@style/SubTitleStyle"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:ellipsize="end"
+                                android:lines="1"
+                                android:marqueeRepeatLimit="marquee_forever"
+                                android:text="@string/invite_friend"
+                                android:textColor="?colorOnBackground"
+                                android:textSize="@dimen/_11ssp" />
+
+                            <TextView
+                                android:id="@+id/txt_invite_friend_diamonds"
+                                style="@style/SubTitleStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_8sdp"
+                                android:text="10"
+                                android:textColor="?colorOnBackground"
+                                android:textSize="@dimen/_12ssp" />
+
+                            <ImageView
+                                android:layout_width="@dimen/_14sdp"
+                                android:layout_height="@dimen/_14sdp"
+                                android:layout_marginStart="@dimen/_4sdp"
+                                android:layout_marginEnd="@dimen/_8sdp"
+                                android:src="@drawable/ic_diamond" />
+
+                            <app.juky.squircleview.views.SquircleConstraintLayout
+                                android:id="@+id/btn_invite_friend"
+                                android:layout_width="@dimen/_75sdp"
+                                android:layout_height="@dimen/_25sdp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:squircle_corner_smoothing_percentage="70"
+                                app:squircle_ripple_drawable="@drawable/ripple_rectangle"
+                                tools:enable="@{viewModel.isInviteFriendEnabled(), default = false}"
+                                tools:squircle_background_color="@{viewModel.isInviteFriendEnabled() ? R.color.primary_color : R.color.colorButtonDisabled, default = @color/colorButtonDisabled}">
+
+                                <TextView
+                                    android:id="@+id/txt_btn_invite_friend"
+                                    style="@style/TitleStyle"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:gravity="center"
+                                    android:paddingVertical="@dimen/_4sdp"
+                                    android:text='@{viewModel.isInviteFriendEnabled() ? "Claim" : "Claimed", default = "Claimed"}'
+                                    android:textSize="@dimen/_10ssp"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    tools:textColor="@{viewModel.isInviteFriendEnabled() ? R.color.black : R.color.white, default = @color/white}" />
+                            </app.juky.squircleview.views.SquircleConstraintLayout>
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/_8sdp"
+                            android:layout_marginTop="@dimen/_16sdp"
+                            android:gravity="end"
+                            android:text="@string/disclaimer_lifetime_diamonds"
+                            android:textColor="@color/colorTextHint"
+                            android:textSize="@dimen/_8ssp" />
+                    </LinearLayout>
+                </app.juky.squircleview.views.SquircleConstraintLayout>
+
+                <app.juky.squircleview.views.SquircleConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:paddingVertical="@dimen/_10sdp"
+                    app:squircle_background_color="?boxBackground"
+                    app:squircle_corner_smoothing_percentage="15">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/_12sdp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                style="@style/TitleStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/complete_profile_to_get_diamonds"
+                                android:textColor="@color/colorTextHint"
+                                android:textSize="@dimen/_10ssp" />
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_1sdp"
+                                android:background="@color/colorTextHint" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/container_complete_profile"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/_12sdp"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            tools:visibility="@{viewModel.isCompleteProfileAvailable(), default = visible}">
+
+                            <TextView
+                                android:id="@+id/txt_complete_profile_title"
+                                style="@style/SubTitleStyle"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:ellipsize="end"
+                                android:lines="1"
+                                android:marqueeRepeatLimit="marquee_forever"
+                                android:text="@string/complete_profile"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/_11ssp" />
+
+                            <TextView
+                                android:id="@+id/txt_complete_profile_diamonds"
+                                style="@style/SubTitleStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_8sdp"
+                                android:text="10"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/_12ssp" />
+
+                            <ImageView
+                                android:layout_width="@dimen/_14sdp"
+                                android:layout_height="@dimen/_14sdp"
+                                android:layout_marginStart="@dimen/_4sdp"
+                                android:layout_marginEnd="@dimen/_8sdp"
+                                android:src="@drawable/ic_diamond" />
+
+                            <app.juky.squircleview.views.SquircleConstraintLayout
+                                android:id="@+id/btn_complete_profile"
+                                android:layout_width="@dimen/_75sdp"
+                                android:layout_height="@dimen/_25sdp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:squircle_corner_smoothing_percentage="70"
+                                app:squircle_ripple_drawable="@drawable/ripple_rectangle"
+                                tools:enable="@{viewModel.isCompleteProfileEnabled(), default = false}"
+                                tools:squircle_background_color="@{viewModel.isCompleteProfileEnabled() ? R.color.primary_color : R.color.colorButtonDisabled, default = @color/colorButtonDisabled}">
+
+                                <TextView
+                                    android:id="@+id/txt_btn_complete_profile"
+                                    style="@style/TitleStyle"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:gravity="center"
+                                    android:paddingVertical="@dimen/_4sdp"
+                                    android:text='@{viewModel.isCompleteProfileEnabled() ? "Claim" : "Claimed", default = "Claimed"}'
+                                    android:textColor="@color/white"
+                                    android:textSize="@dimen/_10ssp"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    tools:textColor="@{viewModel.isCompleteProfileEnabled() ? R.color.black : R.color.white, default = @color/white}" />
+                            </app.juky.squircleview.views.SquircleConstraintLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/container_about_me"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/_12sdp"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            tools:visibility="@{viewModel.isWriteAboutMeAvailable(), default = visible}">
+
+                            <TextView
+                                android:id="@+id/txt_about_me_title"
+                                style="@style/SubTitleStyle"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:ellipsize="end"
+                                android:lines="1"
+                                android:marqueeRepeatLimit="marquee_forever"
+                                android:text="Write About me"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/_11ssp" />
+
+                            <TextView
+                                android:id="@+id/txt_about_me_diamonds"
+                                style="@style/SubTitleStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_8sdp"
+                                android:text='@{"", default = "10"}'
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/_12ssp" />
+
+                            <ImageView
+                                android:layout_width="@dimen/_14sdp"
+                                android:layout_height="@dimen/_14sdp"
+                                android:layout_marginStart="@dimen/_4sdp"
+                                android:layout_marginEnd="@dimen/_8sdp"
+                                android:src="@drawable/ic_diamond" />
+
+                            <app.juky.squircleview.views.SquircleConstraintLayout
+                                android:id="@+id/btn_about_me"
+                                android:layout_width="@dimen/_75sdp"
+                                android:layout_height="@dimen/_25sdp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:squircle_corner_smoothing_percentage="70"
+                                app:squircle_ripple_drawable="@drawable/ripple_rectangle"
+                                tools:enable="@{viewModel.isWriteAboutMeEnabled(), default = false}"
+                                tools:squircle_background_color="@{viewModel.isWriteAboutMeEnabled() ? R.color.primary_color : R.color.colorButtonDisabled, default = @color/colorButtonDisabled}">
+
+                                <TextView
+                                    android:id="@+id/txt_btn_about_me"
+                                    style="@style/TitleStyle"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:gravity="center"
+                                    android:paddingVertical="@dimen/_4sdp"
+                                    android:text='@{viewModel.isWriteAboutMeEnabled() ? "Claim" : "Claimed", default = "Claimed"}'
+                                    android:textSize="@dimen/_10ssp"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    tools:textColor="@{viewModel.isWriteAboutMeEnabled() ? R.color.black : R.color.white, default = @color/white}" />
+                            </app.juky.squircleview.views.SquircleConstraintLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/container_upload_photos"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:orientation="vertical"
+                            tools:visibility="@{viewModel.isUploadPhotoAvailable(), default = visible}">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="@dimen/_12sdp"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:id="@+id/txt_upload_photos_title"
+                                    style="@style/SubTitleStyle"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:ellipsize="end"
+                                    android:lines="1"
+                                    android:marqueeRepeatLimit="marquee_forever"
+                                    android:text="Upload photos"
+                                    android:textColor="@color/white"
+                                    android:textSize="@dimen/_11ssp" />
+
+                                <TextView
+                                    android:id="@+id/txt_upload_photos_diamonds"
+                                    style="@style/SubTitleStyle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/_8sdp"
+                                    android:text='@{"", default = "10"}'
+                                    android:textColor="@color/white"
+                                    android:textSize="@dimen/_12ssp" />
+
+                                <ImageView
+                                    android:layout_width="@dimen/_14sdp"
+                                    android:layout_height="@dimen/_14sdp"
+                                    android:layout_marginStart="@dimen/_4sdp"
+                                    android:layout_marginEnd="@dimen/_8sdp"
+                                    android:src="@drawable/ic_diamond" />
+
+                                <app.juky.squircleview.views.SquircleConstraintLayout
+                                    android:id="@+id/btn_upload_photos"
+                                    android:layout_width="@dimen/_75sdp"
+                                    android:layout_height="@dimen/_25sdp"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:squircle_corner_smoothing_percentage="70"
+                                    app:squircle_ripple_drawable="@drawable/ripple_rectangle"
+                                    tools:enable="@{viewModel.isUploadPhotoEnabled(), default = false}"
+                                    tools:squircle_background_color="@{viewModel.isUploadPhotoEnabled() ? R.color.primary_color : R.color.colorButtonDisabled, default = @color/colorButtonDisabled}">
+
+                                    <TextView
+                                        android:id="@+id/txt_btn_upload_photos"
+                                        style="@style/TitleStyle"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:gravity="center"
+                                        android:paddingVertical="@dimen/_4sdp"
+                                        android:text='@{viewModel.isUploadPhotoEnabled() ? "Claim" : "Claimed", default = "Claimed"}'
+                                        android:textSize="@dimen/_10ssp"
+                                        app:layout_constraintBottom_toBottomOf="parent"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent"
+                                        tools:textColor="@{viewModel.isUploadPhotoEnabled() ? R.color.black : R.color.white, default = @color/white}" />
+                                </app.juky.squircleview.views.SquircleConstraintLayout>
+                            </LinearLayout>
+
+                            <androidx.appcompat.widget.AppCompatSeekBar
+                                android:id="@+id/seek_photos"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="@dimen/_80sdp"
+                                android:clickable="false"
+                                android:maxHeight="3dp"
+                                android:progress="50"
+                                android:progressDrawable="@drawable/seekbar_progress_style"
+                                android:splitTrack="false"
+                                android:thumb="@null"
+                                android:thumbOffset="0dp" />
+
+                            <TextView
+                                android:id="@+id/txt_total_photos"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_12sdp"
+                                android:gravity="center"
+                                android:text="3/6 photos"
+                                android:textColor="@color/colorTextHint"
+                                android:textSize="@dimen/_10ssp" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/_8sdp"
+                            android:layout_marginTop="@dimen/_12sdp"
+                            android:gravity="end"
+                            android:text="@string/disclaimer_lifetime_diamonds"
+                            android:textColor="@color/colorTextHint"
+                            android:textSize="@dimen/_8ssp" />
+                    </LinearLayout>
+                </app.juky.squircleview.views.SquircleConstraintLayout>
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

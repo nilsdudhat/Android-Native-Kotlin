@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SkeletonRecyclerView">
+
+        <!-- Orientation -->
+        <attr name="orientation" format="enum">
+            <enum name="vertical" value="0" />
+            <enum name="horizontal" value="1" />
+        </attr>
+
+        <!-- Layout Item -->
+        <attr name="listItem" format="reference" />
+
+        <!-- Grid Layout Configuration -->
+        <attr name="spanCount" format="integer" />
+
+        <!-- Item Count for Skeleton Loading -->
+        <attr name="itemCount" format="integer" />
+
+        <!-- layout manager of recyclerview -->
+        <attr name="layoutManagerType" format="string" />
+
+        <!-- apply default skeleton to whole item of adapter -->
+        <attr name="isManualSkeleton" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="SwipeRevealLayout">
+        <attr name="dragEdge">
+            <flag name="left" value="1" />
+            <flag name="right" value="2" />
+            <flag name="top" value="4" />
+            <flag name="bottom" value="8" />
+        </attr>
+
+        <attr name="mode">
+            <enum name="normal" value="0" />
+            <enum name="same_level"   value="1" />
+        </attr>
+
+        <attr name="flingVelocity" format="integer" />
+
+        <attr name="minDistRequestDisallowParent" format="dimension" />
+    </declare-styleable>
+
+    <!-- Double Range Seekbar -->
+    <declare-styleable name="DoubleValueSeekBarView">
+        <attr name="r2minValueStep" format="integer|dimension" />
+        <attr name="r2maxValueStep" format="integer|dimension" />
+        <attr name="r2maxValue" format="integer|dimension" />
+        <attr name="r2minValue" format="integer|dimension" />
+        <attr name="r2CurrentMaxValue" format="integer|dimension" />
+        <attr name="r2CurrentMinValue" format="integer|dimension" />
+        <attr name="r2barHeight" format="dimension" />
+        <attr name="r2circleRadius" format="dimension" />
+        <attr name="r2circleTextSize" format="dimension" />
+        <attr name="r2circleTextColor" format="color" />
+        <attr name="r2baseColor" format="color" />
+        <attr name="r2fillColor" format="color" />
+        <attr name="r2circleFillColor" format="color" />
+    </declare-styleable>
+
+    <!-- //  timer circle-->
+    <declare-styleable name="CircularTimerView">
+        <attr name="progressColor" format="color" />
+        <attr name="backgroundColor" format="color" />
+        <attr name="progressBackgroundColor" format="color" />
+        <attr name="strokeWidthDimension" format="dimension" />
+        <attr name="backgroundWidth" format="float" />
+        <attr name="roundedCorners" format="boolean" />
+        <attr name="maxValue" format="float" />
+        <attr name="progressTextColor" format="color" />
+        <attr name="textSize" format="dimension" />
+        <attr name="progressText" format="string" />
+        <attr name="suffix" format="string" />
+        <attr name="prefix" format="string" />
+        <attr name="isClockwise" format="boolean" />
+        <attr name="startingPoint" format="enum">
+            <enum name="top" value="270" />
+            <enum name="bottom" value="90" />
+            <enum name="right" value="0" />
+            <enum name="left" value="180" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="SkeletonView">
+        <attr name="skipOwnSkeleton" format="boolean" />
+        <attr name="isSkeleton" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="SpannedGridLayoutManager">
+        <attr name="android:orientation" />
+        <attr name="spanCount" />
+        <attr name="aspectRatio" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="VerticalOvalLayout">
+        <attr name="widthToHeightRatio" format="float" />
+        <attr name="borderWidth" format="dimension" />
+        <attr name="borderColor" format="color" />
+        <attr name="spaceBetweenBorderAndContent" format="dimension" />
+        <attr name="guideColor" format="color" />
+        <attr name="guideWidth" format="dimension" />
+        <attr name="showGuides" format="boolean" />
+    </declare-styleable>
+
+    <attr name="black_10" format="color" />
+    <attr name="black_20" format="color" />
+    <attr name="black_30" format="color" />
+    <attr name="black_40" format="color" />
+    <attr name="black_50" format="color" />
+    <attr name="black_60" format="color" />
+    <attr name="black_70" format="color" />
+    <attr name="black_80" format="color" />
+    <attr name="black_90" format="color" />
+    <attr name="black" format="color" />
+    <attr name="pure_black" format="color" />
+
+    <attr name="white_10" format="color" />
+    <attr name="white_20" format="color" />
+    <attr name="white_30" format="color" />
+    <attr name="white_40" format="color" />
+    <attr name="white_50" format="color" />
+    <attr name="white_60" format="color" />
+    <attr name="white_70" format="color" />
+    <attr name="white_80" format="color" />
+    <attr name="white_90" format="color" />
+    <attr name="white" format="color" />
+    <attr name="pure_white" format="color" />
+
+    <attr name="primary_color_05" format="color" />
+    <attr name="primary_color_10" format="color" />
+    <attr name="primary_color_20" format="color" />
+    <attr name="primary_color_30" format="color" />
+    <attr name="primary_color_40" format="color" />
+    <attr name="primary_color_50" format="color" />
+    <attr name="primary_color_60" format="color" />
+    <attr name="primary_color_70" format="color" />
+    <attr name="primary_color_80" format="color" />
+    <attr name="primary_color_90" format="color" />
+    <attr name="primary_color_95" format="color" />
+    <attr name="primary_color" format="color" />
+
+    <!-- Primary Dark Colors -->
+    <attr name="primary_dark_1" format="color" />
+    <attr name="primary_dark_2" format="color" />
+    <attr name="primary_dark_3" format="color" />
+    <attr name="primary_dark_4" format="color" />
+    <attr name="primary_dark_5" format="color" />
+    <attr name="primary_dark_6" format="color" />
+    <attr name="primary_dark_7" format="color" />
+    <attr name="primary_dark_8" format="color" />
+    <attr name="primary_dark_9" format="color" />
+
+    <!-- Primary Light Colors -->
+    <attr name="primary_light_1" format="color" />
+    <attr name="primary_light_2" format="color" />
+    <attr name="primary_light_3" format="color" />
+    <attr name="primary_light_4" format="color" />
+    <attr name="primary_light_5" format="color" />
+    <attr name="primary_light_6" format="color" />
+    <attr name="primary_light_7" format="color" />
+    <attr name="primary_light_8" format="color" />
+    <attr name="primary_light_9" format="color" />
+
+    <attr name="colorBackground" format="color" />
+
+    <attr name="colorOnPrimaryVariant" format="color" />
+
+    <attr name="colorErrorDark" format="color" />
+    <attr name="colorErrorExtraDark" format="color" />
+
+    <!-- dialog colors -->
+    <attr name="dialogBackground" format="color" />
+    <attr name="dialogBorder" format="color" />
+    <attr name="dialogMessageColor" format="color" />
+
+    <!-- box colors -->
+    <attr name="boxBackground" format="color" />
+    <attr name="boxBorder" format="color" />
+    <attr name="boxBorderLight" format="color" />
+
+    <attr name="pureBackground" format="color" />
+    <attr name="pureOnBackground" format="color" />
+
+    <!-- colorOnBackground shades -->
+    <attr name="colorOnBackground01" format="color" />
+    <attr name="colorOnBackground02" format="color" />
+    <attr name="colorOnBackground05" format="color" />
+    <attr name="colorOnBackground10" format="color" />
+    <attr name="colorOnBackground20" format="color" />
+    <attr name="colorOnBackground30" format="color" />
+    <attr name="colorOnBackground40" format="color" />
+    <attr name="colorOnBackground50" format="color" />
+    <attr name="colorOnBackground60" format="color" />
+    <attr name="colorOnBackground70" format="color" />
+    <attr name="colorOnBackground80" format="color" />
+    <attr name="colorOnBackground90" format="color" />
+
+    <!-- colorBackground shades -->
+    <attr name="colorBackground01" format="color" />
+    <attr name="colorBackground02" format="color" />
+    <attr name="colorBackground05" format="color" />
+    <attr name="colorBackground10" format="color" />
+    <attr name="colorBackground20" format="color" />
+    <attr name="colorBackground30" format="color" />
+    <attr name="colorBackground40" format="color" />
+    <attr name="colorBackground50" format="color" />
+    <attr name="colorBackground60" format="color" />
+    <attr name="colorBackground70" format="color" />
+    <attr name="colorBackground80" format="color" />
+    <attr name="colorBackground90" format="color" />
+
+</resources>

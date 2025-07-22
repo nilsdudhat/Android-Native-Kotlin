@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.belive.dating.activities.introduction.name.NameViewModel" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".activities.introduction.name.NameActivity">
+
+        <include
+            android:id="@+id/header"
+            layout="@layout/sign_up_header"
+            android:layout_width="0dp"
+            android:layout_height="?actionBarSize"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/layout_progress"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_4sdp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/header">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/primary_color" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="8"
+                android:background="@color/primary_color_10" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="@dimen/_16sdp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/footer_buttons"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/header">
+
+            <TextView
+                style="@style/TitleStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/what_s_your_name"
+                android:textColor="@color/colorTextPrimary"
+                android:textSize="@dimen/_20ssp" />
+
+            <TextView
+                android:id="@+id/txt_counter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:textSize="@dimen/_12ssp"
+                tools:nameCounter="@{viewModel.nameLength}" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/edt_full_name"
+                style="@style/SubTitleStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:background="@android:color/transparent"
+                android:cursorVisible="true"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:hint="@string/enter_full_name"
+                android:imeOptions="actionDone"
+                android:inputType="textPersonName"
+                android:maxLength="20"
+                android:text="@={viewModel.name}"
+                android:textColor="@color/primary_color"
+                android:textColorHint="@color/colorTextHint"
+                android:textSize="@dimen/_20ssp" />
+
+            <TextView
+                android:id="@+id/txt_error"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:text="@{viewModel.validationError}"
+                android:textColor="@color/colorError"
+                android:textSize="@dimen/_12ssp"
+                android:visibility='@{viewModel.validationError == null ? View.GONE : viewModel.validationError.isEmpty() ? View.GONE : View.VISIBLE, default = gone}' />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <include
+            android:id="@+id/footer_buttons"
+            layout="@layout/sign_up_footer_buttons"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_24sdp"
+            app:isNextEnabled="@{viewModel.isNextEnabled}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

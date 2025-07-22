@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="reason"
+            type="String" />
+
+        <variable
+            name="isSelected"
+            type="Boolean" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <app.juky.squircleview.views.SquircleConstraintLayout
+        android:id="@+id/item_reason"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_8sdp"
+        android:padding="@dimen/_10sdp"
+        app:squircle_background_color="@android:color/transparent"
+        app:squircle_border_color="@android:color/transparent"
+        app:squircle_border_width="@dimen/_2sdp"
+        app:squircle_corner_smoothing_percentage="40">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{reason}"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/img_selected"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/img_selected"
+            android:layout_width="@dimen/_14sdp"
+            android:layout_height="@dimen/_14sdp"
+            android:src="@drawable/ic_tick_circle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/primary_color"
+            tools:visibility="@{isSelected ? View.VISIBLE : View.GONE, default = gone}" />
+    </app.juky.squircleview.views.SquircleConstraintLayout>
+</layout>

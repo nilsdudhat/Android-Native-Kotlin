@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.belive.dating.activities.paywalls.topups.rewind.RewindPaywallViewModel" />
+
+        <variable
+            name="redeemSpan"
+            type="android.text.SpannableString" />
+
+        <variable
+            name="premiumTitle"
+            type="android.text.SpannableString" />
+
+        <variable
+            name="feature"
+            type="String" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".activities.paywalls.topups.like.LikePaywallActivity">
+
+        <ImageView
+            android:id="@+id/img_stars"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/bg_paywall"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:background="@drawable/transparent_rewind"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <FrameLayout
+            android:id="@+id/toolbar"
+            android:layout_width="0dp"
+            android:layout_height="?actionBarSize"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                style="@style/SubTitleStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/get_rewinds"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_16ssp" />
+
+            <app.juky.squircleview.views.SquircleConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|start"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:paddingHorizontal="@dimen/_8sdp"
+                android:paddingVertical="@dimen/_4sdp"
+                app:squircle_background_color="@color/white_20"
+                app:squircle_corner_smoothing_percentage="50">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:layout_width="@dimen/_16sdp"
+                        android:layout_height="@dimen/_16sdp"
+                        android:layout_marginEnd="@dimen/_4sdp"
+                        android:padding="@dimen/_2sdp"
+                        android:src="@drawable/ic_rewind" />
+
+                    <TextView
+                        style="@style/SubTitleStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_2sdp"
+                        android:layout_weight="1"
+                        android:includeFontPadding="false"
+                        android:text='@{viewModel.remainingRewindsCount, default = "0"}'
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_12ssp"
+                        tools:visibility="@{!viewModel.isUnlimitedRewinds(), default = visible}" />
+
+                    <ImageView
+                        android:id="@+id/img_infinity"
+                        android:layout_width="@dimen/_13sdp"
+                        android:layout_height="@dimen/_13sdp"
+                        android:src="@drawable/ic_infinity"
+                        tools:visibility="@{viewModel.isUnlimitedRewinds(), default = gone}" />
+                </LinearLayout>
+            </app.juky.squircleview.views.SquircleConstraintLayout>
+
+            <ImageButton
+                android:id="@+id/img_close"
+                style="@style/ImageButton.NoBackground"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_gravity="end|center_vertical"
+                android:layout_marginEnd="@dimen/_16sdp"
+                android:background="@drawable/oval_filled"
+                android:backgroundTint="@color/white_20"
+                android:padding="@dimen/_10sdp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_close"
+                app:tint="@color/white" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_showcase"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="@dimen/_16sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+            <ImageView
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:src="@drawable/rewind_unpress" />
+
+            <TextView
+                style="@style/SubTitleStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:text="@string/rewind_paywall_title"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_16ssp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/rewind_paywall_message"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_12ssp" />
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_rewind_plans"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_16sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ll_showcase"
+            tools:visibility="@{!viewModel.isLoading(), default = visible}" />
+
+        <LinearLayout
+            android:id="@+id/layout_redeem_likes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_8sdp"
+            android:background="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="@dimen/_8sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rv_rewind_plans"
+            tools:visibility="@{!viewModel.isLoading(), default = visible}">
+
+            <TextView
+                style="@style/SubTitleStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text='@{redeemSpan, default = "Redeem free Rewinds"}'
+                android:textColor="@color/colorTextHint"
+                android:textSize="@dimen/_12ssp" />
+
+            <ImageView
+                android:layout_width="@dimen/_16sdp"
+                android:layout_height="@dimen/_16sdp"
+                android:rotation="180"
+                android:src="@drawable/ic_back"
+                app:tint="@color/colorTextHint" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_premium"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_16sdp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="@dimen/_16sdp"
+            app:layout_constraintBottom_toTopOf="@+id/btn_pay"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:visibility="@{!viewModel.isLoading(), default = visible}">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_16sdp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/TitleStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autoSizeTextType="uniform"
+                    android:maxLines="1"
+                    android:text='@{premiumTitle, default = "Enjoy Exclusive Features with Premium"}'
+                    android:textColor="@color/white"
+                    tools:ignore="UnusedAttribute" />
+
+                <TextView
+                    android:id="@+id/txt_feature"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text='@{feature, default = "Get Unlimited likes"}'
+                    android:textColor="@color/white" />
+            </LinearLayout>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="@dimen/_32sdp"
+                android:layout_height="@dimen/_32sdp"
+                app:cardBackgroundColor="@android:color/transparent"
+                app:cardCornerRadius="@dimen/_45sdp"
+                app:cardElevation="0dp">
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true"
+                    app:lottie_rawRes="@raw/bg_thunder" />
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+
+        <app.juky.squircleview.views.SquircleConstraintLayout
+            android:id="@+id/btn_pay"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_16sdp"
+            android:layout_marginBottom="@dimen/_8sdp"
+            app:layout_constraintBottom_toTopOf="@+id/txt_privacy"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:squircle_background_gradient_drawable="@drawable/bg_premium"
+            app:squircle_corner_smoothing_percentage="60"
+            app:squircle_ripple_drawable="@drawable/ripple_rectangle"
+            tools:visibility="@{!viewModel.isLoading(), default = visible}">
+
+            <TextView
+                style="@style/TitleStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:letterSpacing="0.02"
+                android:padding="@dimen/_12sdp"
+                android:text='@{viewModel.buttonText, default = "Buy Likes for Price"}'
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14ssp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+        </app.juky.squircleview.views.SquircleConstraintLayout>
+
+        <TextView
+            android:id="@+id/txt_privacy"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_16sdp"
+            android:gravity="center"
+            android:text="@string/message_policy_terms"
+            android:textColor="@color/colorTextHint"
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:visibility="@{!viewModel.isLoading(), default = visible}" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

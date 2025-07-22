@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="isBlur"
+            type="Boolean" />
+
+        <variable
+            name="distance"
+            type="String" />
+
+        <variable
+            name="name"
+            type="android.text.SpannableString" />
+
+        <variable
+            name="likeProfile"
+            type="com.belive.dating.api.user.models.liked_me_profiles.LikedMeProfile" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <app.juky.squircleview.views.SquircleConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_4sdp"
+        android:layout_marginBottom="@dimen/_8sdp"
+        app:squircle_background_color="@android:color/transparent"
+        app:squircle_corner_smoothing_percentage="0">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:tag="@string/skip_skeleton_animation"
+            app:layout_constraintDimensionRatio="1:1.40"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ProgressBar
+                android:id="@+id/progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminateTint="?colorOnBackground"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:tag="@string/skip_skeleton_animation"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:imageUrl="@{likeProfile.userImages[0]}"
+                tools:isIcon="@{false}" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/blurLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/_2sdp"
+                android:tag="@string/skip_skeleton_animation"
+                android:visibility="@{isBlur ? View.VISIBLE : View.GONE, default = gone}">
+
+                <eightbitlab.com.blurview.BlurView
+                    android:id="@+id/blurOverLay"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:tag="@string/skip_skeleton_animation"
+                    app:blurOverlayColor="#40121212"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    tools:applyBlurRadius="@{25f}" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <ImageView
+                android:id="@+id/imgLock"
+                android:layout_width="@dimen/_24sdp"
+                android:layout_height="@dimen/_24sdp"
+                android:layout_gravity="center"
+                android:background="@drawable/oval_filled"
+                android:padding="@dimen/_4sdp"
+                android:src="@drawable/ic_lock"
+                android:visibility="@{isBlur ? View.VISIBLE : View.GONE, default = gone}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/black" />
+
+            <eightbitlab.com.blurview.BlurView
+                android:id="@+id/profile_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_4sdp"
+                android:visibility="@{isBlur ? View.GONE : View.VISIBLE, default = visible}"
+                app:blurOverlayColor="#8C121212"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:applyBlurRadius="@{25f}">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:visibility="@{(likeProfile != null) ? View.VISIBLE : View.GONE, default = invisible}">
+
+                    <TextView
+                        android:id="@+id/txt_name"
+                        style="@style/SubTitleStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:layout_marginEnd="@dimen/_8sdp"
+                        android:ellipsize="end"
+                        android:gravity="center"
+                        android:maxLines="1"
+                        android:text='@{name, default = "Name"}'
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_12ssp" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_8sdp"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/_12sdp"
+                            android:layout_height="@dimen/_12sdp"
+                            android:src="@drawable/ic_location" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_4sdp"
+                            android:gravity="center"
+                            android:text='@{distance, default = "Distance"}'
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_10ssp" />
+                    </LinearLayout>
+                </LinearLayout>
+            </eightbitlab.com.blurview.BlurView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </app.juky.squircleview.views.SquircleConstraintLayout>
+</layout>

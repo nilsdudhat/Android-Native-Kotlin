@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.belive.dating.activities.edit_profile.height.EditHeightViewModel" />
+
+        <import type="com.belive.dating.R" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".activities.edit_profile.height.EditHeightActivity">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:navigationIcon="@drawable/ic_back"
+            app:title="Change Your Height"
+            app:titleCentered="true"
+            app:titleTextAppearance="@style/SubTitleStyle" />
+
+        <TextView
+            android:id="@+id/txt_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:text="@string/add_your_height_message"
+            android:textColor="@color/colorTextHint"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="@dimen/_16sdp"
+            app:layout_constraintBottom_toTopOf="@+id/btn_save"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_message">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_centimetres"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_message"
+                    tools:visibility="@{viewModel.isHeightInCentimetre(), default = visible}">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/centimetres"
+                        app:boxCornerRadiusBottomEnd="0dp"
+                        app:boxCornerRadiusBottomStart="0dp"
+                        app:boxCornerRadiusTopEnd="0dp"
+                        app:boxCornerRadiusTopStart="0dp"
+                        app:boxStrokeColor="@color/input_layout_stroke"
+                        app:boxStrokeErrorColor="?colorError"
+                        app:boxStrokeWidth="@dimen/_1sdp"
+                        app:cursorColor="@color/colorOnBackground"
+                        app:errorIconTint="?colorError"
+                        app:errorTextColor="?colorError"
+                        app:hintTextColor="@color/colorTextHint"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edt_centimetres"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionDone"
+                            android:inputType="number"
+                            android:maxLength="3"
+                            android:text="@={viewModel.centimeter}"
+                            android:textColor="?colorOnBackground"
+                            android:textColorHint="@color/colorTextHint" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_ft_in"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/layout_centimetres"
+                    tools:visibility="@{!viewModel.isHeightInCentimetre(), default = gone}">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layout_feet"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/_8sdp"
+                        android:hint="@string/feet"
+                        app:boxCornerRadiusBottomEnd="0dp"
+                        app:boxCornerRadiusBottomStart="0dp"
+                        app:boxCornerRadiusTopEnd="0dp"
+                        app:boxCornerRadiusTopStart="0dp"
+                        app:boxStrokeColor="@color/input_layout_stroke"
+                        app:boxStrokeErrorColor="?colorError"
+                        app:boxStrokeWidth="@dimen/_1sdp"
+                        app:cursorColor="@color/colorOnBackground"
+                        app:errorIconTint="?colorError"
+                        app:errorTextColor="?colorError"
+                        app:hintTextColor="@color/colorTextHint"
+                        app:layout_constraintEnd_toStartOf="@+id/layout_inch"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edt_feet"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionNext"
+                            android:inputType="number"
+                            android:maxLength="2"
+                            android:text="@={viewModel.feet}"
+                            android:textColor="?colorOnBackground"
+                            android:textColorHint="@color/colorTextHint" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layout_inch"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/inch"
+                        app:boxCornerRadiusBottomEnd="0dp"
+                        app:boxCornerRadiusBottomStart="0dp"
+                        app:boxCornerRadiusTopEnd="0dp"
+                        app:boxCornerRadiusTopStart="0dp"
+                        app:boxStrokeColor="@color/input_layout_stroke"
+                        app:boxStrokeErrorColor="?colorError"
+                        app:boxStrokeWidth="@dimen/_1sdp"
+                        app:cursorColor="@color/colorOnBackground"
+                        app:errorIconTint="?colorError"
+                        app:errorTextColor="?colorError"
+                        app:hintTextColor="@color/colorTextHint"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/layout_feet"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edt_inch"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionDone"
+                            android:inputType="number"
+                            android:maxLength="2"
+                            android:text="@={viewModel.inch}"
+                            android:textColor="?colorOnBackground"
+                            android:textColorHint="@color/colorTextHint" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_32sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/layout_ft_in">
+
+                    <TextView
+                        style="@style/SubTitleStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/height_unit"
+                        android:textSize="@dimen/_12ssp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <app.juky.squircleview.views.SquircleConstraintLayout
+                        android:id="@+id/toggleButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:squircle_background_color="@android:color/transparent"
+                        app:squircle_border_color="?boxBorder"
+                        app:squircle_border_width="@dimen/_2sdp"
+                        app:squircle_corner_smoothing_percentage="0">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="@dimen/_2sdp">
+
+                            <TextView
+                                android:id="@+id/txt_ft_in"
+                                style="@style/SubTitleStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@{!viewModel.isHeightInCentimetre() ? @color/boxBackground : @color/colorBackground, default = @color/colorBackground}"
+                                android:paddingHorizontal="@dimen/_12sdp"
+                                android:paddingVertical="@dimen/_4sdp"
+                                android:text="@string/ft_in"
+                                android:textSize="@dimen/_12ssp"
+                                tools:textColor="@{!viewModel.isHeightInCentimetre() ? R.color.colorOnBackground : R.color.colorTextHint, default = @color/colorTextHint}" />
+
+                            <TextView
+                                android:id="@+id/txt_cm"
+                                style="@style/SubTitleStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@{viewModel.isHeightInCentimetre() ? @color/boxBackground : @color/colorBackground, default = @color/boxBackground}"
+                                android:paddingHorizontal="@dimen/_12sdp"
+                                android:paddingVertical="@dimen/_4sdp"
+                                android:text="@string/cm"
+                                android:textSize="@dimen/_12ssp"
+                                tools:textColor="@{viewModel.isHeightInCentimetre() ? R.color.colorOnBackground : R.color.colorTextHint, default = @color/colorOnBackground}" />
+                        </LinearLayout>
+                    </app.juky.squircleview.views.SquircleConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <FrameLayout
+                    android:id="@+id/ad_small_native"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:background="?boxBackground" />
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <Button
+            android:id="@+id/btn_save"
+            style="@style/FilledButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_32sdp"
+            android:layout_marginBottom="@dimen/_16sdp"
+            android:layout_weight="1"
+            android:clickable="@{viewModel.isButtonEnabled(), default = false}"
+            android:enabled="@{viewModel.isButtonEnabled(), default = false}"
+            android:padding="@dimen/_12sdp"
+            android:text="@string/save"
+            android:textSize="@dimen/_14sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

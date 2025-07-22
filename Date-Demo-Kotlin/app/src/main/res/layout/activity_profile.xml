@@ -1,0 +1,1813 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.belive.dating.activities.profile.ProfileViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".activities.profile.ProfileActivity">
+
+        <FrameLayout
+            android:id="@+id/layout_header"
+            android:layout_width="0dp"
+            android:layout_height="?actionBarSize"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/_56sdp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/toolbarTitle"
+                    style="@style/SubTitleStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@{viewModel.profilePercentageTitle}"
+                    android:textColor="?colorOnBackground" />
+
+                <View
+                    android:id="@+id/titleUnderline"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1sdp"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:background="?colorPrimary" />
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/btn_back"
+                style="@style/ImageButton.NoBackground"
+                android:layout_width="@dimen/_32sdp"
+                android:layout_height="@dimen/_32sdp"
+                android:layout_gravity="start|center_vertical"
+                android:layout_marginHorizontal="@dimen/_8sdp"
+                android:background="@drawable/ripple_oval"
+                android:padding="@dimen/_6sdp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_back"
+                app:tint="?colorOnBackground" />
+
+            <app.juky.squircleview.views.SquircleConstraintLayout
+                android:id="@+id/layout_preview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|center_vertical"
+                android:layout_marginEnd="@dimen/_16sdp"
+                android:paddingHorizontal="@dimen/_8sdp"
+                android:paddingVertical="@dimen/_4sdp"
+                app:squircle_background_color="?boxBackground"
+                app:squircle_corner_smoothing_percentage="40">
+
+                <TextView
+                    style="@style/SubTitleStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/preview"
+                    android:textColor="?colorOnBackground"
+                    android:textSize="@dimen/_12ssp" />
+            </app.juky.squircleview.views.SquircleConstraintLayout>
+        </FrameLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layout_header">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_16sdp"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/_8sdp"
+                        android:layout_height="@dimen/_8sdp"
+                        android:layout_marginEnd="@dimen/_8sdp"
+                        android:src="@drawable/ic_dot"
+                        app:tint="@color/colorErrorExtraDark"
+                        tools:visibility="@{viewModel.photosCount != 6, default = gone}" />
+
+                    <TextView
+                        style="@style/SubTitleStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/my_photos"
+                        android:textAllCaps="true"
+                        android:textSize="@dimen/_12ssp" />
+
+                    <TextView
+                        style="@style/SubTitleStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:textColor="@color/colorErrorExtraDark"
+                        android:textSize="@dimen/_12ssp"
+                        tools:photoPercentage="@{viewModel.photosCount}" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:photosCounter="@{viewModel.photosCount}" />
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_photos"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:clipToPadding="false"
+                    android:nestedScrollingEnabled="false"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="@dimen/_12sdp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:itemCount="6"
+                    tools:listitem="@layout/item_profile_photo" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_16sdp"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/_8sdp"
+                        android:layout_height="@dimen/_8sdp"
+                        android:layout_marginEnd="@dimen/_8sdp"
+                        android:src="@drawable/ic_dot"
+                        app:tint="@color/colorErrorExtraDark"
+                        tools:visibility="@{viewModel.isIncompletePersonalDetails(), default = gone}" />
+
+                    <TextView
+                        style="@style/SubTitleStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/personal_details"
+                        android:textAllCaps="true"
+                        android:textColor="?colorOnBackground"
+                        android:textSize="@dimen/_12ssp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:background="?boxBackground"
+                    android:orientation="vertical"
+                    android:paddingVertical="@dimen/_6sdp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="@dimen/_16sdp"
+                        android:paddingVertical="@dimen/_8sdp">
+
+                        <TextView
+                            style="@style/SubTitleStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/name"
+                            android:textSize="@dimen/_12ssp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:marqueeRepeatLimit="marquee_forever"
+                            android:maxLines="1"
+                            android:text='@{viewModel.name, default = "Your Name"}'
+                            android:textColor="?colorOnBackground"
+                            android:textSize="@dimen/_12ssp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="@dimen/_16sdp"
+                        android:paddingVertical="@dimen/_8sdp">
+
+                        <TextView
+                            style="@style/SubTitleStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/birth_date"
+                            android:textSize="@dimen/_12ssp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:marqueeRepeatLimit="marquee_forever"
+                            android:maxLines="1"
+                            android:text='@{viewModel.birthDate, default = "Your Birth Date"}'
+                            android:textColor="?colorOnBackground"
+                            android:textSize="@dimen/_12ssp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="@dimen/_16sdp"
+                        android:paddingVertical="@dimen/_8sdp">
+
+                        <TextView
+                            style="@style/SubTitleStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/gender"
+                            android:textSize="@dimen/_12ssp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:marqueeRepeatLimit="marquee_forever"
+                            android:maxLines="1"
+                            android:text='@{viewModel.gender, default = "Your Gender"}'
+                            android:textColor="?colorOnBackground"
+                            android:textSize="@dimen/_12ssp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_16sdp"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/_8sdp"
+                        android:layout_height="@dimen/_8sdp"
+                        android:layout_marginEnd="@dimen/_8sdp"
+                        android:src="@drawable/ic_dot"
+                        app:tint="@color/colorErrorExtraDark"
+                        tools:visibility="@{viewModel.aboutMe == null, default = gone}" />
+
+                    <TextView
+                        style="@style/SubTitleStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/about_me"
+                        android:textAllCaps="true"
+                        android:textColor="?colorOnBackground"
+                        android:textSize="@dimen/_12ssp" />
+
+                    <TextView
+                        style="@style/SubTitleStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:text="+ 20%"
+                        android:textColor="@color/colorErrorExtraDark"
+                        android:textSize="@dimen/_12ssp"
+                        tools:visibility="@{viewModel.aboutMe == null, default = gone}" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:background="?boxBackground"
+                    android:hint="@string/about_me"
+                    android:paddingHorizontal="@dimen/_16sdp"
+                    android:paddingTop="@dimen/_10sdp"
+                    android:paddingBottom="@dimen/_8sdp"
+                    android:text='@{viewModel.aboutMe}'
+                    android:textColor="?colorOnBackground"
+                    android:textColorHint="@color/colorTextHint"
+                    android:textSize="@dimen/_12ssp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?boxBackground"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="@dimen/_16sdp"
+                    android:paddingTop="@dimen/_4sdp"
+                    android:paddingBottom="@dimen/_10sdp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical|end"
+                        android:layout_weight="1"
+                        android:gravity="start"
+                        tools:aboutMeCounter="@{viewModel.aboutMe}" />
+
+                    <ImageButton
+                        android:id="@+id/btn_about_me"
+                        style="@style/ImageButton.NoBackground"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:padding="@dimen/_2sdp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_pen_square"
+                        app:tint="?colorOnBackground" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_16sdp"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/_8sdp"
+                        android:layout_height="@dimen/_8sdp"
+                        android:layout_marginEnd="@dimen/_8sdp"
+                        android:src="@drawable/ic_dot"
+                        app:tint="@color/colorErrorExtraDark"
+                        tools:visibility="@{viewModel.livingIn == null, default = gone}" />
+
+                    <TextView
+                        style="@style/SubTitleStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/living_in"
+                        android:textAllCaps="true"
+                        android:textColor="?colorOnBackground"
+                        android:textSize="@dimen/_12ssp" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:background="?boxBackground"
+                    android:paddingHorizontal="@dimen/_16sdp"
+                    android:paddingVertical="@dimen/_10sdp"
+                    android:text='@{viewModel.livingIn}'
+                    android:textColor="?colorOnBackground"
+                    android:textSize="@dimen/_12ssp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_16sdp"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/_8sdp"
+                        android:layout_height="@dimen/_8sdp"
+                        android:layout_marginEnd="@dimen/_8sdp"
+                        android:src="@drawable/ic_dot"
+                        app:tint="@color/colorErrorExtraDark"
+                        tools:visibility="@{viewModel.height == null, default = gone}" />
+
+                    <TextView
+                        style="@style/SubTitleStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/height"
+                        android:textAllCaps="true"
+                        android:textColor="?colorOnBackground"
+                        android:textSize="@dimen/_12ssp" />
+
+                    <TextView
+                        style="@style/SubTitleStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:text="+ 5%"
+                        android:textColor="@color/colorErrorExtraDark"
+                        android:textSize="@dimen/_12ssp"
+                        tools:visibility="@{viewModel.height == null, default = gone}" />
+                </LinearLayout>
+
+                <app.juky.squircleview.views.SquircleConstraintLayout
+                    android:id="@+id/height_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:paddingHorizontal="@dimen/_16sdp"
+                    android:paddingVertical="@dimen/_10sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:squircle_background_color="?boxBackground"
+                    app:squircle_corner_smoothing_percentage="0">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/_20sdp"
+                        android:hint="@string/empty"
+                        android:textColorHint="@color/colorTextHint"
+                        android:textSize="@dimen/_12ssp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:visibility="@{viewModel.height == null, default = visible}" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/_20sdp"
+                        android:text='@{viewModel.height}'
+                        android:textColor="?colorOnBackground"
+                        android:textSize="@dimen/_12ssp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:visibility="@{viewModel.height != null, default = visible}" />
+
+                    <ImageView
+                        android:layout_width="@dimen/_14sdp"
+                        android:layout_height="@dimen/_14sdp"
+                        android:rotation="180"
+                        android:src="@drawable/ic_back"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="?colorOnBackground" />
+                </app.juky.squircleview.views.SquircleConstraintLayout>
+
+                <TextView
+                    style="@style/SubTitleStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_16sdp"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:text="@string/profile_visibility"
+                    android:textAllCaps="true"
+                    android:textColor="?colorOnBackground"
+                    android:textSize="@dimen/_12ssp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:background="?boxBackground"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="@dimen/_16sdp"
+                    android:paddingVertical="@dimen/_8sdp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/dont_show_my_age"
+                            android:textColor="?colorOnBackground"
+                            android:textSize="@dimen/_12ssp" />
+
+                        <com.google.android.material.materialswitch.MaterialSwitch
+                            android:id="@+id/switch_age"
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:checked="@{viewModel.hideAge}"
+                            android:scaleX="0.8"
+                            android:scaleY="0.8"
+                            app:thumbIcon="@drawable/switch_icon"
+                            app:thumbIconTint="?colorOnBackground" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/dont_show_my_distance"
+                            android:textColor="?colorOnBackground"
+                            android:textSize="@dimen/_12ssp" />
+
+                        <com.google.android.material.materialswitch.MaterialSwitch
+                            android:id="@+id/switch_distance"
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:checked="@{viewModel.hideDistance}"
+                            android:scaleX="0.8"
+                            android:scaleY="0.8"
+                            app:thumbIcon="@drawable/switch_icon"
+                            app:thumbIconTint="?colorOnBackground" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_16sdp"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/_8sdp"
+                        android:layout_height="@dimen/_8sdp"
+                        android:layout_marginEnd="@dimen/_8sdp"
+                        android:src="@drawable/ic_dot"
+                        app:tint="@color/colorErrorExtraDark"
+                        tools:visibility="@{viewModel.relationshipGoal == null, default = gone}" />
+
+                    <TextView
+                        style="@style/SubTitleStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/relationship_goal"
+                        android:textAllCaps="true"
+                        android:textColor="?colorOnBackground"
+                        android:textSize="@dimen/_12ssp" />
+                </LinearLayout>
+
+                <app.juky.squircleview.views.SquircleConstraintLayout
+                    android:id="@+id/relationship_goal_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:paddingHorizontal="@dimen/_16sdp"
+                    android:paddingVertical="@dimen/_10sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:squircle_background_color="?boxBackground"
+                    app:squircle_corner_smoothing_percentage="0">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/_20sdp"
+                        android:text='@{viewModel.relationshipGoal, default = "Relationship Goal"}'
+                        android:textColor="?colorOnBackground"
+                        android:textSize="@dimen/_12ssp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:layout_width="@dimen/_14sdp"
+                        android:layout_height="@dimen/_14sdp"
+                        android:rotation="180"
+                        android:src="@drawable/ic_back"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="?colorOnBackground" />
+                </app.juky.squircleview.views.SquircleConstraintLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_16sdp"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/_8sdp"
+                        android:layout_height="@dimen/_8sdp"
+                        android:layout_marginEnd="@dimen/_8sdp"
+                        android:src="@drawable/ic_dot"
+                        app:tint="@color/colorErrorExtraDark"
+                        tools:visibility="@{viewModel.oppositeGender == null, default = gone}" />
+
+                    <TextView
+                        style="@style/SubTitleStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/want_to_date_with"
+                        android:textAllCaps="true"
+                        android:textColor="?colorOnBackground"
+                        android:textSize="@dimen/_12ssp" />
+                </LinearLayout>
+
+                <app.juky.squircleview.views.SquircleConstraintLayout
+                    android:id="@+id/date_interest_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:paddingHorizontal="@dimen/_16sdp"
+                    android:paddingVertical="@dimen/_10sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:squircle_background_color="?boxBackground"
+                    app:squircle_corner_smoothing_percentage="0">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/_20sdp"
+                        android:text='@{viewModel.oppositeGender, default = "Relationship Goal"}'
+                        android:textColor="?colorOnBackground"
+                        android:textSize="@dimen/_12ssp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:layout_width="@dimen/_14sdp"
+                        android:layout_height="@dimen/_14sdp"
+                        android:rotation="180"
+                        android:src="@drawable/ic_back"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="?colorOnBackground" />
+                </app.juky.squircleview.views.SquircleConstraintLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_16sdp"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/_8sdp"
+                        android:layout_height="@dimen/_8sdp"
+                        android:layout_marginEnd="@dimen/_8sdp"
+                        android:src="@drawable/ic_dot"
+                        app:tint="@color/colorErrorExtraDark"
+                        tools:visibility="@{viewModel.sexualOrientation == null, default = gone}" />
+
+                    <TextView
+                        style="@style/SubTitleStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/sexual_orientation"
+                        android:textAllCaps="true"
+                        android:textColor="?colorOnBackground"
+                        android:textSize="@dimen/_12ssp" />
+                </LinearLayout>
+
+                <app.juky.squircleview.views.SquircleConstraintLayout
+                    android:id="@+id/sexual_orientation_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:paddingHorizontal="@dimen/_16sdp"
+                    android:paddingVertical="@dimen/_10sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:squircle_background_color="?boxBackground"
+                    app:squircle_corner_smoothing_percentage="0">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/_20sdp"
+                        android:text='@{viewModel.sexualOrientation, default = "Sexual Orientation"}'
+                        android:textColor="?colorOnBackground"
+                        android:textSize="@dimen/_12ssp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:layout_width="@dimen/_14sdp"
+                        android:layout_height="@dimen/_14sdp"
+                        android:rotation="180"
+                        android:src="@drawable/ic_back"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="?colorOnBackground" />
+                </app.juky.squircleview.views.SquircleConstraintLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_16sdp"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/_8sdp"
+                        android:layout_height="@dimen/_8sdp"
+                        android:layout_marginEnd="@dimen/_8sdp"
+                        android:src="@drawable/ic_dot"
+                        app:tint="@color/colorErrorExtraDark"
+                        tools:visibility="@{viewModel.school == null, default = gone}" />
+
+                    <TextView
+                        style="@style/SubTitleStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/school"
+                        android:textAllCaps="true"
+                        android:textColor="?colorOnBackground"
+                        android:textSize="@dimen/_12ssp" />
+
+                    <TextView
+                        style="@style/SubTitleStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:text="+ 5%"
+                        android:textColor="@color/colorErrorExtraDark"
+                        android:textSize="@dimen/_12ssp"
+                        tools:visibility="@{viewModel.school == null, default = gone}" />
+                </LinearLayout>
+
+                <app.juky.squircleview.views.SquircleConstraintLayout
+                    android:id="@+id/school_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:paddingHorizontal="@dimen/_16sdp"
+                    android:paddingVertical="@dimen/_10sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:squircle_background_color="?boxBackground"
+                    app:squircle_corner_smoothing_percentage="0">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/_20sdp"
+                        android:hint="@string/empty"
+                        android:textColorHint="@color/colorTextHint"
+                        android:textSize="@dimen/_12ssp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:visibility="@{viewModel.school == null, default = visible}" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/_20sdp"
+                        android:ellipsize="end"
+                        android:marqueeRepeatLimit="marquee_forever"
+                        android:maxLines="1"
+                        android:text='@{viewModel.school}'
+                        android:textColor="?colorOnBackground"
+                        android:textSize="@dimen/_12ssp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:visibility="@{viewModel.school != null, default = visible}" />
+
+                    <ImageView
+                        android:layout_width="@dimen/_14sdp"
+                        android:layout_height="@dimen/_14sdp"
+                        android:rotation="180"
+                        android:src="@drawable/ic_back"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="?colorOnBackground" />
+                </app.juky.squircleview.views.SquircleConstraintLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_16sdp"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/_8sdp"
+                        android:layout_height="@dimen/_8sdp"
+                        android:layout_marginEnd="@dimen/_8sdp"
+                        android:src="@drawable/ic_dot"
+                        app:tint="@color/colorErrorExtraDark"
+                        tools:visibility="@{viewModel.languagesCount == null, default = gone}" />
+
+                    <TextView
+                        style="@style/SubTitleStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/known_languages"
+                        android:textAllCaps="true"
+                        android:textColor="?colorOnBackground"
+                        android:textSize="@dimen/_12ssp" />
+
+                    <TextView
+                        style="@style/SubTitleStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:text="+ 5%"
+                        android:textColor="@color/colorErrorExtraDark"
+                        android:textSize="@dimen/_12ssp"
+                        tools:visibility="@{viewModel.languagesCount == null, default = gone}" />
+                </LinearLayout>
+
+                <app.juky.squircleview.views.SquircleConstraintLayout
+                    android:id="@+id/languages_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:paddingHorizontal="@dimen/_16sdp"
+                    android:paddingVertical="@dimen/_10sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:squircle_background_color="?boxBackground"
+                    app:squircle_corner_smoothing_percentage="0">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/_20sdp"
+                        android:hint="@string/empty"
+                        android:textColorHint="@color/colorTextHint"
+                        android:textSize="@dimen/_12ssp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:visibility="@{viewModel.languagesCount == null, default = visible}" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/_20sdp"
+                        android:text='@{viewModel.languagesCount + " Languages"}'
+                        android:textColor="?colorOnBackground"
+                        android:textSize="@dimen/_12ssp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:visibility="@{viewModel.languagesCount != null, default = gone}" />
+
+                    <ImageView
+                        android:layout_width="@dimen/_14sdp"
+                        android:layout_height="@dimen/_14sdp"
+                        android:rotation="180"
+                        android:src="@drawable/ic_back"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="?colorOnBackground" />
+                </app.juky.squircleview.views.SquircleConstraintLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_16sdp"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/_8sdp"
+                        android:layout_height="@dimen/_8sdp"
+                        android:layout_marginEnd="@dimen/_8sdp"
+                        android:src="@drawable/ic_dot"
+                        app:tint="@color/colorErrorExtraDark"
+                        tools:visibility="@{viewModel.isIncompleteBasics(), default = gone}" />
+
+                    <TextView
+                        style="@style/SubTitleStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/basics"
+                        android:textAllCaps="true"
+                        android:textColor="?colorOnBackground"
+                        android:textSize="@dimen/_12ssp" />
+
+                    <TextView
+                        style="@style/SubTitleStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:text="+ 10%"
+                        android:textColor="@color/colorErrorExtraDark"
+                        android:textSize="@dimen/_12ssp"
+                        tools:visibility="@{viewModel.isShowBasicsPercentage(), default = gone}" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:background="?boxBackground"
+                    android:orientation="vertical"
+                    android:paddingVertical="@dimen/_6sdp">
+
+                    <LinearLayout
+                        android:id="@+id/layout_zodiac"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?selectableItemBackground"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="@dimen/_16sdp"
+                        android:paddingVertical="@dimen/_8sdp">
+
+                        <TextView
+                            style="@style/SubTitleStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/zodiac"
+                            android:textSize="@dimen/_12ssp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{viewModel.zodiac}"
+                            android:textColor="?colorOnBackground"
+                            android:textSize="@dimen/_12ssp"
+                            tools:visibility="@{viewModel.zodiac != null, default = visible}" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/empty"
+                            android:textColorHint="@color/colorTextHint"
+                            android:textSize="@dimen/_12ssp"
+                            tools:visibility="@{viewModel.zodiac == null, default = gone}" />
+
+                        <ImageView
+                            android:layout_width="@dimen/_14sdp"
+                            android:layout_height="@dimen/_14sdp"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            android:rotation="180"
+                            android:src="@drawable/ic_back"
+                            app:tint="?colorOnBackground" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layout_education"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?selectableItemBackground"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="@dimen/_16sdp"
+                        android:paddingVertical="@dimen/_8sdp">
+
+                        <TextView
+                            style="@style/SubTitleStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/education"
+                            android:textSize="@dimen/_12ssp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{viewModel.education}"
+                            android:textColor="?colorOnBackground"
+                            android:textSize="@dimen/_12ssp"
+                            tools:visibility="@{viewModel.education != null, default = visible}" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/empty"
+                            android:textColorHint="@color/colorTextHint"
+                            android:textSize="@dimen/_12ssp"
+                            tools:visibility="@{viewModel.education == null, default = gone}" />
+
+                        <ImageView
+                            android:layout_width="@dimen/_14sdp"
+                            android:layout_height="@dimen/_14sdp"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            android:rotation="180"
+                            android:src="@drawable/ic_back"
+                            app:tint="?colorOnBackground" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layout_religion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?selectableItemBackground"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="@dimen/_16sdp"
+                        android:paddingVertical="@dimen/_8sdp">
+
+                        <TextView
+                            style="@style/SubTitleStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/religion"
+                            android:textSize="@dimen/_12ssp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{viewModel.religion}"
+                            android:textColor="?colorOnBackground"
+                            android:textSize="@dimen/_12ssp"
+                            tools:visibility="@{viewModel.religion != null, default = visible}" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/empty"
+                            android:textColorHint="@color/colorTextHint"
+                            android:textSize="@dimen/_12ssp"
+                            tools:visibility="@{viewModel.religion == null, default = gone}" />
+
+                        <ImageView
+                            android:layout_width="@dimen/_14sdp"
+                            android:layout_height="@dimen/_14sdp"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            android:rotation="180"
+                            android:src="@drawable/ic_back"
+                            app:tint="?colorOnBackground" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layout_marital_status"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?selectableItemBackground"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="@dimen/_16sdp"
+                        android:paddingVertical="@dimen/_8sdp">
+
+                        <TextView
+                            style="@style/SubTitleStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/marital_status"
+                            android:textSize="@dimen/_12ssp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{viewModel.maritalStatus}"
+                            android:textColor="?colorOnBackground"
+                            android:textSize="@dimen/_12ssp"
+                            tools:visibility="@{viewModel.maritalStatus != null, default = visible}" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/empty"
+                            android:textColorHint="@color/colorTextHint"
+                            android:textSize="@dimen/_12ssp"
+                            tools:visibility="@{viewModel.maritalStatus == null, default = gone}" />
+
+                        <ImageView
+                            android:layout_width="@dimen/_14sdp"
+                            android:layout_height="@dimen/_14sdp"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            android:rotation="180"
+                            android:src="@drawable/ic_back"
+                            app:tint="?colorOnBackground" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layout_family_plans"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?selectableItemBackground"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="@dimen/_16sdp"
+                        android:paddingVertical="@dimen/_8sdp">
+
+                        <TextView
+                            style="@style/SubTitleStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/family_plan"
+                            android:textSize="@dimen/_12ssp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{viewModel.familyPlan}"
+                            android:textColor="?colorOnBackground"
+                            android:textSize="@dimen/_12ssp"
+                            tools:visibility="@{viewModel.familyPlan != null, default = visible}" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/empty"
+                            android:textColorHint="@color/colorTextHint"
+                            android:textSize="@dimen/_12ssp"
+                            tools:visibility="@{viewModel.familyPlan == null, default = gone}" />
+
+                        <ImageView
+                            android:layout_width="@dimen/_14sdp"
+                            android:layout_height="@dimen/_14sdp"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            android:rotation="180"
+                            android:src="@drawable/ic_back"
+                            app:tint="?colorOnBackground" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_16sdp"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/_8sdp"
+                        android:layout_height="@dimen/_8sdp"
+                        android:layout_marginEnd="@dimen/_8sdp"
+                        android:src="@drawable/ic_dot"
+                        app:tint="@color/colorErrorExtraDark"
+                        tools:visibility="@{viewModel.isIncompleteStyle(), default = gone}" />
+
+                    <TextView
+                        style="@style/SubTitleStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/your_style"
+                        android:textAllCaps="true"
+                        android:textColor="?colorOnBackground"
+                        android:textSize="@dimen/_12ssp" />
+
+                    <TextView
+                        style="@style/SubTitleStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:text="+ 10%"
+                        android:textColor="@color/colorErrorExtraDark"
+                        android:textSize="@dimen/_12ssp"
+                        tools:visibility="@{viewModel.isShowStylePercentage(), default = gone}" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:background="?boxBackground"
+                    android:orientation="vertical"
+                    android:paddingVertical="@dimen/_6sdp">
+
+                    <LinearLayout
+                        android:id="@+id/layout_personality_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?selectableItemBackground"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="@dimen/_16sdp"
+                        android:paddingVertical="@dimen/_8sdp">
+
+                        <TextView
+                            style="@style/SubTitleStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/personality_type"
+                            android:textSize="@dimen/_12ssp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text='@{viewModel.personalityCount + " Selected"}'
+                            android:textColor="?colorOnBackground"
+                            android:textSize="@dimen/_12ssp"
+                            tools:visibility="@{viewModel.personalityCount != null, default = visible}" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/empty"
+                            android:textColorHint="@color/colorTextHint"
+                            android:textSize="@dimen/_12ssp"
+                            tools:visibility="@{viewModel.personalityCount == null, default = gone}" />
+
+                        <ImageView
+                            android:layout_width="@dimen/_14sdp"
+                            android:layout_height="@dimen/_14sdp"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            android:rotation="180"
+                            android:src="@drawable/ic_back"
+                            app:tint="?colorOnBackground" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layout_communication_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?selectableItemBackground"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="@dimen/_16sdp"
+                        android:paddingVertical="@dimen/_8sdp">
+
+                        <TextView
+                            style="@style/SubTitleStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/communication_type"
+                            android:textSize="@dimen/_12ssp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text='@{viewModel.communicationCount + " Selected"}'
+                            android:textColor="?colorOnBackground"
+                            android:textSize="@dimen/_12ssp"
+                            tools:visibility="@{viewModel.communicationCount != null, default = visible}" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/empty"
+                            android:textColorHint="@color/colorTextHint"
+                            android:textSize="@dimen/_12ssp"
+                            tools:visibility="@{viewModel.communicationCount == null, default = gone}" />
+
+                        <ImageView
+                            android:layout_width="@dimen/_14sdp"
+                            android:layout_height="@dimen/_14sdp"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            android:rotation="180"
+                            android:src="@drawable/ic_back"
+                            app:tint="?colorOnBackground" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layout_love_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?selectableItemBackground"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="@dimen/_16sdp"
+                        android:paddingVertical="@dimen/_8sdp">
+
+                        <TextView
+                            style="@style/SubTitleStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/love_type"
+                            android:textSize="@dimen/_12ssp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text='@{viewModel.loveTypeCount + " Selected"}'
+                            android:textColor="?colorOnBackground"
+                            android:textSize="@dimen/_12ssp"
+                            tools:visibility="@{viewModel.loveTypeCount != null, default = visible}" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/empty"
+                            android:textColorHint="@color/colorTextHint"
+                            android:textSize="@dimen/_12ssp"
+                            tools:visibility="@{viewModel.loveTypeCount == null, default = gone}" />
+
+                        <ImageView
+                            android:layout_width="@dimen/_14sdp"
+                            android:layout_height="@dimen/_14sdp"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            android:rotation="180"
+                            android:src="@drawable/ic_back"
+                            app:tint="?colorOnBackground" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_16sdp"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/_8sdp"
+                        android:layout_height="@dimen/_8sdp"
+                        android:layout_marginEnd="@dimen/_8sdp"
+                        android:src="@drawable/ic_dot"
+                        app:tint="@color/colorErrorExtraDark"
+                        tools:visibility="@{viewModel.interestsCount == null, default = gone}" />
+
+                    <TextView
+                        style="@style/SubTitleStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/interests"
+                        android:textAllCaps="true"
+                        android:textColor="?colorOnBackground"
+                        android:textSize="@dimen/_12ssp" />
+                </LinearLayout>
+
+                <app.juky.squircleview.views.SquircleConstraintLayout
+                    android:id="@+id/interests_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:paddingHorizontal="@dimen/_16sdp"
+                    android:paddingVertical="@dimen/_10sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:squircle_background_color="?boxBackground"
+                    app:squircle_corner_smoothing_percentage="0">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/_20sdp"
+                        android:hint="@string/empty"
+                        android:textColorHint="@color/colorTextHint"
+                        android:textSize="@dimen/_12ssp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:visibility="@{viewModel.interestsCount == null, default = visible}" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/_20sdp"
+                        android:text='@{viewModel.interestsCount + " Interests Selected"}'
+                        android:textColor="?colorOnBackground"
+                        android:textSize="@dimen/_12ssp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:visibility="@{viewModel.interestsCount != null, default = gone}" />
+
+                    <ImageView
+                        android:layout_width="@dimen/_14sdp"
+                        android:layout_height="@dimen/_14sdp"
+                        android:rotation="180"
+                        android:src="@drawable/ic_back"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="?colorOnBackground" />
+                </app.juky.squircleview.views.SquircleConstraintLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_16sdp"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/_8sdp"
+                        android:layout_height="@dimen/_8sdp"
+                        android:layout_marginEnd="@dimen/_8sdp"
+                        android:src="@drawable/ic_dot"
+                        app:tint="@color/colorErrorExtraDark"
+                        tools:visibility="@{viewModel.isIncompleteLifestyle(), default = gone}" />
+
+                    <TextView
+                        style="@style/SubTitleStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/your_lifestyle"
+                        android:textAllCaps="true"
+                        android:textColor="?colorOnBackground"
+                        android:textSize="@dimen/_12ssp" />
+
+                    <TextView
+                        style="@style/SubTitleStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:text="+ 15%"
+                        android:textColor="@color/colorErrorExtraDark"
+                        android:textSize="@dimen/_12ssp"
+                        tools:visibility="@{viewModel.isShowLifestylePercentage(), default = gone}" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:layout_marginBottom="@dimen/_34sdp"
+                    android:background="?boxBackground"
+                    android:orientation="vertical"
+                    android:paddingVertical="@dimen/_6sdp">
+
+                    <LinearLayout
+                        android:id="@+id/layout_pets"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?selectableItemBackground"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="@dimen/_16sdp"
+                        android:paddingVertical="@dimen/_8sdp">
+
+                        <ImageView
+                            android:layout_width="@dimen/_16sdp"
+                            android:layout_height="@dimen/_16sdp"
+                            android:layout_marginEnd="@dimen/_8sdp"
+                            android:src="@drawable/ic_pet"
+                            app:tint="?colorOnBackground" />
+
+                        <TextView
+                            style="@style/SubTitleStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/pets"
+                            android:textSize="@dimen/_12ssp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{viewModel.pet}"
+                            android:textColor="?colorOnBackground"
+                            android:textSize="@dimen/_12ssp"
+                            tools:visibility="@{viewModel.pet != null, default = visible}" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/empty"
+                            android:textColorHint="@color/colorTextHint"
+                            android:textSize="@dimen/_12ssp"
+                            tools:visibility="@{viewModel.pet == null, default = gone}" />
+
+                        <ImageView
+                            android:layout_width="@dimen/_14sdp"
+                            android:layout_height="@dimen/_14sdp"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            android:rotation="180"
+                            android:src="@drawable/ic_back"
+                            app:tint="?colorOnBackground" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layout_drinking"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?selectableItemBackground"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="@dimen/_16sdp"
+                        android:paddingVertical="@dimen/_8sdp">
+
+                        <ImageView
+                            android:layout_width="@dimen/_16sdp"
+                            android:layout_height="@dimen/_16sdp"
+                            android:layout_marginEnd="@dimen/_8sdp"
+                            android:src="@drawable/ic_drinking"
+                            app:tint="?colorOnBackground" />
+
+                        <TextView
+                            style="@style/SubTitleStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/drinking"
+                            android:textSize="@dimen/_12ssp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{viewModel.drinking}"
+                            android:textColor="?colorOnBackground"
+                            android:textSize="@dimen/_12ssp"
+                            tools:visibility="@{viewModel.drinking != null, default = visible}" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/empty"
+                            android:textColorHint="@color/colorTextHint"
+                            android:textSize="@dimen/_12ssp"
+                            tools:visibility="@{viewModel.drinking == null, default = gone}" />
+
+                        <ImageView
+                            android:layout_width="@dimen/_14sdp"
+                            android:layout_height="@dimen/_14sdp"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            android:rotation="180"
+                            android:src="@drawable/ic_back"
+                            app:tint="?colorOnBackground" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layout_smoking"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?selectableItemBackground"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="@dimen/_16sdp"
+                        android:paddingVertical="@dimen/_8sdp">
+
+                        <ImageView
+                            android:layout_width="@dimen/_16sdp"
+                            android:layout_height="@dimen/_16sdp"
+                            android:layout_marginEnd="@dimen/_8sdp"
+                            android:src="@drawable/ic_smoking"
+                            app:tint="?colorOnBackground" />
+
+                        <TextView
+                            style="@style/SubTitleStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/smoking"
+                            android:textSize="@dimen/_12ssp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{viewModel.smoking}"
+                            android:textColor="?colorOnBackground"
+                            android:textSize="@dimen/_12ssp"
+                            tools:visibility="@{viewModel.smoking != null, default = visible}" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/empty"
+                            android:textColorHint="@color/colorTextHint"
+                            android:textSize="@dimen/_12ssp"
+                            tools:visibility="@{viewModel.smoking == null, default = gone}" />
+
+                        <ImageView
+                            android:layout_width="@dimen/_14sdp"
+                            android:layout_height="@dimen/_14sdp"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            android:rotation="180"
+                            android:src="@drawable/ic_back"
+                            app:tint="?colorOnBackground" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layout_workout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?selectableItemBackground"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="@dimen/_16sdp"
+                        android:paddingVertical="@dimen/_8sdp">
+
+                        <ImageView
+                            android:layout_width="@dimen/_16sdp"
+                            android:layout_height="@dimen/_16sdp"
+                            android:layout_marginEnd="@dimen/_8sdp"
+                            android:src="@drawable/ic_workout"
+                            app:tint="?colorOnBackground" />
+
+                        <TextView
+                            style="@style/SubTitleStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/workout"
+                            android:textSize="@dimen/_12ssp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{viewModel.workout}"
+                            android:textColor="?colorOnBackground"
+                            android:textSize="@dimen/_12ssp"
+                            tools:visibility="@{viewModel.workout != null, default = visible}" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/empty"
+                            android:textColorHint="@color/colorTextHint"
+                            android:textSize="@dimen/_12ssp"
+                            tools:visibility="@{viewModel.workout == null, default = gone}" />
+
+                        <ImageView
+                            android:layout_width="@dimen/_14sdp"
+                            android:layout_height="@dimen/_14sdp"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            android:rotation="180"
+                            android:src="@drawable/ic_back"
+                            app:tint="?colorOnBackground" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layout_diet"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?selectableItemBackground"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="@dimen/_16sdp"
+                        android:paddingVertical="@dimen/_8sdp">
+
+                        <ImageView
+                            android:layout_width="@dimen/_16sdp"
+                            android:layout_height="@dimen/_16sdp"
+                            android:layout_marginEnd="@dimen/_8sdp"
+                            android:src="@drawable/ic_diet"
+                            app:tint="?colorOnBackground" />
+
+                        <TextView
+                            style="@style/SubTitleStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/preferred_diet"
+                            android:textSize="@dimen/_12ssp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{viewModel.preferredDiet}"
+                            android:textColor="?colorOnBackground"
+                            android:textSize="@dimen/_12ssp"
+                            tools:visibility="@{viewModel.preferredDiet != null, default = visible}" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/empty"
+                            android:textColorHint="@color/colorTextHint"
+                            android:textSize="@dimen/_12ssp"
+                            tools:visibility="@{viewModel.preferredDiet == null, default = gone}" />
+
+                        <ImageView
+                            android:layout_width="@dimen/_14sdp"
+                            android:layout_height="@dimen/_14sdp"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            android:rotation="180"
+                            android:src="@drawable/ic_back"
+                            app:tint="?colorOnBackground" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layout_social_media"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?selectableItemBackground"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="@dimen/_16sdp"
+                        android:paddingVertical="@dimen/_8sdp">
+
+                        <ImageView
+                            android:layout_width="@dimen/_16sdp"
+                            android:layout_height="@dimen/_16sdp"
+                            android:layout_marginEnd="@dimen/_8sdp"
+                            android:src="@drawable/ic_social_media"
+                            app:tint="?colorOnBackground" />
+
+                        <TextView
+                            style="@style/SubTitleStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/social_media"
+                            android:textSize="@dimen/_12ssp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{viewModel.socialMedia}"
+                            android:textColor="?colorOnBackground"
+                            android:textSize="@dimen/_12ssp"
+                            tools:visibility="@{viewModel.socialMedia != null, default = visible}" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/empty"
+                            android:textColorHint="@color/colorTextHint"
+                            android:textSize="@dimen/_12ssp"
+                            tools:visibility="@{viewModel.socialMedia == null, default = gone}" />
+
+                        <ImageView
+                            android:layout_width="@dimen/_14sdp"
+                            android:layout_height="@dimen/_14sdp"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            android:rotation="180"
+                            android:src="@drawable/ic_back"
+                            app:tint="?colorOnBackground" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layout_sleeping_habit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?selectableItemBackground"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="@dimen/_16sdp"
+                        android:paddingVertical="@dimen/_8sdp">
+
+                        <ImageView
+                            android:layout_width="@dimen/_16sdp"
+                            android:layout_height="@dimen/_16sdp"
+                            android:layout_marginEnd="@dimen/_8sdp"
+                            android:src="@drawable/ic_sleeping_habit"
+                            app:tint="?colorOnBackground" />
+
+                        <TextView
+                            style="@style/SubTitleStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/sleeping_habit"
+                            android:textSize="@dimen/_12ssp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{viewModel.sleepingHabit}"
+                            android:textColor="?colorOnBackground"
+                            android:textSize="@dimen/_12ssp"
+                            tools:visibility="@{viewModel.sleepingHabit != null, default = visible}" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/empty"
+                            android:textColorHint="@color/colorTextHint"
+                            android:textSize="@dimen/_12ssp"
+                            tools:visibility="@{viewModel.sleepingHabit == null, default = gone}" />
+
+                        <ImageView
+                            android:layout_width="@dimen/_14sdp"
+                            android:layout_height="@dimen/_14sdp"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            android:rotation="180"
+                            android:src="@drawable/ic_back"
+                            app:tint="?colorOnBackground" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

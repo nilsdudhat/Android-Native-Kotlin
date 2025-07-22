@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="personality"
+            type="String" />
+
+        <variable
+            name="isSelected"
+            type="Boolean" />
+
+        <import type="com.belive.dating.R" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_5ssp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginRight="@dimen/_5ssp"
+        android:layout_marginBottom="@dimen/_5sdp">
+
+        <FrameLayout
+            android:id="@+id/main"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="@{isSelected ? 1.0f : 0.75f, default = 0.75}"
+            android:background="@{isSelected ? @drawable/select_interest : @drawable/unselect_interest, default = @drawable/unselect_interest}">
+
+            <TextView
+                android:id="@+id/txtInterestName"
+                style="@style/SubTitleStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_16sdp"
+                android:layout_marginVertical="@dimen/_10sdp"
+                android:text='@{personality, default = @string/app_name}'
+                android:textColor="?colorOnBackground"
+                android:textSize="@dimen/_13ssp" />
+        </FrameLayout>
+    </FrameLayout>
+</layout>

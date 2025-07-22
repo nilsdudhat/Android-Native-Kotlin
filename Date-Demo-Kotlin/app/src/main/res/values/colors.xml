@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black_10">#1A121212</color>
+    <color name="black_20">#33121212</color>
+    <color name="black_30">#4D121212</color>
+    <color name="black_40">#66121212</color>
+    <color name="black_50">#80121212</color>
+    <color name="black_55">#8C121212</color>
+    <color name="black_60">#99121212</color>
+    <color name="black_65">#A6121212</color>
+    <color name="black_70">#B3121212</color>
+    <color name="black_75">#BF121212</color>
+    <color name="black_80">#CC121212</color>
+    <color name="black_85">#D9121212</color>
+    <color name="black_90">#E6121212</color>
+    <color name="black_95">#F2121212</color>
+    <color name="black">#FF121212</color>
+    <color name="pure_black">#FF000000</color>
+
+    <color name="white_10">#1AF2F2F2</color>
+    <color name="white_20">#33F2F2F2</color>
+    <color name="white_30">#4DF2F2F2</color>
+    <color name="white_40">#66F2F2F2</color>
+    <color name="white_50">#80F2F2F2</color>
+    <color name="white_60">#99F2F2F2</color>
+    <color name="white_70">#B3F2F2F2</color>
+    <color name="white_80">#CCF2F2F2</color>
+    <color name="white_90">#E6F2F2F2</color>
+    <color name="white">#FFF2F2F2</color>
+    <color name="pure_white">#FFFFFF</color>
+
+    <color name="primary_color_01">#03E8FF83</color>
+    <color name="primary_color_05">#0DE8FF83</color>
+    <color name="primary_color_06">#0FE8FF83</color>
+    <color name="primary_color_07">#12E8FF83</color>
+    <color name="primary_color_08">#14E8FF83</color>
+    <color name="primary_color_09">#17E8FF83</color>
+    <color name="primary_color_10">#1AE8FF83</color>
+    <color name="primary_color_11">#1CE8FF83</color>
+    <color name="primary_color_12">#1FE8FF83</color>
+    <color name="primary_color_13">#21E8FF83</color>
+    <color name="primary_color_14">#24E8FF83</color>
+    <color name="primary_color_15">#26E8FF83</color>
+    <color name="primary_color_20">#33E8FF83</color>
+    <color name="primary_color_30">#4DE8FF83</color>
+    <color name="primary_color_40">#66E8FF83</color>
+    <color name="primary_color_50">#80E8FF83</color>
+    <color name="primary_color_60">#99E8FF83</color>
+    <color name="primary_color_70">#B3E8FF83</color>
+    <color name="primary_color_80">#CCE8FF83</color>
+    <color name="primary_color_90">#E6E8FF83</color>
+    <color name="primary_color_95">#F2E8FF83</color>
+    <color name="primary_color">#e8ff83</color>
+
+    <!--Primary Dark Colors-->
+    <color name="primary_dark_1">#d1e676</color>
+    <color name="primary_dark_2">#bacc69</color>
+    <color name="primary_dark_3">#a2b35c</color>
+    <color name="primary_dark_4">#8b994f</color>
+    <color name="primary_dark_5">#748042</color>
+    <color name="primary_dark_6">#5d6634</color>
+    <color name="primary_dark_7">#464c27</color>
+    <color name="primary_dark_8">#2e331a</color>
+    <color name="primary_dark_9">#17190d</color>
+
+    <!--Primary Light Colors-->
+    <color name="primary_light_1">#eaff8f</color>
+    <color name="primary_light_2">#edff9c</color>
+    <color name="primary_light_3">#efffa8</color>
+    <color name="primary_light_4">#f1ffb5</color>
+    <color name="primary_light_5">#f4ffc1</color>
+    <color name="primary_light_6">#f6ffcd</color>
+    <color name="primary_light_7">#f8ffda</color>
+    <color name="primary_light_8">#faffe6</color>
+    <color name="primary_light_9">#fdfff3</color>
+
+    <!-- colorBackground shades -->
+    <color name="colorBackground01">#03F2F2F2</color>
+    <color name="colorBackground02">#05F2F2F2</color>
+    <color name="colorBackground05">#0DF2F2F2</color>
+    <color name="colorBackground10">#1AF2F2F2</color>
+    <color name="colorBackground20">#33F2F2F2</color>
+    <color name="colorBackground30">#4DF2F2F2</color>
+    <color name="colorBackground40">#66F2F2F2</color>
+    <color name="colorBackground50">#80F2F2F2</color>
+    <color name="colorBackground60">#99F2F2F2</color>
+    <color name="colorBackground70">#B3F2F2F2</color>
+    <color name="colorBackground80">#CCF2F2F2</color>
+    <color name="colorBackground90">#E6F2F2F2</color>
+
+    <!-- colorOnBackground shades -->
+    <color name="colorOnBackground01">#03121212</color>
+    <color name="colorOnBackground02">#05121212</color>
+    <color name="colorOnBackground05">#0D121212</color>
+    <color name="colorOnBackground10">#1A121212</color>
+    <color name="colorOnBackground20">#33121212</color>
+    <color name="colorOnBackground30">#4D121212</color>
+    <color name="colorOnBackground40">#66121212</color>
+    <color name="colorOnBackground50">#80121212</color>
+    <color name="colorOnBackground60">#99121212</color>
+    <color name="colorOnBackground70">#B3121212</color>
+    <color name="colorOnBackground80">#CC121212</color>
+    <color name="colorOnBackground90">#E6121212</color>
+
+    <!-- Core Theme Colors -->
+    <color name="colorPrimary">#e8ff83</color>
+    <color name="colorOnPrimary">#1A1A1A</color>
+    <color name="colorPrimaryVariant">#faffe6</color>
+    <color name="colorOnPrimaryVariant">#e8ff83</color>
+
+    <color name="colorPrimaryDark">#2e331a</color>
+    <color name="colorPrimaryLight">#faffe6</color>
+
+    <color name="colorSecondary">#f4ffc1</color>
+    <color name="colorOnSecondary">#464c27</color>
+    <color name="colorSecondaryVariant">#faffe6</color>
+
+    <color name="colorBackground">#F2F2F2</color>
+    <color name="colorOnBackground">#121212</color>
+
+    <color name="splashBackground">#121212</color>
+
+    <color name="colorSurface">#faffe6</color>
+    <color name="colorOnSurface">#e8ff83</color>
+    <color name="colorSurfaceVariant">#f4ffc1</color>
+    <color name="colorOnSurfaceVariant">#121212</color>
+
+    <color name="colorError">#CF6679</color>
+    <color name="colorErrorDark">#FF453A</color>
+    <color name="colorErrorExtraDark">#FF453A</color>
+    <color name="colorOnError">#121212</color>
+
+    <color name="colorPositive">#e8ff83</color>
+    <color name="colorOnPositive">#1A1A1A</color>
+
+    <color name="colorPrimaryContainer">#e8ff83</color>
+    <color name="colorOnPrimaryContainer">#17190d</color>
+
+    <color name="dialogBackground">#fdfff3</color>
+    <color name="dialogBorder">#f6ffcd</color>
+    <color name="dialogMessageColor">#2e331a</color>
+
+    <color name="boxBackground">#2C2C2E</color>
+    <color name="boxBorder">#787880</color>
+    <color name="boxBorderLight">#40787880</color>
+
+    <!-- Neutral Colors -->
+    <color name="colorUnselected">#9E9E9E</color>
+    <color name="colorSelected">#F2F2F2</color>
+    <color name="colorTextPrimary">#212121</color>
+    <color name="colorTextSecondary">#757575</color>
+    <color name="colorTextHint">#9E9E9E</color>
+    <color name="colorDivider">#BDBDBD</color>
+    <color name="colorShadow">#000000</color>
+
+    <!-- State-Specific Colors -->
+    <color name="colorButtonNormal">#e8ff83</color>
+    <color name="colorButtonDisabled">#E0E0E0</color>
+    <color name="colorButtonPressed">#d8ffa1</color>
+    <color name="colorHighlight">#F0FFC2</color>
+
+    <!-- Transparent Colors -->
+    <color name="colorOverlay">#80000000</color>
+    <color name="colorWhiteTransparent">#80FFFFFF</color>
+    <color name="colorTransparent">#00000000</color>
+
+    <!-- Custom Component Colors -->
+    <color name="colorAppBar">#e8ff83</color>
+    <color name="colorFabBackground">#4caf50</color>
+    <color name="colorChipBackground">#E0E0E0</color>
+    <color name="colorChipText">#212121</color>
+
+    <!-- logo background color -->
+    <color name="ic_launcher_background">#000000</color>
+
+    <color name="yellow">#F8D96B</color>
+    <color name="gold_plan">#F1D333</color>
+    <color name="platinum_plan">#F2F2F2</color>
+    <color name="lifetime_plan">#EA2366</color>
+    <color name="diamond_color">#B0ECFF</color>
+    <color name="super_like_color">#6BDEF8</color>
+    <color name="positive_color">#4CAF50</color>
+    <color name="negative_color">#FF5722</color>
+    <color name="pink_color">#BB29BB</color>
+    <color name="link_color">#0078D7</color>
+</resources>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="interestData"
+            type="com.belive.dating.api.introduction.models.InterestData" />
+
+        <import type="com.belive.dating.R" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_5ssp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginRight="@dimen/_5ssp"
+        android:layout_marginBottom="@dimen/_5sdp"
+        android:tag="@string/skip_skeleton_animation">
+
+        <LinearLayout
+            android:id="@+id/main"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="@{interestData.isChecked ? 1.0f : 0.75f, default = 0.75}"
+            android:background="@{interestData.isChecked() ? @drawable/select_interest : @drawable/unselect_interest, default = @drawable/unselect_interest}"
+            android:gravity="center"
+            android:tag="@string/skip_skeleton_animation"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/img"
+                android:layout_width="@dimen/_16sdp"
+                android:layout_height="@dimen/_16sdp"
+                android:layout_marginStart="@dimen/_13ssp"
+                tools:loadIcon="@{interestData.icon}" />
+
+            <TextView
+                android:id="@+id/txtInterestName"
+                style="@style/SubTitleStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_13ssp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:text='@{interestData.name, default = @string/app_name}'
+                android:textColor="?colorOnBackground"
+                android:textSize="@dimen/_13ssp" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

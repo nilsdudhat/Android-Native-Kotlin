@@ -1,0 +1,13 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- State Checked -->
+    <item android:state_checked="true">
+        <layer-list>
+            <item android:drawable="@drawable/ic_tick" />
+        </layer-list>
+    </item>
+
+    <!-- State Unchecked -->
+    <item>
+        <color android:color="@android:color/transparent" />
+    </item>
+</selector>

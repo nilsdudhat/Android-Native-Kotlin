@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="name"
+            type="String" />
+
+        <variable
+            name="isSelected"
+            type="Boolean" />
+    </data>
+
+    <Button xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/button"
+        style="@style/Widget.Material3.Button.TextButton.Icon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_2sdp"
+        android:background="@android:color/transparent"
+        android:gravity="start|center_vertical"
+        android:padding="0dp"
+        android:text='@{name, default = "Belive"}'
+        android:textColor="@color/colorUnselected"
+        android:textSize="@dimen/_16ssp"
+        android:textStyle="normal"
+        tools:selectButton="@{isSelected, default = false}" />
+</layout>

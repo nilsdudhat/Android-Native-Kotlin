@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base Text Appearance -->
+    <style name="TextAppearance.Urbanist" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="fontFamily">@font/urbanist_light</item>
+        <item name="android:textColor">?attr/colorOnBackground</item>
+
+        <item name="android:layoutDirection">ltr</item>
+        <item name="android:textDirection">ltr</item>
+    </style>
+
+    <style name="HeadlineStyle" parent="TextAppearance.Urbanist">
+        <item name="fontFamily">@font/urbanist_bold</item>
+        <item name="android:textSize">@dimen/_20ssp</item>
+
+        <item name="android:layoutDirection">ltr</item>
+        <item name="android:textDirection">ltr</item>
+    </style>
+
+    <!-- Body Text Styles -->
+    <style name="TitleStyle" parent="TextAppearance.Urbanist">
+        <item name="fontFamily">@font/urbanist_semibold</item>
+        <item name="android:textSize">@dimen/_16ssp</item>
+    </style>
+
+    <style name="SubTitleStyle" parent="TextAppearance.Urbanist">
+        <item name="fontFamily">@font/urbanist_medium</item>
+        <item name="android:textSize">@dimen/_14ssp</item>
+
+        <item name="android:layoutDirection">ltr</item>
+        <item name="android:textDirection">ltr</item>
+    </style>
+
+    <!-- Caption Styles -->
+    <style name="RegularStyle" parent="TextAppearance.Urbanist">
+        <item name="fontFamily">@font/urbanist_regular</item>
+        <item name="android:textSize">@dimen/_12ssp</item>
+
+        <item name="android:layoutDirection">ltr</item>
+        <item name="android:textDirection">ltr</item>
+    </style>
+
+    <!-- SmallText Style -->
+    <style name="SmallTextStyle" parent="TextAppearance.Urbanist">
+        <item name="fontFamily">@font/urbanist_light</item>
+        <item name="android:textSize">@dimen/_10ssp</item>
+
+        <item name="android:layoutDirection">ltr</item>
+        <item name="android:textDirection">ltr</item>
+    </style>
+
+    <style name="TabSelectedTextStyle" parent="TextAppearance.Urbanist">
+        <item name="fontFamily">@font/urbanist_semibold</item>
+        <item name="android:textSize">@dimen/_14ssp</item>
+
+        <item name="android:layoutDirection">ltr</item>
+        <item name="android:textDirection">ltr</item>
+    </style>
+
+    <style name="TabTextStyle" parent="TextAppearance.Urbanist">
+        <item name="fontFamily">@font/urbanist_regular</item>
+        <item name="android:textSize">@dimen/_14ssp</item>
+
+        <item name="android:layoutDirection">ltr</item>
+        <item name="android:textDirection">ltr</item>
+    </style>
+</resources>

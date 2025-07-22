@@ -1,0 +1,432 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.belive.dating.activities.paywalls.subscriptions.subscription.SubscriptionViewModel" />
+
+        <import type="com.belive.dating.payment.ProductType" />
+
+        <import type="com.belive.dating.R" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".activities.paywalls.subscriptions.subscription.SubscriptionActivity">
+
+        <ImageView
+            android:id="@+id/img_stars"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/bg_paywall"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:background="@drawable/transparent_gold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="@{viewModel.selectedPlanType == ProductType.GOLD, default = visible}" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:background="@drawable/transparent_platinum"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="@{viewModel.selectedPlanType == ProductType.PLATINUM, default = gone}" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:background="@drawable/transparent_lifetime"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="@{viewModel.selectedPlanType == ProductType.LIFETIME, default = gone}" />
+
+        <FrameLayout
+            android:id="@+id/layout_header"
+            android:layout_width="0dp"
+            android:layout_height="?actionBarSize"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_20sdp"
+                android:layout_gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/belive_gold"
+                    tools:subscriptionTitle="@{viewModel.selectedPlanType}" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/_4sdp"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/badge_gold"
+                    tools:subscriptionBadge="@{viewModel.selectedPlanType}" />
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/img_close"
+                style="@style/ImageButton.NoBackground"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_gravity="end|center_vertical"
+                android:layout_marginEnd="@dimen/_16sdp"
+                android:background="@drawable/oval_filled"
+                android:backgroundTint="@color/white_20"
+                android:padding="@dimen/_10sdp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_close"
+                app:tint="@color/white" />
+        </FrameLayout>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/tabs"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_12sdp"
+            app:cardBackgroundColor="@android:color/transparent"
+            app:cardCornerRadius="@dimen/_45sdp"
+            app:cardElevation="@dimen/_1sdp"
+            app:cardPreventCornerOverlap="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layout_header">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white_20">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/_2sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/layout_header">
+
+                    <TextView
+                        android:id="@+id/tab_gold"
+                        style="@style/TitleStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:padding="@dimen/_4sdp"
+                        android:text="@string/gold"
+                        android:textSize="@dimen/_12ssp"
+                        tools:background="@{viewModel.selectedPlanType == ProductType.GOLD ? @drawable/bg_gold : null, default = @drawable/bg_gold}"
+                        tools:textColor="@{viewModel.isGoldNotAvailable() ? viewModel.selectedPlanType == ProductType.GOLD ? R.color.black : R.color.white : R.color.white_50, default = @color/black}" />
+
+                    <View
+                        android:layout_width="@dimen/_1sdp"
+                        android:layout_height="@dimen/_12sdp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@color/white_50"
+                        tools:visibility="@{viewModel.selectedPlanType == ProductType.GOLD ? false : viewModel.selectedPlanType == ProductType.PLATINUM ? false : true, default = false}" />
+
+                    <TextView
+                        android:id="@+id/tab_platinum"
+                        style="@style/TitleStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:padding="@dimen/_4sdp"
+                        android:text="@string/platinum"
+                        android:textSize="@dimen/_12ssp"
+                        tools:background="@{viewModel.selectedPlanType == ProductType.PLATINUM ? @drawable/bg_platinum : null, default = null}"
+                        tools:textColor="@{viewModel.selectedPlanType == ProductType.PLATINUM ? R.color.black : R.color.white, default = @color/white}" />
+
+                    <View
+                        android:layout_width="@dimen/_1sdp"
+                        android:layout_height="@dimen/_12sdp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@color/white_50"
+                        tools:visibility="@{viewModel.selectedPlanType == ProductType.LIFETIME ? false : viewModel.selectedPlanType == ProductType.PLATINUM ? false : true, default = false}" />
+
+                    <TextView
+                        android:id="@+id/tab_lifetime"
+                        style="@style/TitleStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:padding="@dimen/_4sdp"
+                        android:text="@string/lifetime"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_12ssp"
+                        tools:background="@{viewModel.selectedPlanType == ProductType.LIFETIME ? @drawable/bg_lifetime : null, default = null}" />
+                </LinearLayout>
+            </FrameLayout>
+        </androidx.cardview.widget.CardView>
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="@dimen/_16sdp"
+            app:layout_constraintBottom_toTopOf="@+id/plans_container"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tabs"
+            app:squircle_corner_smoothing_percentage="20"
+            tools:visibility="@{!viewModel.isLoading(), default = visible}">
+
+            <app.juky.squircleview.views.SquircleConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:squircle_background_color="@color/black"
+                app:squircle_corner_smoothing_percentage="10">
+
+                <TextView
+                    android:id="@+id/txt_features_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="@dimen/_8sdp"
+                    android:text='@{"Benefits included in " + viewModel.selectedPlanType.value, default = "Benefits included in Gold"}'
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_12ssp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/divider"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_1sdp"
+                    android:background="?dividerColor"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_features_title" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_gold_features"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="@dimen/_12sdp"
+                    android:paddingTop="@dimen/_8sdp"
+                    android:paddingBottom="@dimen/_32sdp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/divider"
+                    tools:itemCount="8"
+                    tools:listitem="@layout/item_plan_feature"
+                    tools:visibility="@{viewModel.selectedPlanType == ProductType.GOLD, default = visible}" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_platinum_features"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="@dimen/_12sdp"
+                    android:paddingTop="@dimen/_8sdp"
+                    android:paddingBottom="@dimen/_32sdp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/divider"
+                    tools:itemCount="8"
+                    tools:listitem="@layout/item_plan_feature"
+                    tools:visibility="@{viewModel.selectedPlanType == ProductType.PLATINUM, default = gone}" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_lifetime_features"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="@dimen/_12sdp"
+                    android:paddingTop="@dimen/_8sdp"
+                    android:paddingBottom="@dimen/_32sdp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/divider"
+                    tools:itemCount="8"
+                    tools:listitem="@layout/item_plan_feature"
+                    tools:visibility="@{viewModel.selectedPlanType == ProductType.LIFETIME, default = gone}" />
+            </app.juky.squircleview.views.SquircleConstraintLayout>
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/plans_container"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_16sdp"
+            app:layout_constraintBottom_toTopOf="@+id/btn_pay"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:visibility="@{!viewModel.isLoading(), default = visible}">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_gold_plans"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/_16sdp"
+                tools:visibility="@{viewModel.selectedPlanType == ProductType.GOLD, default = visible}" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_platinum_plans"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/_16sdp"
+                tools:visibility="@{viewModel.selectedPlanType == ProductType.PLATINUM, default = gone}" />
+
+            <app.juky.squircleview.views.SquircleConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginHorizontal="@dimen/_16sdp"
+                android:padding="@dimen/_12sdp"
+                app:squircle_background_gradient_drawable="@drawable/bg_lifetime"
+                app:squircle_corner_smoothing_percentage="40"
+                tools:visibility="@{viewModel.selectedPlanType == ProductType.LIFETIME, default = gone}">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <TextView
+                        style="@style/TitleStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/pay_once_enjoy_forever"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_16ssp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_12sdp"
+                        android:gravity="center"
+                        android:text="@string/all_platinum_benefits"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_14ssp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="+ Bonus "
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_14ssp" />
+
+                        <TextView
+                            style="@style/TitleStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="Boost"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_14ssp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text=" and "
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_14ssp" />
+
+                        <TextView
+                            style="@style/TitleStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="Super Likes"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_14ssp" />
+                    </LinearLayout>
+                </LinearLayout>
+            </app.juky.squircleview.views.SquircleConstraintLayout>
+        </FrameLayout>
+
+        <app.juky.squircleview.views.SquircleConstraintLayout
+            android:id="@+id/btn_pay"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_16sdp"
+            android:layout_marginBottom="@dimen/_8sdp"
+            app:layout_constraintBottom_toTopOf="@+id/txt_privacy"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:squircle_background_gradient_drawable="@drawable/bg_premium"
+            app:squircle_corner_smoothing_percentage="60"
+            app:squircle_ripple_drawable="@drawable/ripple_rectangle"
+            tools:visibility="@{!viewModel.isLoading(), default = visible}">
+
+            <TextView
+                style="@style/TitleStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:letterSpacing="0.02"
+                android:padding="@dimen/_12sdp"
+                android:text='@{viewModel.buttonText, default = "Get period for price"}'
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14ssp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+        </app.juky.squircleview.views.SquircleConstraintLayout>
+
+        <TextView
+            android:id="@+id/txt_privacy"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_16sdp"
+            android:gravity="center"
+            android:text="@string/message_policy_terms"
+            android:textColor="@color/colorTextHint"
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:visibility="@{!viewModel.isLoading(), default = visible}" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

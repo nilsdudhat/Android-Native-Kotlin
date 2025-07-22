@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:drawable="@drawable/oval_black" />
+
+    <item
+        android:bottom="@dimen/_8sdp"
+        android:drawable="@drawable/ic_upload"
+        android:left="@dimen/_8sdp"
+        android:right="@dimen/_8sdp"
+        android:top="@dimen/_8sdp" />
+</layer-list>

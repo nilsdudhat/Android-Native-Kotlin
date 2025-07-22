@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="isSelected"
+            type="Boolean" />
+
+        <variable
+            name="image"
+            type="String" />
+
+        <variable
+            name="time"
+            type="String" />
+
+        <variable
+            name="isTimeVisible"
+            type="Boolean" />
+
+        <variable
+            name="isDownloadVisible"
+            type="Boolean" />
+
+        <variable
+            name="seenProfileImage"
+            type="String" />
+
+        <variable
+            name="progress"
+            type="Integer" />
+
+        <variable
+            name="replyImage"
+            type="String" />
+
+        <variable
+            name="isReply"
+            type="Boolean" />
+
+        <variable
+            name="replyMessage"
+            type="String" />
+
+        <variable
+            name="replyName"
+            type="String" />
+
+        <import type="com.belive.dating.R" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_4sdp"
+        android:layout_marginBottom="@dimen/_8sdp"
+        tools:background="@{isSelected ? R.color.primary_color_05 : R.color.colorTransparent, default = @color/colorTransparent}">
+
+        <LinearLayout
+            android:id="@+id/layout_reply"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_4sdp"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toEndOf="@+id/imgProfile"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="@{isReply, default = visible}">
+
+            <View
+                android:layout_width="@dimen/_2sdp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/_2sdp"
+                android:background="?colorOnBackground" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginBottom="@dimen/_2sdp"
+                android:gravity="start"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txtReplyName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_4sdp"
+                    android:layout_marginBottom="@dimen/_2sdp"
+                    android:text='@{replyName, default = "Name"}'
+                    android:textColor="@color/colorTextHint"
+                    android:textSize="@dimen/_10ssp" />
+
+                <TextView
+                    android:id="@+id/txtReplyMessage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:autoLink="web"
+                    android:background="@drawable/bg_reply_on_receive_message"
+                    android:ellipsize="end"
+                    android:gravity="start"
+                    android:linksClickable="true"
+                    android:maxWidth="@dimen/_150sdp"
+                    android:maxLines="2"
+                    android:paddingVertical="@dimen/_8sdp"
+                    android:paddingStart="@dimen/_8sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:text='@{replyMessage, default = "Reply"}'
+                    android:textColor="@color/colorTextHint"
+                    android:textColorLink="@color/black"
+                    android:textSize="@dimen/_10ssp"
+                    tools:visibility="@{replyImage == null, default = visible}" />
+
+                <ImageView
+                    android:id="@+id/imgReplyPic"
+                    android:layout_width="@dimen/_48sdp"
+                    android:layout_height="@dimen/_48sdp"
+                    android:layout_marginStart="@dimen/_4sdp"
+                    tools:chatReplyImage="@{replyImage}"
+                    tools:visibility="@{replyImage != null, default = gone}" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_4sdp"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toEndOf="@+id/imgProfile"
+            app:layout_constraintTop_toBottomOf="@+id/layout_reply">
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="@dimen/_125sdp"
+                    android:layout_height="@dimen/_125sdp"
+                    tools:chatImage="@{image}" />
+
+                <com.google.android.material.progressindicator.CircularProgressIndicator
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:indeterminate="@{progress == 0 ? true : false, default = true}"
+                    android:max="100"
+                    android:progress='@{progress, default = "50"}'
+                    app:indicatorColor="?colorPrimary"
+                    app:indicatorSize="@dimen/_24sdp"
+                    app:trackThickness="@dimen/_2sdp"
+                    tools:visibility="@{progress != null, default = gone}" />
+
+                <ImageButton
+                    android:id="@+id/btn_download"
+                    style="@style/ImageButton.NoBackground"
+                    android:layout_width="@dimen/_32sdp"
+                    android:layout_height="@dimen/_32sdp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/ripple_oval"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_download"
+                    tools:visibility='@{isDownloadVisible, default = visible}' />
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_4sdp"
+                android:text='@{time, default = "Time"}'
+                android:textSize="@dimen/_10ssp"
+                tools:visibility="@{isTimeVisible, default = gone}" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imgProfile"
+            android:layout_width="@dimen/_28sdp"
+            android:layout_height="@dimen/_28sdp"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:layout_marginBottom="@dimen/_2sdp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_user"
+            android:visibility="@{seenProfileImage != null ? View.VISIBLE : View.INVISIBLE, default = visible}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

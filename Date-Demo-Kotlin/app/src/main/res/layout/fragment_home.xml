@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="isSkeleton"
+            type="Boolean" />
+
+        <variable
+            name="viewModel"
+            type="com.belive.dating.activities.dashboard.fragments.home.HomeViewModel" />
+
+        <import type="android.view.View" />
+
+        <import type="com.belive.dating.R" />
+
+        <import type="com.belive.dating.preferences.pref_helpers.UserPrefs" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.belive.dating.helpers.helper_views.card_swiper.CardStackView
+            android:id="@+id/card_stack_view"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="@dimen/_8sdp"
+            android:clipToPadding="false"
+            android:visibility="visible"
+            app:layoutManagerType="card-stack"
+            app:layout_constraintBottom_toTopOf="@+id/button_container"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:isSkeletonVisible="@{isSkeleton}"
+            tools:skeletonItem="@{R.layout.item_user_card}"
+            tools:skeletonItemCount="@{1}"
+            tools:skeletonLayoutManager='@{"card-stack"}' />
+
+        <LinearLayout
+            android:id="@+id/layComData"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/button_container"
+            android:layout_marginHorizontal="@dimen/_16sdp"
+            android:clickable="false"
+            android:focusable="false"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="@dimen/_12sdp"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="@string/no_profiles_available"
+                android:textColor="@color/colorTextPrimary"
+                android:textSize="@dimen/_12ssp" />
+
+            <Button
+                android:id="@+id/btnFilter"
+                style="@style/FilledButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_32sdp"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:paddingVertical="@dimen/_10sdp"
+                android:text="@string/go_to_filters" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/button_container"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:layout_alignParentBottom="true"
+            android:layout_marginHorizontal="@dimen/_8sdp"
+            android:layout_marginBottom="@dimen/_8sdp"
+            android:clipChildren="false"
+            android:orientation="horizontal"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <ImageButton
+                    android:id="@+id/btn_rewind"
+                    android:layout_width="@dimen/_40sdp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:background="@android:color/transparent"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/rewind" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.2"
+                android:gravity="center">
+
+                <ImageButton
+                    android:id="@+id/btn_skip"
+                    android:layout_width="?actionBarSize"
+                    android:layout_height="?actionBarSize"
+                    android:background="@android:color/transparent"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/skip" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <ImageButton
+                    android:id="@+id/btn_super_like"
+                    android:layout_width="@dimen/_40sdp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:background="@android:color/transparent"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/super_like" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.2"
+                android:gravity="center">
+
+                <ImageButton
+                    android:id="@+id/btn_like"
+                    android:layout_width="?actionBarSize"
+                    android:layout_height="?actionBarSize"
+                    android:background="@android:color/transparent"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/like" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/layBoost"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <com.belive.dating.helpers.helper_views.circle_timer.CircularTimerView
+                    android:id="@+id/progress_circular"
+                    android:layout_width="@dimen/_52sdp"
+                    android:layout_height="@dimen/_52sdp"
+                    android:layout_centerInParent="true"
+                    android:tag="@string/skip_skeleton_animation"
+                    android:visibility="@{viewModel.isBoostEnabled() ? View.VISIBLE : View.INVISIBLE, default = invisible}"
+                    app:backgroundColor="@color/colorSecondaryVariant"
+                    app:backgroundWidth="2"
+                    app:isClockwise="true"
+                    app:maxValue="@{UserPrefs.INSTANCE.boostTime / 1000}"
+                    app:prefix="Time Right "
+                    app:progressBackgroundColor="@color/colorBackground"
+                    app:progressColor="@color/yellow"
+                    app:progressText="00:00"
+                    app:progressTextColor="@color/yellow"
+                    app:startingPoint="top"
+                    app:suffix=" sec"
+                    app:textSize="@dimen/_10ssp"
+                    tools:ignore="SmallSp" />
+
+                <ImageButton
+                    android:id="@+id/btn_boost"
+                    android:layout_width="@dimen/_40sdp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_centerInParent="true"
+                    android:background="@android:color/transparent"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/boost"
+                    android:visibility="@{viewModel.isBoostEnabled() ? View.INVISIBLE : View.VISIBLE, default = visible}" />
+            </RelativeLayout>
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

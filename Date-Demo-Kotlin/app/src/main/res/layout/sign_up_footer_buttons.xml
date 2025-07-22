@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="isNextEnabled"
+            type="Boolean" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical">
+
+        <ImageButton
+            android:id="@+id/btn_back"
+            style="@style/ImageButton.NoBackground"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_gravity="start|center_vertical"
+            android:layout_marginEnd="@dimen/_16sdp"
+            android:background="@drawable/bg_footer_back"
+            android:padding="@dimen/_10sdp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_back"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="?colorOnPrimary" />
+
+        <Button
+            android:id="@+id/btn_next"
+            style="@style/FilledButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="@{isNextEnabled, default = false}"
+            android:enabled="@{isNextEnabled, default = false}"
+            android:padding="@dimen/_14sdp"
+            android:text="@string/next"
+            android:textSize="@dimen/_14sdp" />
+    </LinearLayout>
+</layout>

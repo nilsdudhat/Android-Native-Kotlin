@@ -1,0 +1,70 @@
+{
+  "project_info": {
+    "project_number": "468951541828",
+    "project_id": "belive-dating-app-32edd",
+    "storage_bucket": "belive-dating-app-32edd.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:468951541828:android:89eb7da303990f63f97411",
+        "android_client_info": {
+          "package_name": "com.belive.dating"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "468951541828-38n9cq0tacme715kp7dnm54ej9cmmrsv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.belive.dating",
+            "certificate_hash": "9eb4fdc38de6ccd32dcf5ef2b859c14ef12cb12c"
+          }
+        },
+        {
+          "client_id": "468951541828-99dt3obnbvelmnvlb813hijiavvem448.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.belive.dating",
+            "certificate_hash": "06cfc94c72082a662285b92f2795120193d8131f"
+          }
+        },
+        {
+          "client_id": "468951541828-d27adrdrqf425to49a3lqk5ievp1ljbv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.belive.dating",
+            "certificate_hash": "4863bb26ab1c1cd66322833358c8db08ad28a5af"
+          }
+        },
+        {
+          "client_id": "468951541828-iskr3fb29jspuv6n3uposiimjrim16lr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1r81iLmsr5ltklskQlYTBR1A3SvxMElg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "468951541828-186o05epskkqut43or9ktq33c0jsac20.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "468951541828-bje09ksf8p1fq6jh6fg2gqnfg90p6i1i.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.belive.dating"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

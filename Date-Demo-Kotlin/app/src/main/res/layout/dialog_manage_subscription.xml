@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<app.juky.squircleview.views.SquircleConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/_16sdp"
+    app:squircle_background_color="?dialogBackground"
+    app:squircle_corner_smoothing_percentage="40">
+
+    <TextView
+        android:id="@+id/txt_title"
+        style="@style/SubTitleStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:text="@string/manage_subscription"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_16ssp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txt_desc_1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:gravity="center"
+        android:justificationMode="inter_word"
+        android:text="Your subscription ends Oct 15,2024,"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_12ssp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_title"
+        tools:ignore="UnusedAttribute" />
+
+    <TextView
+        android:id="@+id/txt_desc_2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_16sdp"
+        android:gravity="center"
+        android:justificationMode="inter_word"
+        android:text="@string/manage_on_play_store"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_12ssp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_desc_1"
+        tools:ignore="UnusedAttribute" />
+
+    <View
+        android:id="@+id/divider_1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_1sdp"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:background="?dialogBorder"
+        app:layout_constraintTop_toBottomOf="@+id/txt_desc_2" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/divider_1"
+        app:squircle_background_color="@android:color/transparent"
+        app:squircle_border_color="#8080808C"
+        app:squircle_border_width="@dimen/_1sdp">
+
+        <TextView
+            android:id="@+id/txt_negative"
+            style="@style/TitleStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:padding="@dimen/_12sdp"
+            android:text="@string/not_now"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintEnd_toStartOf="@+id/divider_2"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <View
+            android:id="@+id/divider_2"
+            android:layout_width="@dimen/_1sdp"
+            android:layout_height="0dp"
+            android:background="?dialogBorder"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/txt_positive"
+            app:layout_constraintStart_toEndOf="@+id/txt_negative"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txt_positive"
+            style="@style/TitleStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:padding="@dimen/_12sdp"
+            android:text="@string/manage"
+            android:textColor="@color/primary_color"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/divider_2" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</app.juky.squircleview.views.SquircleConstraintLayout>

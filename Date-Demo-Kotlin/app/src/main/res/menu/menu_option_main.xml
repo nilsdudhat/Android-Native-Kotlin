@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <item
+        android:id="@+id/search"
+        android:icon="@drawable/ic_search"
+        android:iconTint="@color/colorOnBackground"
+        android:title="@string/search"
+        android:visible="false"
+        app:showAsAction="ifRoom"
+        tools:targetApi="o" />
+
+    <item
+        android:id="@+id/notification"
+        android:icon="@drawable/ic_bell"
+        android:iconTint="@color/colorOnBackground"
+        android:title="@string/notification"
+        app:showAsAction="ifRoom"
+        tools:targetApi="o" />
+
+    <item
+        android:id="@+id/filter"
+        android:icon="@drawable/ic_filter"
+        android:iconTint="@color/colorOnBackground"
+        android:title="@string/filter"
+        app:showAsAction="ifRoom"
+        tools:targetApi="o" />
+
+    <item
+        android:id="@+id/settings"
+        android:icon="@drawable/ic_settings"
+        android:iconTint="@color/colorOnBackground"
+        android:title="@string/settings"
+        android:visible="false"
+        app:showAsAction="ifRoom"
+        tools:targetApi="o" />
+</menu>

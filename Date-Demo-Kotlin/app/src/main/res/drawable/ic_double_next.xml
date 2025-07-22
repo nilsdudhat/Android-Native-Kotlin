@@ -1,0 +1,41 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="17"
+    android:viewportHeight="17">
+
+    <path
+        android:fillColor="#0D0D0D"
+        android:fillType="evenOdd"
+        android:pathData="M12.298,3H8L11.702,8L8,14H12.298L16,8L12.298,3Z" />
+
+    <group>
+
+        <clip-path
+            android:fillType="evenOdd"
+            android:pathData="M12.298,3H8L11.702,8L8,14H12.298L16,8L12.298,3Z" />
+
+        <path
+            android:fillColor="#0D0D0D"
+            android:pathData="M8,3V2.6H7.206L7.679,3.238L8,3ZM12.298,3L12.62,2.762L12.5,2.6H12.298V3ZM11.702,8L12.042,8.21L12.184,7.98L12.023,7.762L11.702,8ZM8,14L7.66,13.79L7.283,14.4H8V14ZM12.298,14V14.4H12.521L12.639,14.21L12.298,14ZM16,8L16.34,8.21L16.483,7.98L16.322,7.762L16,8ZM8,3.4H12.298V2.6H8V3.4ZM12.023,7.762L8.321,2.762L7.679,3.238L11.38,8.238L12.023,7.762ZM11.361,7.79L7.66,13.79L8.34,14.21L12.042,8.21L11.361,7.79ZM8,14.4H12.298V13.6H8V14.4ZM12.639,14.21L16.34,8.21L15.66,7.79L11.958,13.79L12.639,14.21ZM11.977,3.238L15.679,8.238L16.322,7.762L12.62,2.762L11.977,3.238Z" />
+
+    </group>
+
+    <path
+        android:fillColor="#0D0D0D"
+        android:fillType="evenOdd"
+        android:pathData="M5.298,3H1L4.702,8L1,14H5.298L9,8L5.298,3Z" />
+
+    <group>
+
+        <clip-path
+            android:fillType="evenOdd"
+            android:pathData="M5.298,3H1L4.702,8L1,14H5.298L9,8L5.298,3Z" />
+
+        <path
+            android:fillColor="#0D0D0D"
+            android:pathData="M1,3V2.6H0.206L0.679,3.238L1,3ZM5.298,3L5.62,2.762L5.5,2.6H5.298V3ZM4.702,8L5.042,8.21L5.184,7.98L5.023,7.762L4.702,8ZM1,14L0.66,13.79L0.283,14.4H1V14ZM5.298,14V14.4H5.521L5.639,14.21L5.298,14ZM9,8L9.34,8.21L9.483,7.98L9.321,7.762L9,8ZM1,3.4H5.298V2.6H1V3.4ZM5.023,7.762L1.321,2.762L0.679,3.238L4.38,8.238L5.023,7.762ZM4.361,7.79L0.66,13.79L1.34,14.21L5.042,8.21L4.361,7.79ZM1,14.4H5.298V13.6H1V14.4ZM5.639,14.21L9.34,8.21L8.66,7.79L4.958,13.79L5.639,14.21ZM4.977,3.238L8.679,8.238L9.321,7.762L5.62,2.762L4.977,3.238Z" />
+
+    </group>
+
+</vector>

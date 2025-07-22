@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.belive.dating.activities.settings.manage_notifications.ManageNotificationsViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".activities.settings.manage_notifications.ManageNotificationsActivity">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:navigationIcon="@drawable/ic_back"
+            app:title="@string/manage_notifications"
+            app:titleCentered="true"
+            app:titleTextAppearance="@style/SubTitleStyle" />
+
+        <LinearLayout
+            android:id="@+id/layout_new_match"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:background="?boxBackground"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/_16sdp"
+            android:paddingTop="@dimen/_8sdp"
+            android:paddingBottom="@dimen/_4sdp"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            tools:visibility="@{viewModel.notificationSettings != null, default = visible}">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/new_matches"
+                android:textColor="?colorOnBackground"
+                android:textSize="@dimen/_12ssp" />
+
+            <com.google.android.material.materialswitch.MaterialSwitch
+                android:id="@+id/switch_new_matches"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:checked="@{viewModel.showNewMatchNotifications}"
+                android:scaleX="0.8"
+                android:scaleY="0.8"
+                app:thumbIcon="@drawable/switch_icon"
+                app:thumbIconTint="?colorOnBackground" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_new_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?boxBackground"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/_16sdp"
+            android:paddingVertical="@dimen/_4sdp"
+            app:layout_constraintTop_toBottomOf="@+id/layout_new_match"
+            tools:visibility="@{viewModel.notificationSettings != null, default = visible}">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/new_messages"
+                android:textColor="?colorOnBackground"
+                android:textSize="@dimen/_12ssp" />
+
+            <com.google.android.material.materialswitch.MaterialSwitch
+                android:id="@+id/switch_new_message"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:checked="@{viewModel.showNewMessageNotifications}"
+                android:scaleX="0.8"
+                android:scaleY="0.8"
+                app:thumbIcon="@drawable/switch_icon"
+                app:thumbIconTint="?colorOnBackground" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_new_like"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?boxBackground"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/_16sdp"
+            android:paddingVertical="@dimen/_4sdp"
+            app:layout_constraintTop_toBottomOf="@+id/layout_new_message"
+            tools:visibility="@{viewModel.notificationSettings != null, default = visible}">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/likes"
+                android:textColor="?colorOnBackground"
+                android:textSize="@dimen/_12ssp" />
+
+            <com.google.android.material.materialswitch.MaterialSwitch
+                android:id="@+id/switch_new_like"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:checked="@{viewModel.showNewLikeNotifications}"
+                android:scaleX="0.8"
+                android:scaleY="0.8"
+                app:thumbIcon="@drawable/switch_icon"
+                app:thumbIconTint="?colorOnBackground" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_new_super_like"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?boxBackground"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/_16sdp"
+            android:paddingTop="@dimen/_4sdp"
+            android:paddingBottom="@dimen/_8sdp"
+            app:layout_constraintTop_toBottomOf="@+id/layout_new_like"
+            tools:visibility="@{viewModel.notificationSettings != null, default = visible}">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/super_likes"
+                android:textColor="?colorOnBackground"
+                android:textSize="@dimen/_12ssp" />
+
+            <com.google.android.material.materialswitch.MaterialSwitch
+                android:id="@+id/switch_new_super_like"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:checked="@{viewModel.showNewSuperLikeNotifications}"
+                android:scaleX="0.8"
+                android:scaleY="0.8"
+                app:thumbIcon="@drawable/switch_icon"
+                app:thumbIconTint="?colorOnBackground" />
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/ad_native"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:background="?boxBackground"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layout_new_super_like" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<app.juky.squircleview.views.SquircleConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_marginHorizontal="@dimen/_16sdp"
+    app:squircle_background_color="@color/dialogBackground"
+    app:squircle_border_color="@color/dialogBorder"
+    app:squircle_border_width="@dimen/_1sdp"
+    app:squircle_corner_smoothing_percentage="20">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/_16sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            style="@style/SubTitleStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/location_permission_required"
+            android:textSize="@dimen/_18ssp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:gravity="center"
+            android:text="@string/location_required_message"
+            android:textColor="@color/colorTextHint"
+            android:textSize="@dimen/_14ssp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnTurnOnLocation"
+            style="@style/FilledButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="@dimen/_32sdp"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:gravity="center"
+            android:padding="@dimen/_12sdp"
+            android:text="@string/turn_on_location"
+            android:textAllCaps="true"
+            android:textSize="@dimen/_12ssp" />
+    </LinearLayout>
+</app.juky.squircleview.views.SquircleConstraintLayout>

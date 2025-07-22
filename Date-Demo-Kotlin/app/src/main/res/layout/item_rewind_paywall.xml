@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="isSelected"
+            type="Boolean" />
+
+        <variable
+            name="title"
+            type="String" />
+
+        <variable
+            name="price"
+            type="String" />
+
+        <variable
+            name="tag"
+            type="String" />
+
+        <variable
+            name="pricePerRewind"
+            type="String" />
+
+        <import type="com.belive.dating.R" />
+
+        <import type="com.belive.dating.payment.ProductType" />
+    </data>
+
+    <app.juky.squircleview.views.SquircleConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/layout_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_8sdp"
+        app:squircle_border_color="?boxBorderLight"
+        app:squircle_border_width="@dimen/_1sdp"
+        app:squircle_corner_smoothing_percentage="40">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:gradientDrawable="@{isSelected ? ProductType.REWIND : null, default = null}" />
+
+        <ImageView
+            android:id="@+id/img_check"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginStart="@dimen/_16sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@{isSelected ? R.drawable.checked_circle_dark : R.drawable.unchecked_circle, default = @drawable/unchecked_circle}" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/_12sdp"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/img_check"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                style="@style/SubTitleStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text='@{title, default = "5 Rewinds"}'
+                android:textSize="@dimen/_16ssp"
+                tools:textColor="@{isSelected ? R.color.black : R.color.white, default = @color/white}" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text='@{price, default = "$12.99"}'
+                android:textSize="@dimen/_12ssp"
+                tools:textColor="@{isSelected ? R.color.black : R.color.colorTextHint, default = @color/colorTextHint}" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_16sdp"
+            android:gravity="end"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <app.juky.squircleview.views.SquircleConstraintLayout
+                android:id="@+id/layout_tag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_4sdp"
+                app:squircle_corner_smoothing_percentage="40"
+                tools:visibility="@{!tag.empty, default = gone}">
+
+                <View
+                    android:id="@+id/view_tag"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:tagLightGradientDrawable="@{isSelected ? null : ProductType.REWIND, default = null}" />
+
+                <TextView
+                    style="@style/SubTitleStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="@dimen/_8sdp"
+                    android:paddingVertical="@dimen/_4sdp"
+                    android:text='@{tag, default = "Popular"}'
+                    android:textColor="@{isSelected ? @color/white : @color/black, default = @color/black}"
+                    android:textSize="@dimen/_10ssp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </app.juky.squircleview.views.SquircleConstraintLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text='@{pricePerRewind, default = "$3 / Rewinds"}'
+                android:textSize="@dimen/_12ssp"
+                tools:textColor="@{isSelected ? R.color.black : R.color.white, default = @color/white}" />
+        </LinearLayout>
+    </app.juky.squircleview.views.SquircleConstraintLayout>
+</layout>

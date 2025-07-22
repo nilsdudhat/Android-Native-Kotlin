@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<app.juky.squircleview.views.SquircleConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout_delete"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="@dimen/_16sdp"
+    android:paddingVertical="@dimen/_12sdp"
+    app:squircle_background_color="@color/dialogBackground"
+    app:squircle_border_color="@color/dialogBorder"
+    app:squircle_border_width="@dimen/_1sdp"
+    app:squircle_corner_smoothing_percentage="0">
+
+    <ImageView
+        android:id="@+id/img_delete"
+        android:layout_width="@dimen/_16sdp"
+        android:layout_height="@dimen/_16sdp"
+        android:src="@drawable/ic_dustbin"
+        app:tint="@color/colorOnBackground" />
+
+    <TextView
+        style="@style/SubTitleStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:ellipsize="marquee"
+        android:gravity="center_vertical"
+        android:singleLine="true"
+        android:text="@string/delete"
+        android:textColor="@color/colorOnBackground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/img_delete"
+        app:layout_constraintTop_toTopOf="parent" />
+</app.juky.squircleview.views.SquircleConstraintLayout>
